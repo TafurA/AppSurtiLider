@@ -49,4 +49,15 @@ Iniciar el servidor local
   npm start
 ```
 
+Actualizar la carpeta www cada que se van a publicar nuevos cambios en el ambiente
+```
+  npm run build
+```
+
 Url desarollo: [http://localhost:4200/](http://localhost:4200/)
+
+## Ambientes
+
+### Staging o Develop
+
+https://appsurtilider.web.app/home

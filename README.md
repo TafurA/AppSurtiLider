@@ -1,0 +1,52 @@
+
+Referencia
+https://github.com/othneildrew/Best-README-Template
+
+# Sobre el Proyecto
+
+Nueva versión para la apliación movil que se utilizar en Surtilider para la gestión de clientes, esperando que se escale el modulo de vendedores tambien.
+
+<br>
+
+## Construido con
+---
+Esta sección enumera los principales marcos/bibliotecas utilizados para desarrollar el proyecto con su respectiva versión.
+
+* [Angular](https://angular.io/)
+* Ionic CLI - 6.20.1
+* Ionic Framework - 6.2.3
+* Capacitor CLI - 4.1.0
+* MySql
+* Axios
+* Node/Npm - v16.16.0/8.14.0
+
+<br>
+
+## Desarrollo
+---
+
+Este es un ejemplo de cómo puede dar instrucciones sobre cómo configurar su proyecto localmente. Para obtener una copia local en funcionamiento, siga estos sencillos pasos de ejemplo.
+
+<br>
+
+### Prerequisitos
+
+* npm instalado en el sistema
+
+<br>
+
+### Comandos
+
+<br>
+
+Instalar paquetes de npm (Necesario solo la primera vez)
+```
+  npm install
+```
+
+Iniciar el servidor local
+```
+  npm start
+```
+
+Url desarollo: [http://localhost:4200/](http://localhost:4200/)

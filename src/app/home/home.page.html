@@ -1,20 +1,91 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
       Blank
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <!-- <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Blank</ion-title>
     </ion-toolbar>
-  </ion-header>
+  </ion-header> -->
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+
+    <button class="o-button">
+      Iniciar sesión con tu usuario
+    </button>
+
+    <br>
+
+    <button class="o-button o-button_secondary">
+      Crear una cuenta
+    </button>
+
+    <br>
+
+    <button class="o-button o-button_outline">
+      Continuar sin usuario
+    </button>
+
+    <br>
+
+    <a class="o-link">¿Olvidaste tu contraseña?</a>
+    <a class="o-link o-link_secondary i-after-arrow-left i-after-arrow-left_right">Ver marcas</a>
+
+    <a class="o-button-ico i-arrow-left"></a>
+
+    <p style="margin-top: 40px"></p>
+
+    <header class="o-headline u-text-align-center">
+      <h1 class="o-headline__title">¡Surtimos con Liderazgo!</h1>
+      <p class="o-headline__text">Somos la comercializadora de productos masivos aliada de su negocio.</p>
+    </header>
+
+    <header class="o-headline o-headline_big">
+      <h1 class="o-headline__title">Datos de Perfil</h1>
+      <p class="o-headline__text">Modifica tus datos personales y manten tu cuenta actualizada.</p>
+    </header>
+
+    <h2 class="o-title">Productos Recomendados</h2>
+
+    <header class="o-headline">
+      <h2 class="o-kicker">Categoria actual</h2>
+      <p class="o-title o-medium">Aseo y cuidado del hogar</p>
+    </header>
+
+    <header class="o-headline o-headline_big">
+      <h3 class="o-kicker">Soporte</h3>
+      <p class="o-headline__title">¿Que es cashback?</p>
+    </header>
+
+    <p style="margin-top: 40px"></p>
+
+    <form class="o-form">
+
+      <div class="o-form__field">
+        <div class="o-form__field-wrap">
+          <input id="id" class="o-form__input" type="text" placeholder="Identificación">
+          <label for="id" class="o-form__label i-user"></label>
+        </div>
+        <span class="o-form__error">Este es el mensaje de error</span>
+      </div>
+
+      <div class="o-form__field is-field-error">
+        <div class="o-form__field-wrap">
+          <input id="pass" class="o-form__input" type="text" value="*******">
+          <label for="pass" class="o-form__label">
+            <button class="o-form__label-ico i-eye"></button>
+          </label>
+        </div>
+        <span class="o-form__error">Este es el mensaje de error</span>
+      </div>
+
+    </form>
+
   </div>
+
 </ion-content>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPage implements OnInit {
 
-  constructor() { }
+  appComponentObject: any = new AppComponent(this.navCtrl)
+
+  constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
+  }
+
+  clickToGoBack() {
+    this.appComponentObject.clickToGoBack();
   }
 
 }

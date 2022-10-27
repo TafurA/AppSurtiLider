@@ -1,9 +1,59 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="o-background-bottom" style="background-image: url('/assets/image/bg_bottom_login.svg');">
 
-<ion-content>
+  <section class="o-section">
+    <div class="o-canvas">
+
+      <header class="c-header-back">
+        <a class="o-button-ico i-arrow-left" (click)="clickToGoBack()"></a>
+
+        <!-- Logo Surtilider -->
+        <figure class="c-header-back__brand o-logo">
+          <img class="o-img" src="assets/image/logo_color.svg" alt="Logo a color de Surtilider SAS">
+        </figure>
+      </header>
+
+    </div>
+  </section>
+
+  <section class="o-section">
+    <div class="o-canvas">
+
+      <!-- Welcome header -->
+      <header class="o-headline u-text-align-center">
+        <h1 class="o-headline__title">¡Bienvenido de nuevo! 👋</h1>
+        <p class="o-headline__text o-color-light">
+          Ingresa tus credenciales para iniciar sesión.
+        </p>
+      </header>
+
+      <form class="o-form">
+
+        <div class="o-form__field">
+          <div class="o-form__field-wrap">
+            <input id="id" class="o-form__input" type="text" placeholder="Identificación">
+            <label for="id" class="o-form__label i-user"></label>
+          </div>
+          <span class="o-form__error">Este es el mensaje de error</span>
+        </div>
+
+        <div class="o-form__field is-field-error">
+          <div class="o-form__field-wrap">
+            <input id="pass" class="o-form__input" type="text" placeholder="*******">
+            <label for="pass" class="o-form__label">
+              <button class="o-form__label-ico i-eye"></button>
+            </label>
+          </div>
+          <span class="o-form__error">Este es el mensaje de error</span>
+        </div>
+
+        <footer class="o-form__actions">
+          <button class="o-button">Ingresar</button>
+          <a class="o-link">¿Olvidaste tu contraseña?</a>
+        </footer>
+
+      </form>
+
+    </div>
+  </section>
 
 </ion-content>

@@ -9,15 +9,14 @@ import { AppComponent } from 'src/app/app.component';
 })
 export class LoginPage implements OnInit {
 
-  appComponentObject: any = new AppComponent(this.navCtrl)
 
-  constructor(private navCtrl: NavController) { }
+  constructor(private navCtrl: NavController, private appCmpnt: AppComponent) { }
 
   ngOnInit() {
   }
 
   clickToGoBack() {
-    this.appComponentObject.clickToGoBack();
+    this.appCmpnt.clickToGoBack()
   }
 
 }

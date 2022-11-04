@@ -1,19 +1,7 @@
 <ion-content class="o-background-bottom" style="background-image: url('/assets/image/bg_bottom_login.svg');">
 
-  <section class="o-section">
-    <div class="o-canvas">
-
-      <header class="c-header-back">
-        <a class="o-button-ico i-arrow-left" (click)="clickToGoBack()"></a>
-
-        <!-- Logo Surtilider -->
-        <figure class="c-header-back__brand o-logo">
-          <img class="o-img" src="assets/image/logo_color.svg" alt="Logo a color de Surtilider SAS">
-        </figure>
-      </header>
-
-    </div>
-  </section>
+  <!-- Header back -->
+  <app-header-back></app-header-back>
 
   <section class="o-section">
     <div class="o-canvas">
@@ -26,28 +14,40 @@
         </p>
       </header>
 
-      <form class="o-form">
+      <form class="o-form" [formGroup]="loginForm">
 
         <div class="o-form__field">
           <div class="o-form__field-wrap">
-            <input id="id" class="o-form__input" type="text" placeholder="Identificación">
-            <label for="id" class="o-form__label i-user"></label>
+            <input
+              id="user"
+              class="o-form__input"
+              type="text"
+              placeholder="Identificación"
+              formControlName="user"
+            >
+            <label for="user" class="o-form__label i-user"></label>
           </div>
-          <span class="o-form__error">Este es el mensaje de error</span>
+          <span class="o-form__error">{{ getError('user')}}</span>
         </div>
 
-        <div class="o-form__field is-field-error">
+        <div class="o-form__field">
           <div class="o-form__field-wrap">
-            <input id="pass" class="o-form__input" type="text" placeholder="*******">
-            <label for="pass" class="o-form__label">
+            <input
+              id="password"
+              class="o-form__input"
+              type="password"
+              placeholder="*******"
+              formControlName="password"
+            >
+            <label for="password" class="o-form__label">
               <button class="o-form__label-ico i-eye"></button>
             </label>
           </div>
-          <span class="o-form__error">Este es el mensaje de error</span>
+          <span class="o-form__error">{{ getError('password')}}</span>
         </div>
 
         <footer class="o-form__actions">
-          <button class="o-button">Ingresar</button>
+          <button class="o-button" (click)="loginToSystem()" [disabled]="loginForm.invalid">Ingresar</button>
           <a class="o-link">¿Olvidaste tu contraseña?</a>
         </footer>
 

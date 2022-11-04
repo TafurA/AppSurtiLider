@@ -35,6 +35,12 @@ Este es un ejemplo de cómo puede dar instrucciones sobre cómo configurar su pr
 
 <br>
 
+### JS Doc
+
+Se utiliza esta herramienta para documentar el código JS o TS
+
+https://jsdoc.app/about-getting-started.html
+
 ### Comandos
 
 <br>

@@ -38,6 +38,11 @@
     transform: scale(1);
     background-color: $c-neutro;
   }
+  &:disabled {
+    opacity: .5;
+    cursor: none;
+    pointer-events: none;
+  }
 }
 
 .o-button_secondary {

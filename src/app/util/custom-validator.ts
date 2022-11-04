@@ -1,7 +1,10 @@
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
 
 export class CustomValidator {
 
+  /**
+   * Custom message for the inputs error of form.
+  */
   messageValidation: any = { 'required': 'Este campo es obligatorio', 'minLength': 'La contraseña debe contener mas de 4 caracteres' };
 
   constructor() { }
@@ -18,7 +21,13 @@ export class CustomValidator {
   //   return error;
   // }
 
-  public getError(controlName: string, formGroup: any): string {
+  /**
+   * Show and validate the respective error of input.
+   * @param {String} controlName - Related name´s of the input.
+   * @param {FormGroup} formGroup - Parent form, must be and object of FormGroup.
+   * @return {String} Message of the respective error.
+  */
+  public getError(controlName: string, formGroup: FormGroup): string {
     let error = '';
     const control = formGroup.get(controlName);
 
@@ -30,6 +39,7 @@ export class CustomValidator {
       } else if (control.errors.minlength) {
         error = this.messageValidation.minLength;
       }
+
       this.addClassToError(controlName, true);
     } else {
       this.addClassToError(controlName, false);

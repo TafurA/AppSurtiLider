@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  apiKey: 'U3VydGlBcHA6MzFhNWE1YjAxNDBlMDEzN2UwOGFhZGFhNjBlYjAxNmE0YjQzNDgxMg==',
   apiPath: 'IntranetSurti/WebServicesSurtiAppRest/',
   headerConfig: {
     headers: {

@@ -17,7 +17,8 @@ export class LoginService {
 
   async loginToSystem(user: string, pass: string) {
 
-    await axios.get(`${environment.apiPath}authenticate?login=${user}&clave=${pass}`, environment.headerConfig).then(response => {
+    // await axios.get(`${environment.apiPath}authenticate?login=${user}&clave=${pass}`, environment.headerConfig).then(response => {
+    await axios.get(`https://201.217.221.222:9001/IntranetSurti/WebServicesSurtiAppRest/authenticate?login=${user}&clave=${pass}`, environment.headerConfig).then(response => {
 
       if (response.data.response) {
         this.saveDataIntoLocalStorage(atob(response.data.dataSession));
@@ -32,7 +33,7 @@ export class LoginService {
 
       } else {
         console.log("no PASO")
-        this.presentAlert("credenciales incorrectas")
+        this.presentAlert(response.data.message)
       }
 
     }).catch((error) => {
@@ -44,8 +45,8 @@ export class LoginService {
 
   logOutIntoSystem() { }
 
-  saveDataIntoLocalStorage(data: any) {
-    localStorage.setItem("userSessionData", data)
+  saveDataIntoLocalStorage(data: string) {
+    localStorage.setItem("userSessionData", data);
   }
 
   async presentAlert(message: string) {

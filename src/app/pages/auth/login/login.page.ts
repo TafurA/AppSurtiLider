@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import axios from 'axios';
+
 // Custom imports
 import { LoginService } from 'src/app/service/login/login.service';
 import { CustomValidator } from 'src/app/util/custom-validator';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +20,14 @@ export class LoginPage implements OnInit {
   public loginForm: FormGroup;
 
   constructor(
-    public loginService: LoginService,
+    private loginService: LoginService,
     private formBuilder: FormBuilder,
-    public customValidator: CustomValidator
+    private customValidator: CustomValidator
   ) { }
 
   ngOnInit() {
     this.buildLoginForm();
+    this.getUsers()
   }
 
   private buildLoginForm() {
@@ -45,7 +49,7 @@ export class LoginPage implements OnInit {
     return this.customValidator.getError(controlName, this.loginForm);
   }
 
-  async loginToSystem() {
+  public async loginToSystem() {
     const dataForm = this.loginForm.value;
 
     if (dataForm.user != "" || dataForm.password != "") {
@@ -54,17 +58,17 @@ export class LoginPage implements OnInit {
 
   }
 
-  // async getUsers() {
-  //   try {
-  //     axios.post(`${environment.apiPath}consultaCategoriaProducto`, {}, environment.headerConfig).then(response => {
-  //       console.log(response)
-  //     })
+  async getUsers() {
+    try {
+      axios.post("https://201.217.221.222:9001/IntranetSurti/WebServicesSurtiAppRest/consultaCategoriaProducto", {}, environment.headerConfig).then(response => {
+        console.log(response)
+      })
 
-  //   } catch (error) {
-  //     console.log(error.status);
-  //     console.log(error.error); // error message as string
-  //     console.log(error.headers);
-  //   }
-  // }
+    } catch (error) {
+      console.log(error.status);
+      console.log(error.error); // error message as string
+      console.log(error.headers);
+    }
+  }
 
 }

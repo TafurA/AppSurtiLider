@@ -60,6 +60,11 @@ Actualizar la carpeta www cada que se van a publicar nuevos cambios en el ambien
   npm run build
 ```
 
+Enviar cambios al ambiente de desarrollo o producción
+```
+  firebase deploy
+```
+
 Url desarollo: [http://localhost:4200/](http://localhost:4200/)
 
 ## Ambientes

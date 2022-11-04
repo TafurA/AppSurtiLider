@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +6,5 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(public navCtrl: NavController) { }
-
-  clickToGoBack() {
-    this.navCtrl.back()
-  }
-
+  constructor() { }
 }

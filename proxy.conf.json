@@ -1,0 +1,8 @@
+{
+  "/IntranetSurti/WebServicesSurtiAppRest/*": {
+    "target": "http://201.217.221.222:9090",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

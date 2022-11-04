@@ -18,7 +18,6 @@ export class LoginService {
   async loginToSystem(user: string, pass: string) {
 
     await axios.get(`${environment.apiPath}authenticate?login=${user}&clave=${pass}`, environment.headerConfig).then(response => {
-    // await axios.get(`https://201.217.221.222:9001/IntranetSurti/WebServicesSurtiAppRest/authenticate?login=${user}&clave=${pass}`, environment.headerConfig).then(response => {
 
       if (response.data.response) {
         this.saveDataIntoLocalStorage(atob(response.data.dataSession));

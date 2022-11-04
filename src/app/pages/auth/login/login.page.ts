@@ -60,8 +60,7 @@ export class LoginPage implements OnInit {
 
   async getUsers() {
     try {
-      // axios.post(`${environment.apiPath}consultaCategoriaProducto`, {}, environment.headerConfig).then(response => {
-      axios.post(`https://201.217.221.222:9001/IntranetSurti/WebServicesSurtiAppRest/consultaCategoriaProducto`, {}, environment.headerConfig).then(response => {
+      axios.post(`${environment.apiPath}consultaCategoriaProducto`, {}, environment.headerConfig).then(response => {
         console.log(response)
       }).catch((error) => {
         console.log("error")

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import { AlertController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 
 // Connect with http
 import axios from 'axios';
@@ -9,11 +8,13 @@ import axios from 'axios';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
+
 export class LoginService {
 
-  constructor(public nvCtrl: NavController, private alertController: AlertController,) { }
+  constructor(public nvCtrl: NavController, private toastController: ToastController) {
+  }
 
   async loginToSystem(user: string, pass: string) {
 
@@ -32,7 +33,8 @@ export class LoginService {
 
       } else {
         console.log("no PASO")
-        this.presentAlert(response.data.message)
+        this.presentToast("TITUTLO", response.data.message, "is-error")
+
       }
 
     }).catch((error) => {
@@ -48,15 +50,16 @@ export class LoginService {
     localStorage.setItem("userSessionData", data);
   }
 
-  async presentAlert(message: string) {
-    const alert = await this.alertController.create({
-      header: 'Alert',
-      subHeader: 'Important message',
-      message: message,
-      buttons: ['OK'],
+  async presentToast(title: string, description: string, alertType: string) {
+    const toast = await this.toastController.create({
+      header: title,
+      message: description,
+      duration: 8000,
+      position: 'bottom',
+      cssClass: `c-alert ${alertType}`,
     });
 
-    await alert.present();
+    await toast.present();
   }
 
 }

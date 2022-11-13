@@ -84,6 +84,7 @@
 .o-link {
   display: inline-block;
   text-decoration: underline;
+  color: $c-text;
 
   &::after {
     position: relative;

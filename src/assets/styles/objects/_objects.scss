@@ -1,1 +1,10 @@
-@import "button", "form", "media", "title", "typography", "layout";
+@import "button", "form", "media", "title", "typography", "layout", "loader";
+
+
+.test {
+  display: none;
+}
+
+.test_dos {
+  display: block;
+}

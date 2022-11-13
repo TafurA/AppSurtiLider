@@ -48,7 +48,7 @@
 
         <footer class="o-form__actions">
           <button class="o-button" (click)="loginToSystem()" [disabled]="loginForm.invalid">Ingresar</button>
-          <a class="o-link">¿Olvidaste tu contraseña?</a>
+          <a class="o-link" [routerLink]="['/forgot-password']">¿Olvidaste tu contraseña?</a>
         </footer>
 
       </form>

@@ -93,10 +93,13 @@ export class SecurityCodeComponent implements AfterViewInit {
     const timerInterval = setInterval(() => {
       const target = document.querySelector(`.js-counter`);
 
-      if (target.innerHTML == "00 : 00") {
-        this.isTimerStop = true
-        clearInterval(timerInterval)
+      if (target) {
+        if (target.innerHTML == "00 : 00") {
+          this.isTimerStop = true
+          clearInterval(timerInterval)
+        }
       }
+
 
     }, 1000)
   }

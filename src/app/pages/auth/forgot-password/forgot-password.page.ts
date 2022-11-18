@@ -93,10 +93,12 @@ export class ForgotPasswordPage implements OnInit {
 
       const secCode = document.querySelector(".js-security-code-text")
 
-      if (secCode.innerHTML.trim().length >= 0 && secCode.innerHTML.trim().length == 4) {
-        this.isTimerStop = true
-      } else {
-        this.isTimerStop = false
+      if (secCode) {
+        if (secCode.innerHTML.trim().length >= 0 && secCode.innerHTML.trim().length == 4) {
+          this.isTimerStop = true
+        } else {
+          this.isTimerStop = false
+        }
       }
 
     }, 100)

@@ -8,6 +8,7 @@ import { ForgotPasswordPageRoutingModule } from './forgot-password-routing.modul
 
 import { ForgotPasswordPage } from './forgot-password.page';
 import { HeaderBackComponent } from 'src/app/component/layout/header-back/header-back.component';
+import { SecurityCodeComponent } from 'src/app/component/security-code/security-code.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { HeaderBackComponent } from 'src/app/component/layout/header-back/header
     IonicModule,
     ForgotPasswordPageRoutingModule
   ],
-  declarations: [ForgotPasswordPage, HeaderBackComponent]
+  declarations: [ForgotPasswordPage, HeaderBackComponent, SecurityCodeComponent]
 })
 export class ForgotPasswordPageModule { }

@@ -1,33 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
+import { SecurityCodeComponent } from 'src/app/component/security-code/security-code.component';
 
 import { ForgotPasswordService } from 'src/app/service/forgot-pass/forgot-password.service';
 import { CustomValidator } from 'src/app/util/custom-validator';
 
+
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.page.html',
-  providers: [CustomValidator]
+  providers: [CustomValidator, SecurityCodeComponent]
 })
 
 export class ForgotPasswordPage implements OnInit {
 
   public validateCredentialForm: FormGroup;
-  public validateCodeForm: FormGroup;
   public loader: any;
   public stepOne: boolean = false;
+
+  public fullSecurityCode: any = 0;
+  public emailString: any = "";
+
+  public isTimerStop = false
 
   constructor(
     public forgotPasswordService: ForgotPasswordService,
     private formBuilder: FormBuilder,
     private customValidator: CustomValidator,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    public securityCodeComponent: SecurityCodeComponent
   ) {
   }
 
   ngOnInit() {
     this.buildValidateCredentialForm();
+    this.validateLengthCodeSecurity();
   }
 
   // form.get('first')?.enable();
@@ -57,10 +65,41 @@ export class ForgotPasswordPage implements OnInit {
 
         if (this.forgotPasswordService.confirmData()[0]) {
           this.stepOne = true;
+          this.emailString = this.forgotPasswordService.confirmData()[1]
+
+          this.securityCodeComponent.timer(); // Init timer of security code
+
+          // Save credential for re send a new code
+          this.securityCodeComponent.setCredentialString(dataForm.credential);
         }
 
       });
     }
+
+  }
+
+  public async validateSecurityCode() {
+    this.fullSecurityCode = document.querySelector(
+      ".js-security-code").getAttribute("value");
+
+    // 79836040
+    await this.forgotPasswordService.serviceSecurityCodeValidate(
+      this.fullSecurityCode, this.emailString)
+
+  }
+
+  public validateLengthCodeSecurity() {
+    setInterval(() => {
+
+      const secCode = document.querySelector(".js-security-code-text")
+
+      if (secCode.innerHTML.trim().length >= 0 && secCode.innerHTML.trim().length == 4) {
+        this.isTimerStop = true
+      } else {
+        this.isTimerStop = false
+      }
+
+    }, 100)
 
   }
 

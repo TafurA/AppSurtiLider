@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ToastController, LoadingController } from '@ionic/angular';
+import { ToastController, LoadingController, NavController } from '@ionic/angular';
 // Connect with http
 import axios from 'axios';
 
@@ -18,7 +18,7 @@ export class ForgotPasswordService {
   public isCredentialFull: boolean = false;
   private userEmail: string;
 
-  constructor(public toastController: ToastController, public loadingController: LoadingController) { }
+  constructor(public nvCtrl: NavController, public toastController: ToastController, public loadingController: LoadingController) { }
 
   async serviceCredentialValidate(id: string) {
 
@@ -28,9 +28,9 @@ export class ForgotPasswordService {
         console.log(response)
         this.presentToast("¡Código enviado exitosamente!", response.data.message, 'is-success')
         this.isCredentialFull = true;
+        // this.userEmail = response.data.datos
       } else {
         this.presentToast("¡Ups!", "No se reconoce el usuario", 'is-error')
-        this.isCredentialFull = true;
       }
 
       return response
@@ -46,6 +46,25 @@ export class ForgotPasswordService {
   public confirmData(): Object {
     this.userEmail = "tafursla@outlook.com";
     return [this.isCredentialFull, this.userEmail];
+  }
+
+  async serviceSecurityCodeValidate(securityCode, userEmail) {
+    await axios.get(`${environment.apiPath}/Verification?codigo=${securityCode}&email=${userEmail}`,
+      environment.headerConfig).then(response => {
+
+        console.log("SECUIRY CODE", securityCode)
+        console.log(" USER", userEmail)
+
+        if (response.data.response) {
+          this.nvCtrl.navigateForward("/styleguide")
+        } else {
+          this.presentToast("TITUTLO", response.data.message, "is-error")
+        }
+
+      }).catch((error) => {
+        console.log("error.status");
+        console.log(error)
+      })
   }
 
   // ALERT

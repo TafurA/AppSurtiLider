@@ -1,1 +1,8 @@
 @import "alignments";
+
+.is-visuallyHidden {
+  position: absolute;
+  top: -1000px;
+  opacity: 0;
+  z-index: -10000;
+}

@@ -80,11 +80,13 @@ export class SecurityCodeComponent implements AfterViewInit {
     seconds = 60,
     target = document.querySelector(`.js-counter`),
   ) {
-    target.innerHTML = this.timeFormat(seconds);
-    if (seconds < 0) {
-      this.isTimerStop = true;
-      target.innerHTML = `00 : 00`;
-      return
+    if (target) {
+      target.innerHTML = this.timeFormat(seconds);
+      if (seconds < 0) {
+        this.isTimerStop = true;
+        target.innerHTML = `00 : 00`;
+        return
+      }
     }
     return window.setTimeout(() => this.timer(seconds - 1), 1100);
   }
@@ -114,7 +116,6 @@ export class SecurityCodeComponent implements AfterViewInit {
 
     });
   }
-
 
   setCredentialString(credentialString) {
     localStorage.setItem("credentialUser", credentialString);

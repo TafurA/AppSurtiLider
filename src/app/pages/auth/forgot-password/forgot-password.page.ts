@@ -85,7 +85,6 @@ export class ForgotPasswordPage implements OnInit {
     // 79836040
     await this.forgotPasswordService.serviceSecurityCodeValidate(
       this.fullSecurityCode, this.emailString)
-
   }
 
   public validateLengthCodeSecurity() {
@@ -102,7 +101,6 @@ export class ForgotPasswordPage implements OnInit {
       }
 
     }, 100)
-
   }
 
   async showLoader() {

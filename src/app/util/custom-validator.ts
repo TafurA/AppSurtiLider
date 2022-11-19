@@ -5,21 +5,23 @@ export class CustomValidator {
   /**
    * Custom message for the inputs error of form.
   */
-  messageValidation: any = { 'required': 'Este campo es obligatorio', 'minLength': 'La contraseña debe contener mas de 4 caracteres' };
+  messageValidation: any = {
+    'required': 'Este campo es obligatorio',
+    'minLength': 'La contraseña debe contener mas de 4 caracteres',
+    'passwordMatch': 'Las contraseñas no coinciden'
+  };
 
   constructor() { }
 
-  // public validatePassword(control: AbstractControl) {
-  //   const password = control.value;
-  //   let error = null;
-  //   if (!password.includes('$')) {
-  //     error = { ...error, dollar: 'needs a dollar symbol' };
-  //   }
-  //   if (!parseFloat(password[0])) {
-  //     error = { ...error, number: 'must start with a number' };
-  //   }
-  //   return error;
-  // }
+  public validateMatchPassword(control: AbstractControl) {
+    const password = control.get('password').value;
+    const passwordConfirm = control.get('passwordConfirm').value;
+
+    // Compare if the password match
+    if (password !== passwordConfirm) {
+      control.get('passwordConfirm').setErrors({ NoPasswordMatch: true })
+    }
+  }
 
   /**
    * Show and validate the respective error of input.
@@ -38,6 +40,8 @@ export class CustomValidator {
         error = this.messageValidation.required;
       } else if (control.errors.minlength) {
         error = this.messageValidation.minLength;
+      } else if (control.errors.NoPasswordMatch) {
+        error = this.messageValidation.passwordMatch
       }
 
       this.addClassToError(controlName, true);

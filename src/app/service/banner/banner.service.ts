@@ -23,7 +23,6 @@ export class BannerService {
   }
 
   public arrayBanner() {
-    console.log("rest")
     return this.arrayDataBanner
   }
 }

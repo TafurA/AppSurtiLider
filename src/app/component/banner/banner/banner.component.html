@@ -1,15 +1,14 @@
 <section class="o-section">
   <div class="o-canvas">
 
-    <ion-slides class="c-banner" pager="true" [options]="optionsSlider">
+    <ion-slides class="c-banner" pager="true" [options]="slideOpts">
 
       <ion-slide *ngFor="let banner of bannerList">
         <figure>
           <img
             src="http://test.surtilider.com:9090/IntranetSurti/Temp/fotosApp/banner/{{ banner.imagen }}"
-            alt=""
-            class="c-banner__img"
-          >
+            alt="Marca {{ banner }}"
+            class="c-banner__img">
         </figure>
       </ion-slide>
 

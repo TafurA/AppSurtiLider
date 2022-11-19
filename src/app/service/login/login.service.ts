@@ -22,7 +22,7 @@ export class LoginService {
 
       if (response.data.response) {
         this.saveDataIntoLocalStorage(atob(response.data.dataSession));
-        this.nvCtrl.navigateForward("/styleguide")
+        this.nvCtrl.navigateForward("/home")
         // const encodeString = atob(response.data.dataSession);
 
         // let jsonUserData = JSON.parse(encodeString)

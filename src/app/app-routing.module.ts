@@ -34,6 +34,10 @@ const routes: Routes = [
     path: 'updated-password',
     loadChildren: () => import('./pages/auth/updated-password/updated-password.module').then( m => m.UpdatedPasswordPageModule)
   },
+  {
+    path: 'home',
+    loadChildren: () => import('./pages/home/home/home.module').then( m => m.HomePageModule)
+  },
 ];
 
 @NgModule({

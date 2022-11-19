@@ -82,14 +82,11 @@
 }
 
 .o-link {
-  display: inline-block;
-  text-decoration: underline;
+  display: inline-flex;
+  align-items: center;
   color: $c-text;
 
   &::after {
-    position: relative;
-    top: 2px;
-    display: inherit;
     margin-left: 8px;
   }
 }

@@ -18,6 +18,17 @@
   }
 }
 
+.o-subheadline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  .o-link {
+    font-size: 14px;
+  }
+}
+
 .o-title {
   font-weight: $f-bold;
   font-size: 18px;

@@ -1,0 +1,11 @@
+.c-list-items__slide {
+  width: 64px;
+  height: 64px;
+}
+
+.c-list-items__item {
+  display: flex;
+  border-radius: 4px;
+  padding: 8px;
+  background-color: $c-gray-20;
+}

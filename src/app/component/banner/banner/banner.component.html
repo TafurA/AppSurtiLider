@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+
+<section class="o-section">
+  <div class="o-canvas">
+
+    <ion-slides class="c-banner" pager="true" [options]="optionsSlider">
+
+      <ion-slide *ngFor="let banner of bannerList">
+        <figure>
+          <img
+            src="http://test.surtilider.com:9090/IntranetSurti/Temp/fotosApp/banner/{{ banner.imagen }}"
+            alt=""
+            class="c-banner__img"
+          >
+        </figure>
+      </ion-slide>
+
+    </ion-slides>
+
+  </div>
+</section>

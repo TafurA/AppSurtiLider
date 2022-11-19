@@ -6,11 +6,10 @@ import axios from 'axios';
 // Global config
 import { environment } from '../../../environments/environment';
 
-// https://201.217.221.222:9001/IntranetSurti/WebServicesSurtiAppRest/Verificationcode?codigo=8235&email=tafursla@outlook.com
 // https://201.217.221.222:9001/IntranetSurti/WebServicesSurtiAppRest/Changepassword?codigo=99313&passd=99313
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 export class ForgotPasswordService {
@@ -18,7 +17,11 @@ export class ForgotPasswordService {
   public isCredentialFull: boolean = false;
   private userEmail: string;
 
-  constructor(public nvCtrl: NavController, public toastController: ToastController, public loadingController: LoadingController) { }
+  constructor(
+    public nvCtrl: NavController,
+    public toastController: ToastController,
+    public loadingController: LoadingController,
+  ) { }
 
   async serviceCredentialValidate(id: string) {
 
@@ -56,9 +59,27 @@ export class ForgotPasswordService {
         console.log(" USER", userEmail)
 
         if (response.data.response) {
-          this.nvCtrl.navigateForward("/styleguide")
+          this.nvCtrl.navigateForward("/updated-password")
         } else {
           this.presentToast("TITUTLO", response.data.message, "is-error")
+        }
+
+      }).catch((error) => {
+        console.log("error.status");
+        console.log(error)
+      })
+  }
+
+  async serviceUpdatePassword(securityCode: string, newPassword: string) {
+    await axios.get(`${environment.apiPath}/Changepassword?codigo=${securityCode}&passd=${newPassword}`,
+      environment.headerConfig).then(response => {
+
+        if (response.data.response) {
+          this.presentToast('Contraseña actualizada', response.data.message, 'is-success')
+          this.nvCtrl.navigateForward('/login')
+          localStorage.removeItem('credentialUser');
+        } else {
+          this.presentToast('Error al actualizar contraseña', response.data.message, 'is-error')
         }
 
       }).catch((error) => {

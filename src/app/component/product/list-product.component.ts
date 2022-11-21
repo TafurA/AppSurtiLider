@@ -22,8 +22,10 @@ export class ListProductComponent implements OnInit {
   }
 
   public slideOpts = {
-    slidesPerView: "auto",
-    spaceBetween: 16
+    slidesPerView: 3,
+    autoHeight: true,
+    spaceBetween: 16,
+    setWrapperSize: true
   }
 
   public getProducts() {

@@ -12,6 +12,7 @@ import { MarcasComponent } from 'src/app/component/marcas/marcas/marcas.componen
 import { ProductComponent } from 'src/app/component/product/product/product.component';
 import { ListProductComponent } from 'src/app/component/product/list-product.component';
 import { CategoryComponent } from 'src/app/component/category/category.component';
+import { HeaderComponent } from 'src/app/component/layout/header/header.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,14 @@ import { CategoryComponent } from 'src/app/component/category/category.component
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, BannerComponent, MarcasComponent, ProductComponent, ListProductComponent, CategoryComponent]
+  declarations: [
+    HomePage,
+    BannerComponent,
+    MarcasComponent,
+    ProductComponent,
+    ListProductComponent,
+    CategoryComponent,
+    HeaderComponent
+  ]
 })
 export class HomePageModule { }

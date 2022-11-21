@@ -28,6 +28,5 @@ export class MarcasComponent implements OnInit {
 
   fillArrayMarcas() {
     this.arrayDataMarcas = this.marcasService.arrayMarcas()
-    console.log(this.arrayDataMarcas)
   }
 }

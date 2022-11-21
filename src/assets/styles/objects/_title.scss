@@ -22,10 +22,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 
   .o-link {
     font-size: 14px;
+  }
+
+  &_mb0 {
+    margin-bottom: 0;
   }
 }
 

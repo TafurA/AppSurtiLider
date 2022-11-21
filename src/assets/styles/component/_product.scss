@@ -1,0 +1,143 @@
+.c-product-slide {
+  padding: 24px 5px;
+}
+
+.c-product-slides {
+  width: 117px;
+}
+
+.c-product {
+  position: relative;
+  max-width: 117px;
+  min-width: 117px;
+  min-height: 165px;
+  border-radius: 8px;
+  padding: 8px 4px;
+  text-align: center;
+  color: $c-text;
+  box-shadow: 0 1px 18px rgb(0 0 0 / 12%), 0 3px 5px rgb(0 0 0 / 20%);
+  background: $c-neutro;
+}
+
+.c-product__img {
+  width: 60px !important;
+
+  &_null {
+    width: 100px !important;
+  }
+}
+
+.c-product__title,
+.c-product__ico-txt {
+  font-size: 12px;
+}
+
+.c-product__title,
+.c-product__amount,
+.c-product__ico-txt {
+  font-family: $f-title;
+}
+
+.c-product__title {
+  margin-top: 4px;
+  font-weight: $f-semibold;
+}
+
+.c-product__amount,
+.c-product__add {
+  font-size: 14px;
+}
+
+.c-product__amount {
+  display: block;
+  font-weight: $f-bold;
+  margin: 4px 0;
+  line-height: 1;
+}
+
+.c-product__ico {
+  position: relative;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin-left: 16px;
+    font-size: 20px;
+    transform: rotate(-20deg);
+  }
+
+  &_discount {
+    &::before {
+      top: -6px;
+      left: -12px;
+      font-size: 32px;
+      color: $c-secondary;
+    }
+  }
+
+  &_cash {
+    &::before {
+      left: -8px;
+      color: $c-success;
+    }
+  }
+}
+
+.c-product__ico_discount {
+  &::after {
+    content: attr(data-percent);
+    position: absolute;
+    top: 5px;
+    left: 13px;
+    font-size: 12px;
+    color: $c-neutro;
+    transform: rotate(-25deg);
+  }
+}
+
+.c-product__ico-txt {
+  .c-product__ico_discount & {
+    text-decoration: line-through;
+    color: $c-secondary;
+  }
+
+  .c-product__ico_cash & {
+    display: inline-block;
+    width: 40%;
+    font-weight: $f-bold;
+    font-size: 11px;
+    line-height: 1;
+    color: $c-success;
+  }
+}
+
+.c-product__favorite,
+.c-product__add {
+  position: absolute;
+  right: 0;
+  border: none;
+}
+
+.c-product__favorite {
+  top: 0;
+  padding: 8px 4px;
+  font-size: 20px;
+  color: $c-secondary;
+  background: transparent;
+}
+
+.c-product__add {
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px 6px;
+  border-radius: 50%;
+  padding: 4px;
+  color: $c-primary;
+  background: rgba($c-primary, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transform: matrix(1, 0, 0, -1, 0, 0);
+}

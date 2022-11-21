@@ -40,6 +40,10 @@
       }
     }
   }
+
+  &::placeholder {
+    font-weight: $f-thin;
+  }
 }
 
 .c-header__search-label {

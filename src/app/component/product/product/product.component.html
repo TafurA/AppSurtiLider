@@ -1,0 +1,52 @@
+<article class="c-product">
+
+  <div>
+
+    <!-- Image and title -->
+    <figure class="c-product__figure">
+
+      <img
+        src="{{ productObject.img_prod }}"
+        alt=""
+        class="c-product__img"
+        *ngIf="productObject.img_prod != 'http://intranet.surtilider.com:9090/IntranetSurti/Temp/fotosApp/producto-sin-imagen.jpg';else productImageNull"
+      >
+
+      <!-- Only for products without image -->
+      <ng-template #productImageNull>
+        <img
+          src="{{ productObject.img_prod }}"
+          alt=""
+          class="c-product__img c-product__img_null"
+        >
+      </ng-template>
+
+      <figcaption class="c-product__title" *ngIf="productObject.nompro_b != null">
+        {{ productObject.nompro_b }}
+      </figcaption>
+
+    </figure>
+
+    <!-- Value and discount -->
+    <div>
+      <span class="c-product__amount">${{ productObject.valuni }}</span>
+
+      <div class="c-product__ico c-product__ico_discount i-star" data-percent="20%">
+        <span class="c-product__ico-txt">$7586</span>
+      </div>
+
+      <!-- <div class="c-product__ico c-product__ico_cash i-cash">
+        <span class="c-product__ico-txt">Recibe cashback</span>
+      </div> -->
+
+    </div>
+
+  </div>
+
+  <!-- Add to favorite and Add to cart -->
+  <footer>
+    <button class="c-product__favorite i-heart-outline"></button>
+    <button class="c-product__add i-plus"></button>
+  </footer>
+
+</article>

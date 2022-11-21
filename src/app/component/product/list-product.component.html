@@ -1,0 +1,19 @@
+<section class="o-section">
+  <div class="o-canvas">
+
+    <!-- Header component -->
+    <header class="o-subheadline o-subheadline_mb0">
+      <h2 class="o-title">Productos recomendados</h2>
+    </header>
+
+    <ion-slides class="c-product-slide" [options]="slideOpts">
+      <ion-slide class="c-product-slides" *ngFor="let product of arrayDataProducts">
+
+        <!-- Product component -->
+        <app-product [productObject]="product"></app-product>
+
+      </ion-slide>
+    </ion-slides>
+
+  </div>
+</section>

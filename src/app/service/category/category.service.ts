@@ -5,23 +5,23 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class MarcasService {
-  public arrayDataMarcas = new Array();
+export class CategoryService {
+  public arrayDataCategory = new Array();
 
   constructor() { }
 
-  async getListMarcas() {
-    await axios.get(`${environment.apiPath}/getMarcas`, environment.headerConfig).then(response => {
+  async getCategoryList() {
+    await axios.get(`${environment.apiPath}/getCategory`, environment.headerConfig).then(response => {
 
       for (let index = 0; index < response.data.data.length; index++) {
         const element = response.data.data[index];
-        this.arrayDataMarcas[index] = element
+        this.arrayDataCategory[index] = element
       }
 
     })
   }
 
-  public arrayMarcas() {
-    return this.arrayDataMarcas
+  public arrayCategory() {
+    return this.arrayDataCategory
   }
 }

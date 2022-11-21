@@ -1,0 +1,42 @@
+<section class="o-section o-section_mt0">
+  <div class="o-canvas">
+
+    <div class="c-list-items">
+
+      <!-- Header component -->
+      <header class="o-subheadline">
+        <h2 class="o-title">Categorias</h2>
+        <a class="
+          o-link o-link_secondary
+          i-after-arrow-left i-after-arrow-left_right
+        ">
+          Ver categorias
+        </a>
+      </header>
+
+      <nav class="c-list-items__navigation c-list-items__navigation_category">
+        <ion-slides [options]="optionsSlider">
+
+          <ion-slide
+            class="c-list-items__slide c-list-items__slide_group"
+            *ngFor="let category of arrayDataCategory"
+          >
+            <a href="">
+              <figure class="c-list-items__item">
+                <img
+                  src="https://surtilider.com/wp-content/uploads/2021/11/Frame-15.webp"
+                  alt="{{ category.categoria }}"
+                  class="c-list-items__img"
+                >
+                <figcaption class="c-list-items__caption">{{ category.categoria }}</figcaption>
+              </figure>
+            </a>
+          </ion-slide>
+
+        </ion-slides>
+      </nav>
+
+    </div>
+
+  </div>
+</section>

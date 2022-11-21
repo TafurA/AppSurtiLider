@@ -11,6 +11,7 @@ import { BannerComponent } from 'src/app/component/banner/banner/banner.componen
 import { MarcasComponent } from 'src/app/component/marcas/marcas/marcas.component';
 import { ProductComponent } from 'src/app/component/product/product/product.component';
 import { ListProductComponent } from 'src/app/component/product/list-product.component';
+import { CategoryComponent } from 'src/app/component/category/category.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { ListProductComponent } from 'src/app/component/product/list-product.com
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, BannerComponent, MarcasComponent, ProductComponent, ListProductComponent]
+  declarations: [HomePage, BannerComponent, MarcasComponent, ProductComponent, ListProductComponent, CategoryComponent]
 })
 export class HomePageModule { }

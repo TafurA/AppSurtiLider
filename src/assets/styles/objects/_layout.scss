@@ -1,5 +1,13 @@
 .o-section {
   margin: 24px 0;
+
+  &_mt0 {
+    margin-top: 0;
+  }
+
+  &_mb0 {
+    margin-bottom: 0;
+  }
 }
 
 .o-canvas {

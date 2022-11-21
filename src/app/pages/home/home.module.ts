@@ -9,6 +9,8 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { HomePage } from './home.page';
 import { BannerComponent } from 'src/app/component/banner/banner/banner.component';
 import { MarcasComponent } from 'src/app/component/marcas/marcas/marcas.component';
+import { ProductComponent } from 'src/app/component/product/product/product.component';
+import { ListProductComponent } from 'src/app/component/product/list-product.component';
 
 @NgModule({
   imports: [
@@ -17,6 +19,6 @@ import { MarcasComponent } from 'src/app/component/marcas/marcas/marcas.componen
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, BannerComponent, MarcasComponent]
+  declarations: [HomePage, BannerComponent, MarcasComponent, ProductComponent, ListProductComponent]
 })
 export class HomePageModule { }

@@ -1,0 +1,11 @@
+.c-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+
+  .o-headline,
+  .o-headline__title {
+    margin-bottom: 0;
+  }
+}

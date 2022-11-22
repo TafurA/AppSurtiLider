@@ -84,6 +84,7 @@
 .o-link {
   display: inline-flex;
   align-items: center;
+  text-decoration: none;
   color: $c-text;
 
   &::after {

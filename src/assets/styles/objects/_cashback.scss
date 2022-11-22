@@ -1,0 +1,23 @@
+.o-cashback {
+  text-align: right;
+
+  .o-link {
+    font-size: 14px;
+  }
+}
+
+.o-cashback__box {
+  margin-bottom: 8px;
+  border-radius: 8px;
+  padding: 9px 20px;
+  text-align: left;
+  color: $c-success;
+  background-color: rgba($color: $c-success, $alpha: 0.1);
+}
+
+.o-cashback__value {
+  margin-top: 4px;
+  font-weight: $f-bold;
+  font-family: $f-title;
+  font-size: 24px;
+}

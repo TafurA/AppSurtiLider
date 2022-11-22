@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { SessionGuard } from './guard/session.guard';
 
 const routes: Routes = [
 
@@ -15,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    loadChildren: () => import('./pages/auth/register/register.module').then(m => m.RegisterPageModule)
+    loadChildren: () => import('./pages/auth/register/register.module').then(m => m.RegisterPageModule),
+    // canActivate: [SessionGuard]
   },
   {
     path: 'welcome',
@@ -28,15 +30,15 @@ const routes: Routes = [
   },
   {
     path: 'forgot-password',
-    loadChildren: () => import('./pages/auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+    loadChildren: () => import('./pages/auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordPageModule)
   },
   {
     path: 'updated-password',
-    loadChildren: () => import('./pages/auth/updated-password/updated-password.module').then( m => m.UpdatedPasswordPageModule)
+    loadChildren: () => import('./pages/auth/updated-password/updated-password.module').then(m => m.UpdatedPasswordPageModule)
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
   },
 ];
 

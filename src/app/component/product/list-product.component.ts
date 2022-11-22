@@ -24,6 +24,12 @@ export class ListProductComponent implements OnInit {
   public slideOpts = {
     slidesPerView: 3,
     autoHeight: true,
+    autoplay: {
+      delay: 2000
+    },
+    preventClicksPropagation: true,
+    preventClicks: true,
+    preventInteractionOnTransition: true,
     spaceBetween: 16,
     setWrapperSize: true
   }

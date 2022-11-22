@@ -13,6 +13,7 @@ import { ProductComponent } from 'src/app/component/product/product/product.comp
 import { ListProductComponent } from 'src/app/component/product/list-product.component';
 import { CategoryComponent } from 'src/app/component/category/category.component';
 import { HeaderComponent } from 'src/app/component/layout/header/header.component';
+import { MenuFixedComponent } from 'src/app/component/layout/menu-fixed/menu-fixed.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { HeaderComponent } from 'src/app/component/layout/header/header.componen
     ProductComponent,
     ListProductComponent,
     CategoryComponent,
-    HeaderComponent
+    HeaderComponent,
+    MenuFixedComponent
   ]
 })
 export class HomePageModule { }

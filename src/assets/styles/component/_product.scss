@@ -1,15 +1,15 @@
 .c-product-slide {
-  padding: 24px 5px;
+  padding: 16px 5px;
 }
 
 .c-product-slides {
-  width: 117px;
+  width: 117px !important;
 }
 
 .c-product {
   position: relative;
-  max-width: 117px;
-  min-width: 117px;
+  max-width: 117px !important;
+  min-width: 117px !important;
   min-height: 165px;
   border-radius: 8px;
   padding: 8px 4px;

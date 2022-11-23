@@ -8,6 +8,7 @@ import { SidebarMenuPageRoutingModule } from './sidebar-menu-routing.module';
 
 import { SidebarMenuPage } from './sidebar-menu.page';
 import { MenuFixedComponent } from 'src/app/component/layout/menu-fixed/menu-fixed.component';
+import { BannerComponent } from 'src/app/component/banner/banner/banner.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { MenuFixedComponent } from 'src/app/component/layout/menu-fixed/menu-fix
     IonicModule,
     SidebarMenuPageRoutingModule
   ],
-  declarations: [SidebarMenuPage, MenuFixedComponent]
+  declarations: [SidebarMenuPage, MenuFixedComponent, BannerComponent]
 })
 export class SidebarMenuPageModule {}

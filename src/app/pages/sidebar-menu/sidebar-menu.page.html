@@ -32,6 +32,81 @@
 
     </header>
 
+    <!-- Banner component -->
+    <app-banner></app-banner>
+
+    <!-- navigation of support pages -->
+    <nav class="c-navigation-support">
+      
+      <a class="c-navigation-support__item" href="">
+        <span class="c-navigation-support__ico i-user"></span>
+        <span
+          class="
+            c-navigation-support__txt
+            i-after-arrow-left i-after-arrow-left_right
+          "
+        >
+          Mis Datos
+        </span>
+      </a>
+
+      <a class="c-navigation-support__item" href="">
+        <span class="c-navigation-support__ico i-list-check"></span>
+        <span
+          class="
+            c-navigation-support__txt
+            i-after-arrow-left i-after-arrow-left_right
+          "
+        >
+          Historico de Pedidos
+        </span>
+      </a>
+
+      <a class="c-navigation-support__item" href="">
+        <span class="c-navigation-support__ico i-heart-outline"></span>
+        <span
+          class="
+            c-navigation-support__txt
+            i-after-arrow-left i-after-arrow-left_right
+          "
+        >
+          Mis Favoritos
+        </span>
+      </a>
+
+      <div>
+
+        <button class="c-navigation-support__item o-dropdown" (click)="toggleDropdown($event)">
+          <span class="c-navigation-support__ico i-support"></span>
+          <span
+            class="
+              c-navigation-support__txt
+              i-after-arrow-left i-after-arrow-left_right
+            "
+          >
+            Soporte
+          </span>
+        </button>
+
+        <nav class="c-navigation-support__submenu">
+          <a class="c-navigation-support__submenu-link" href="">
+            ¿Que es el cashback?
+          </a>
+          <a class="c-navigation-support__submenu-link" href="">
+            Nuestros horarios
+          </a>
+          <a class="c-navigation-support__submenu-link" href="">
+            Preguntas frecuentes
+          </a>
+          <a class="c-navigation-support__submenu-link" href="">
+            Tratamiento de datos personales
+          </a>
+        </nav>
+
+      </div>
+
+    </nav>
+
   </div>
 </ion-content>
 

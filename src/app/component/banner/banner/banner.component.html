@@ -3,7 +3,7 @@
 
     <ion-slides class="c-banner" pager="true" [options]="slideOpts">
 
-      <ion-slide *ngFor="let banner of bannerList">
+      <ion-slide class="c-banner__slide" *ngFor="let banner of bannerList">
         <figure>
           <img
             src="http://test.surtilider.com:9090/IntranetSurti/Temp/fotosApp/banner/{{ banner.imagen }}"

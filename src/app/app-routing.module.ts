@@ -44,6 +44,10 @@ const routes: Routes = [
     path: 'sidebar-menu',
     loadChildren: () => import('./pages/sidebar-menu/sidebar-menu.module').then( m => m.SidebarMenuPageModule)
   },
+  {
+    path: 'favorite',
+    loadChildren: () => import('./pages/auth/favorite/favorite.module').then( m => m.FavoritePageModule)
+  },
 ];
 
 @NgModule({

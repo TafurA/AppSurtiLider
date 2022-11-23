@@ -6,7 +6,7 @@
 
       <div class="o-headline o-headline_big">
         <h1 class="o-kicker">¿Qué más Pues, veci?</h1>
-        <h2 class="o-headline__title">Julian Bonilla</h2>
+        <h2 class="o-headline__title">{{ userName }}</h2>
       </div>
 
       <div class="o-cashback">
@@ -14,7 +14,7 @@
         <!-- Cashback value -->
         <div class="o-cashback__box">
           <span class="">cashback actual:</span>
-          <p class="o-cashback__value">$70.000</p>
+          <p class="o-cashback__value">${{ userCashback }}</p>
         </div>
 
         <!-- Link to redimir -->
@@ -104,6 +104,13 @@
         </nav>
 
       </div>
+
+      <button class="c-navigation-support__item" (click)="logOut()">
+        <span class="c-navigation-support__ico i-heart-outline"></span>
+        <span class="c-navigation-support__txt">
+          Cerrar Sesión
+        </span>
+      </button>
 
     </nav>
 

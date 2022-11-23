@@ -27,7 +27,6 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.buildLoginForm();
-    this.getUsers()
   }
 
   private buildLoginForm() {
@@ -56,22 +55,6 @@ export class LoginPage implements OnInit {
       this.loginService.loginToSystem(dataForm.user, dataForm.password);
     }
 
-  }
-
-  async getUsers() {
-    try {
-      axios.post(`${environment.apiPath}consultaCategoriaProducto`, {}, environment.headerConfig).then(response => {
-        console.log(response)
-      }).catch((error) => {
-        console.log("error")
-        console.log(error)
-      })
-
-    } catch (error) {
-      console.log(error.status);
-      console.log(error.error); // error message as string
-      console.log(error.headers);
-    }
   }
 
 }

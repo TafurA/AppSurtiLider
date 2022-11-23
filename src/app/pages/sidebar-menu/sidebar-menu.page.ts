@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/service/login/login.service';
+
 import { BannerComponent } from 'src/app/component/banner/banner/banner.component';
 import { MenuFixedComponent } from 'src/app/component/layout/menu-fixed/menu-fixed.component';
 
@@ -9,9 +11,24 @@ import { MenuFixedComponent } from 'src/app/component/layout/menu-fixed/menu-fix
 })
 export class SidebarMenuPage implements OnInit {
 
-  constructor() { }
+  public userName = ""
+  public userCashback = ""
+
+  constructor(public loginService: LoginService) { }
 
   ngOnInit() {
+    this.setUserData()
+  }
+
+  setUserData() {
+    console.log("this.loginService.validateSession()")
+    console.log(this.loginService.validateSession())
+    this.userName = `${this.loginService.validateSession()['nomcli_b']} ${this.loginService.validateSession()['ape1cli_b']}`
+    this.userCashback = `${this.loginService.validateSession()['valor_acomulado']}`
+  }
+
+  logOut() {
+    this.loginService.logOutIntoSystem()
   }
 
   toggleDropdown(e) {

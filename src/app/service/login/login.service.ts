@@ -6,6 +6,7 @@ import axios from 'axios';
 
 // Global config
 import { environment } from '../../../environments/environment';
+import { SessionGuard } from 'src/app/guard/session.guard';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,9 @@ import { environment } from '../../../environments/environment';
 
 export class LoginService {
 
-  constructor(public nvCtrl: NavController, private toastController: ToastController) {
+  public ProcessDataUserSession = {};
+
+  constructor(public nvCtrl: NavController, private toastController: ToastController, public sessionGuard: SessionGuard) {
   }
 
   async loginToSystem(user: string, pass: string) {
@@ -23,18 +26,9 @@ export class LoginService {
       if (response.data.response) {
         this.saveDataIntoLocalStorage(atob(response.data.dataSession));
         this.nvCtrl.navigateForward("/home")
-        // const encodeString = atob(response.data.dataSession);
-
-        // let jsonUserData = JSON.parse(encodeString)
-        // let objectEntries = Object.entries(jsonUserData)
-        // for (let [key, value] of objectEntries) {
-        //   console.log(key + ' : ' + atob(String(value)));
-        // }
-
       } else {
         console.log("no PASO")
         this.presentToast("TITUTLO", response.data.message, "is-error")
-
       }
 
     }).catch((error) => {
@@ -44,10 +38,30 @@ export class LoginService {
 
   }
 
-  logOutIntoSystem() { }
+  logOutIntoSystem() {
+    localStorage.removeItem("userSessionData")
+    this.nvCtrl.navigateForward("/welcome")
+  }
 
   saveDataIntoLocalStorage(data: string) {
     localStorage.setItem("userSessionData", data);
+  }
+
+  validateSession() {
+    if (this.sessionGuard.canActivate()) {
+      const encodeString = localStorage.userSessionData
+
+      let jsonUserData = JSON.parse(encodeString)
+      let objectEntries = Object.entries(jsonUserData)
+
+      for (let [key, value] of objectEntries) {
+        this.ProcessDataUserSession[key] = atob(String(value))
+      }
+
+      return this.ProcessDataUserSession
+    } else {
+      return this.sessionGuard.canActivate();
+    }
   }
 
   async presentToast(title: string, description: string, alertType: string) {

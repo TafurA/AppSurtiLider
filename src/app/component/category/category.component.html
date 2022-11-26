@@ -4,24 +4,35 @@
     <div class="c-list-items">
 
       <!-- Header component -->
-      <header class="o-subheadline">
+      <header class="o-subheadline" *ngIf="!isDetailCategory;else headerCategory">
         <h2 class="o-title">Categorias</h2>
         <a class="
           o-link o-link_secondary
           i-after-arrow-left i-after-arrow-left_right
-        ">
+        "
+        [routerLink]="['/category']"
+        >
           Ver categorias
         </a>
       </header>
+
+      <!-- Only for category page -->
+      <ng-template #headerCategory>
+        <header class="o-subheadline">
+          <h2 class="o-title">Todas las Categorias</h2>
+        </header>
+      </ng-template>
 
       <nav class="c-list-items__navigation c-list-items__navigation_category">
         <ion-slides [options]="optionsSlider">
 
           <ion-slide
             class="c-list-items__slide c-list-items__slide_group"
+            [routerLink]="['/categoria/detail-category', category.categoria, category.codigo]"
+            routerLinkActive="is-active"
             *ngFor="let category of arrayDataCategory"
           >
-            <a href="">
+            <a>
               <figure class="c-list-items__item">
                 <img
                   src="https://surtilider.com/wp-content/uploads/2021/11/Frame-15.webp"

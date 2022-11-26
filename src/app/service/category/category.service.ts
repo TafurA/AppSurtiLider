@@ -7,8 +7,10 @@ import { environment } from 'src/environments/environment';
 })
 export class CategoryService {
   public arrayDataCategory = new Array();
+  public arrayDataSubCategory = new Array();
 
-  constructor() { }
+  constructor() {
+  }
 
   async getCategoryList() {
     await axios.get(`${environment.apiPath}/getCategory`, environment.headerConfig).then(response => {
@@ -16,12 +18,41 @@ export class CategoryService {
       for (let index = 0; index < response.data.data.length; index++) {
         const element = response.data.data[index];
         this.arrayDataCategory[index] = element
+        // console.log("response.data.data")
+        // console.log(response.data.data)
       }
 
     })
   }
 
-  public arrayCategory() {
-    return this.arrayDataCategory
+  async getSubCategoryList(idCategory) {
+    await axios.get(`${environment.apiPath}/getSubCategory?codecategory=${idCategory}`, environment.headerConfig).then(response => {
+
+      this.arrayDataSubCategory = []
+      localStorage.removeItem("test")
+
+      for (const key in response.data.data) {
+
+        const element = response.data.data[key];
+        const dataSubCategory = {
+          nameCategory: key,
+          product: element
+        }
+        //   console.log('key', key)
+        //   console.log(element)
+        this.arrayDataSubCategory.push(dataSubCategory)
+        // console.log(this.arrayDataSubCategory)
+      }
+
+      localStorage.setItem("test", JSON.stringify(this.arrayDataSubCategory))
+
+      // console.log("LLENADO ARRAY")
+      // console.log(this.arrayDataSubCategory)
+    })
   }
+
+  public arrayCategory() {
+    return this.arrayDataCategory;
+  }
+
 }

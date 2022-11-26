@@ -42,11 +42,19 @@ const routes: Routes = [
   },
   {
     path: 'sidebar-menu',
-    loadChildren: () => import('./pages/sidebar-menu/sidebar-menu.module').then( m => m.SidebarMenuPageModule)
+    loadChildren: () => import('./pages/sidebar-menu/sidebar-menu.module').then(m => m.SidebarMenuPageModule)
   },
   {
     path: 'favorite',
-    loadChildren: () => import('./pages/auth/favorite/favorite.module').then( m => m.FavoritePageModule)
+    loadChildren: () => import('./pages/auth/favorite/favorite.module').then(m => m.FavoritePageModule)
+  },
+  {
+    path: 'category',
+    loadChildren: () => import('./pages/category/category.module').then(m => m.CategoryPageModule)
+  },
+  {
+    path: 'categoria/detail-category/:nameCategory/:idCategory',
+    loadChildren: () => import('./pages/detail-category/detail-category.module').then(m => m.DetailCategoryPageModule)
   },
 ];
 

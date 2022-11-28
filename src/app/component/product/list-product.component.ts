@@ -39,8 +39,6 @@ export class ListProductComponent implements OnInit {
 
   fillArrayProducts() {
     this.arrayDataProducts = this.productService.arrayDataProducts
-    console.log("ARRAY DATA PROPDUCTS")
-    console.log(this.arrayDataProducts)
   }
 
 }

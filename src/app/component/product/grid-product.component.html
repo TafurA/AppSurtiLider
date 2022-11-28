@@ -1,13 +1,35 @@
 <section class="o-section o-section_mb0">
   <div class="o-canvas">
 
-    <div class="c-product-wrap">
-      <!-- Product component -->
-      <app-product
-        *ngFor="let product of arrayDataProducts | paginate: { itemsPerPage: 9, currentPage: p}"
-        [productObject]="product"></app-product
-      >
+    <!-- GENERAL PRODUCT LIST -->
+    <div *ngIf="!isViewOfFavorite;else favoriteView">
+      <div class="c-product-wrap">
+        <!-- Product component -->
+        <app-product *ngFor="let product of arrayDataProducts | paginate: { itemsPerPage: 9, currentPage: p}"
+          [productObject]="product"></app-product>
+      </div>
     </div>
+
+    <!-- FAVORITE PRODUCT LIST -->
+    <ng-template #favoriteView>
+
+      <div *ngIf="!isFavoriteNull;else favoriteNull">
+
+        <div class="c-product-wrap">
+          <!-- Product component -->
+          <app-product *ngFor="let product of arrayDataProducts | paginate: { itemsPerPage: 9, currentPage: p}"
+            [productObject]="product"></app-product>
+        </div>
+
+      </div>
+
+      <ng-template #favoriteNull>
+
+        <h1>LISTA DE FAVORITOS VACIA</h1>
+
+      </ng-template>
+
+    </ng-template>
 
     <pagination-controls (pageChange)="p = $event" maxSize="6"></pagination-controls>
 

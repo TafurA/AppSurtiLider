@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
+
+import { FavoriteService } from 'src/app/service/favorite/favorite.service';
 import { ProductService } from 'src/app/service/product/product.service';
 
 @Component({
@@ -8,25 +11,46 @@ import { ProductService } from 'src/app/service/product/product.service';
 export class GridProductComponent implements OnInit {
 
   public arrayDataProducts = new Array();
+  public isFavoriteNull;
+  public isViewOfFavorite = false;
 
-  constructor(public productService: ProductService) { }
+  constructor(
+    public productService: ProductService,
+    public favoriteService: FavoriteService
+  ) { }
 
   ngOnInit() {
     this.getProducts()
   }
 
-  ngAfterViewInit() {
-    this.fillArrayProducts();
-  }
-
   public getProducts() {
-    this.productService.getCurrentProducts("0")
+    // For list of favorite products
+    if (window.location.pathname == "/favorite") {
+      this.isViewOfFavorite = true;
+      this.isFavoriteNull = this.favoriteService.getIsFavoriteNull();
+
+      this.favoriteService.getFavoriteProductsList().then(() => {
+        this.fillArrayProducts()
+      })
+    } else {
+      // Products without User session
+      this.productService.getCurrentProducts("0").then(() => {
+        this.fillArrayProducts()
+      })
+    }
   }
 
   fillArrayProducts() {
-    this.arrayDataProducts = this.productService.arrayDataProducts
-    // console.log("ARRAY DATA PROPDUCTS")
-    // console.log(this.arrayDataProducts)
+    // For list of favorite products
+    if (window.location.pathname == "/favorite") {
+      setInterval(() => {
+        this.arrayDataProducts = this.favoriteService.arrayDataFavorites
+        this.isFavoriteNull = this.favoriteService.getIsFavoriteNull();
+      }, 1000)
+    } else {
+      // List of General products
+      this.arrayDataProducts = this.productService.arrayDataProducts
+    }
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { CategoryService } from 'src/app/service/category/category.service';
 
 @Component({
@@ -7,20 +8,16 @@ import { CategoryService } from 'src/app/service/category/category.service';
 })
 
 export class CategoryComponent implements OnInit {
-  public isDetailCategory = false;
   public arrayDataCategory: any[];
+  public isDetailCategory = false;
 
   constructor(public categoryService: CategoryService) { }
 
   ngOnInit(): void {
     this.getCurrentPage()
-    this.categoryService.getCategoryList()
-  }
-
-  ngAfterViewInit() {
-    this.fillArrayCategory();
-    // console.log("this.arrayDataCategory")
-    // console.log(this.arrayDataCategory)
+    this.categoryService.getCategoryList().finally(() => {
+      this.fillArrayCategory();
+    })
   }
 
   public optionsSlider = {
@@ -34,8 +31,6 @@ export class CategoryComponent implements OnInit {
 
   getCurrentPage() {
     if (window.location.pathname == "/category") {
-      console.log(window.location.pathname)
-      console.log("CATEGORIAAA")
       this.isDetailCategory = true;
     }
   }

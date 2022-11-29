@@ -8,6 +8,8 @@
         <app-product *ngFor="let product of arrayDataProducts | paginate: { itemsPerPage: 9, currentPage: p}"
           [productObject]="product"></app-product>
       </div>
+
+      <pagination-controls (pageChange)="p = $event" maxSize="6"></pagination-controls>
     </div>
 
     <!-- FAVORITE PRODUCT LIST -->
@@ -21,6 +23,8 @@
             [productObject]="product"></app-product>
         </div>
 
+        <pagination-controls (pageChange)="p = $event" maxSize="6"></pagination-controls>
+
       </div>
 
       <ng-template #favoriteNull>
@@ -30,8 +34,6 @@
       </ng-template>
 
     </ng-template>
-
-    <pagination-controls (pageChange)="p = $event" maxSize="6"></pagination-controls>
 
   </div>
 </section>

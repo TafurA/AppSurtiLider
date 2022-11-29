@@ -32,7 +32,12 @@ export class GridProductComponent implements OnInit {
       this.favoriteService.getFavoriteProductsList().then(() => {
         this.fillArrayProducts()
       })
-    } else {
+    } else if (window.location.pathname == "/offert") {
+      this.productService.getOffertProducts().then(() => {
+        this.fillArrayProducts()
+      })
+    }
+    else {
       // Products without User session
       this.productService.getCurrentProducts("0").then(() => {
         this.fillArrayProducts()

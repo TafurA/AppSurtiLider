@@ -32,6 +32,19 @@ export class ProductService {
     })
   }
 
+  async getOffertProducts() {
+    await axios.get(`${environment.apiPath}/getProductOffers`, environment.headerConfig).then(response => {
+
+      for (let index = 0; index < response.data.data.length; index++) {
+        const element = response.data.data[index];
+        this.arrayDataProducts[index] = element
+        console.log("OFFERT PRODCUT")
+        console.log(this.arrayDataProducts)
+      }
+
+    })
+  }
+
   async getCurrentProducts(nit) {
     // let session = true;
     let session = false;

@@ -56,6 +56,10 @@ const routes: Routes = [
     path: 'categoria/detail-category/:nameCategory/:idCategory',
     loadChildren: () => import('./pages/detail-category/detail-category.module').then(m => m.DetailCategoryPageModule)
   },
+  {
+    path: 'offert',
+    loadChildren: () => import('./pages/offert/offert/offert.module').then( m => m.OffertPageModule)
+  },
 ];
 
 @NgModule({

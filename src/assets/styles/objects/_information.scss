@@ -38,4 +38,14 @@
   padding: 0;
   background: transparent;
   pointer-events: none;
+
+  strong {
+    font-family: $f-title;
+  }
+}
+
+.o-information__kicker {
+  font-family: $f-title;
+  font-weight: $f-semibold;
+  color: $c-primary;
 }

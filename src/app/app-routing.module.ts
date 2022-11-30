@@ -64,6 +64,10 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('./pages/auth/profile/profile.module').then( m => m.ProfilePageModule)
   },
+  {
+    path: 'order-history',
+    loadChildren: () => import('./pages/auth/order-history/order-history.module').then( m => m.OrderHistoryPageModule)
+  },
 ];
 
 @NgModule({

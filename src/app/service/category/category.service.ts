@@ -18,8 +18,6 @@ export class CategoryService {
       for (let index = 0; index < response.data.data.length; index++) {
         const element = response.data.data[index];
         this.arrayDataCategory[index] = element
-        // console.log("response.data.data")
-        // console.log(response.data.data)
       }
 
     })
@@ -46,8 +44,6 @@ export class CategoryService {
 
       localStorage.setItem("test", JSON.stringify(this.arrayDataSubCategory))
 
-      // console.log("LLENADO ARRAY")
-      // console.log(this.arrayDataSubCategory)
     })
   }
 

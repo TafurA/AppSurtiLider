@@ -1,0 +1,37 @@
+<ion-content>
+
+  <!-- Header back -->
+  <app-header-back></app-header-back>
+
+  <div class="o-canvas">
+
+    <header class="o-headline o-headline_big">
+      <h1 class="o-headline__title">Historico de pedidos</h1>
+      <p class="o-headline__text">Aquí encuentras el listado de tus pedidos con el respectivo número de seguimiento.</p>
+    </header>
+
+    <div *ngFor="let typeOrder of arrayDataOrders">
+      <h2 class="o-headline__title">REALIZADO EN {{ typeOrder.orderType }}</h2>
+
+      <!-- Personal information -->
+      <div class="o-information" *ngFor="let order of typeOrder.order">
+
+        <h2 class="o-information__title">Número factura: <span class="o-information__kicker">#{{ order.numped_b }}</span></h2>
+
+        <div class="o-information__form">
+
+          <label class="o-information__input">Fecha emición: <strong>{{ order.fecha }}</strong></label>
+          <label class="o-information__input">Total de la compra: <strong>{{ order.valped_b }}</strong></label>
+          <label class="o-information__input">Vendedor responsable: <strong>{{ order.venped_b }}</strong></label>
+
+          <a class="o-link o-link_secondary">VER DETALLES</a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</ion-content>

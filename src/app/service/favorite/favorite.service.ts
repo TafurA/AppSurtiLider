@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NavController, ToastController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import axios from 'axios';
 
 import { environment } from 'src/environments/environment';
@@ -13,11 +13,12 @@ export class FavoriteService {
   public arrayDataFavorites = new Array();
   public isFavorite = false;
   public isFavoriteNull = false;
+  public alert;
 
   constructor(
-    public toastController: ToastController,
+    private alertController: AlertController,
     public loginService: LoginService,
-    public nvCtrl: NavController
+    public nvCtrl: NavController,
   ) { }
 
   async addProductToFavorite(product) {
@@ -25,10 +26,10 @@ export class FavoriteService {
       await axios.get(`${environment.apiPath}saveFavorite?nitcli_b=${this.getClientCode()}&codpro_b=${product}`, environment.headerConfig).then(response => {
 
         if (response.data.response) {
-          this.presentToast("Agregado a favoritos", response.data.message, "is-success")
+          this.presentAlert("Agregado a favoritos", response.data.message, "is-success")
           this.isFavorite = true;
         } else {
-          this.presentToast("Error al agregar a favorito", response.data.message, "is-error")
+          this.presentAlert("Error al agregar a favorito", response.data.message, "is-error")
         }
 
       })
@@ -42,10 +43,10 @@ export class FavoriteService {
     await axios.get(`${environment.apiPath}removeFavorite?nitcli_b=${this.getClientCode()}&codpro_b=${product}`, environment.headerConfig).then(response => {
 
       if (response.data.response) {
-        this.presentToast("Eliminado de favoritos", response.data.message, "is-success")
+        this.presentAlert("Eliminado de favoritos", response.data.message, "is-success")
         this.isFavorite = false;
       } else {
-        this.presentToast("Error eliminando de favortis", response.data.message, "is-error")
+        this.presentAlert("Error eliminando de favortis", response.data.message, "is-error")
       }
 
     }).finally(() => {
@@ -61,7 +62,6 @@ export class FavoriteService {
     this.arrayDataFavorites = []
 
     await axios.get(`${environment.apiPath}getFavoritos?nitcli_b=${this.getClientCode()}`, environment.headerConfig).then(response => {
-
       if (response.data.favorites) {
         for (let index = 0; index < response.data.favorites.length; index++) {
           const element = response.data.favorites[index];
@@ -79,16 +79,19 @@ export class FavoriteService {
     return this.arrayDataFavorites
   }
 
-  async presentToast(title: string, description: string, alertType: string) {
-    const toast = await this.toastController.create({
+  async presentAlert(title: string, description: string, alertType: string) {
+    this.alert = await this.alertController.create({
       header: title,
-      message: description,
-      duration: 2500,
-      position: 'bottom',
-      cssClass: `c-alert ${alertType}`,
+      subHeader: description,
+      cssClass: `c-alert ${alertType}`
+      // buttons: ['OK'],
     });
 
-    await toast.present();
+    await this.alert.present();
+
+    setTimeout(() => {
+      this.alert.dismiss()
+    }, 2000)
   }
 
   public getIsFavoriteNull() {

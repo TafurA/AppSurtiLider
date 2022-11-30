@@ -21,8 +21,6 @@ export class ProfilePage implements OnInit {
   }
 
   setUserData() {
-    console.log("this.loginService.validateSession()")
-    console.log(this.loginService.validateSession())
     this.userName = `${this.loginService.validateSession()['nomcli_b']} ${this.loginService.validateSession()['ape1cli_b']}`
     this.userDocument = `${this.loginService.validateSession()['nitcli_b']}`
     this.userCredential = `${this.loginService.validateSession()['codcli_b']}`

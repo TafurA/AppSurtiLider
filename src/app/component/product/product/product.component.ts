@@ -17,7 +17,11 @@ export class ProductComponent implements OnInit {
   constructor(public favoriteService: FavoriteService) { }
 
   ngOnInit() {
-    this.getFavoriteTag()
+    if (window.location.pathname == "/favorite") {
+      this.getFavoriteTag()
+    } else {
+      this.getFavoriteTagAnotherPages()
+    }
   }
 
   addProductToFavorite(idProduct) {
@@ -47,8 +51,17 @@ export class ProductComponent implements OnInit {
     })
   }
 
+  getFavoriteTagAnotherPages() {
+    this.favoriteService.getFavoriteProductsList().then(() => {
+      this.fillArrayList()
+    }).finally(() => {
+      this.getFavoriteTag()
+    })
+  }
+
   async fillArrayList() {
     this.favoriteList = this.favoriteService.arrayFavorites()
   }
+
 
 }

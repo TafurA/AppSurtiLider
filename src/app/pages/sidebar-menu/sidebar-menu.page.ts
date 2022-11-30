@@ -21,8 +21,6 @@ export class SidebarMenuPage implements OnInit {
   }
 
   setUserData() {
-    console.log("this.loginService.validateSession()")
-    console.log(this.loginService.validateSession())
     this.userName = `${this.loginService.validateSession()['nomcli_b']} ${this.loginService.validateSession()['ape1cli_b']}`
     this.userCashback = `${this.loginService.validateSession()['valor_acomulado']}`
   }

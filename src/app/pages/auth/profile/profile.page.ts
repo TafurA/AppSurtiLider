@@ -1,0 +1,33 @@
+import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/service/login/login.service';
+
+@Component({
+  selector: 'app-profile',
+  templateUrl: './profile.page.html',
+})
+
+export class ProfilePage implements OnInit {
+
+  public userName = ""
+  public userDocument = ""
+  public userCredential = ""
+  public userPhone = ""
+  public userEmal = ""
+
+  constructor(public loginService: LoginService) { }
+
+  ngOnInit() {
+    this.setUserData()
+  }
+
+  setUserData() {
+    console.log("this.loginService.validateSession()")
+    console.log(this.loginService.validateSession())
+    this.userName = `${this.loginService.validateSession()['nomcli_b']} ${this.loginService.validateSession()['ape1cli_b']}`
+    this.userDocument = `${this.loginService.validateSession()['nitcli_b']}`
+    this.userCredential = `${this.loginService.validateSession()['codcli_b']}`
+    this.userPhone = `${this.loginService.validateSession()['telcli_b']}`
+    this.userEmal = `${this.loginService.validateSession()['emacli_b']}`
+  }
+
+}

@@ -60,6 +60,10 @@ const routes: Routes = [
     path: 'offert',
     loadChildren: () => import('./pages/offert/offert/offert.module').then( m => m.OffertPageModule)
   },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/auth/profile/profile.module').then( m => m.ProfilePageModule)
+  },
 ];
 
 @NgModule({

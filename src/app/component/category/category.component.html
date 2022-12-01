@@ -35,7 +35,7 @@
             routerLinkActive="is-active" *ngFor="let category of arrayDataCategory">
             <a>
               <figure class="c-list-items__item">
-                <img src="https://surtilider.com/wp-content/uploads/2021/11/Frame-15.webp"
+                <img src="{{ category.img_category }}"
                   alt="{{ category.categoria }}" class="c-list-items__img">
                 <figcaption class="c-list-items__caption">{{ category.categoria }}</figcaption>
               </figure>

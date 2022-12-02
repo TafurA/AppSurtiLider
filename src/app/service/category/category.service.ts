@@ -36,10 +36,7 @@ export class CategoryService {
           nameCategory: key,
           product: element
         }
-        //   console.log('key', key)
-        //   console.log(element)
         this.arrayDataSubCategory.push(dataSubCategory)
-        // console.log(this.arrayDataSubCategory)
       }
 
       localStorage.setItem("test", JSON.stringify(this.arrayDataSubCategory))

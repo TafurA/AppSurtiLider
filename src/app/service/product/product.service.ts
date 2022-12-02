@@ -38,8 +38,6 @@ export class ProductService {
       for (let index = 0; index < response.data.data.length; index++) {
         const element = response.data.data[index];
         this.arrayDataProducts[index] = element
-        console.log("OFFERT PRODCUT")
-        console.log(this.arrayDataProducts)
       }
 
     })

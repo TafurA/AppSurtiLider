@@ -28,7 +28,6 @@ export class ForgotPasswordService {
     await axios.get(`${environment.apiPath}Forgotpassword?identificacion=${id}`, environment.headerConfig).then(response => {
 
       if (response.data.response) {
-        console.log(response)
         this.presentToast("¡Código enviado exitosamente!", response.data.message, 'is-success')
         this.isCredentialFull = true;
         // this.userEmail = response.data.datos

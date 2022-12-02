@@ -7,6 +7,8 @@ import { environment } from 'src/environments/environment';
 })
 export class MarcasService {
   public arrayDataMarcas = new Array();
+  public arrayDataSubProvider;
+  public isProductsNull = false;
 
   constructor() { }
 
@@ -19,6 +21,41 @@ export class MarcasService {
       }
 
     })
+  }
+
+  async getProviderDetail(idProvider) {
+    await axios.get(`${environment.apiPath}/getDetailProvider?provider=${idProvider}`, environment.headerConfig).then(response => {
+
+      this.arrayDataSubProvider = []
+      localStorage.removeItem("providersDetail")
+
+      if (typeof (response.data.data.length) == "undefined") {
+
+        for (const key in response.data.data) {
+
+          const element = response.data.data[key];
+          const dataDetailProvider = {
+            nameCategory: key,
+            product: element
+          }
+          this.arrayDataSubProvider.push(dataDetailProvider)
+        }
+
+        localStorage.setItem("providersDetail", JSON.stringify(this.arrayDataSubProvider))
+        this.setIsProductsNull(false)
+      } else {
+        this.setIsProductsNull(true)
+      }
+
+    })
+  }
+
+  public getIsProductsNull() {
+    return this.isProductsNull
+  }
+
+  public setIsProductsNull(isProductsNull) {
+    this.isProductsNull = isProductsNull
   }
 
   public arrayMarcas() {

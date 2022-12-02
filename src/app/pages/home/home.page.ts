@@ -20,7 +20,7 @@ export class HomePage implements OnInit {
   constructor(public loginService: LoginService) { }
 
   ngOnInit() {
-    console.log(this.loginService.validateSession()['ape1cli_b'])
+    console.log(this.loginService.validateSession())
   }
 
 }

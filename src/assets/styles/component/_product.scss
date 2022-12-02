@@ -39,6 +39,8 @@
 
 .c-product__img {
   width: 60px !important;
+  height: 56px;
+  object-fit: contain;
 
   &_null {
     width: 100px !important;

@@ -7,9 +7,10 @@
       <header class="o-subheadline">
         <h2 class="o-title">Nuestras Marcas</h2>
         <a class="
-        o-link o-link_secondary
-        i-after-arrow-left i-after-arrow-left_right
-      ">
+          o-link o-link_secondary
+          i-after-arrow-left i-after-arrow-left_right"
+          [routerLink]="['/providers']"
+        >
           Ver marcas
         </a>
       </header>
@@ -20,12 +21,10 @@
           <ion-slide class="c-list-items__slide" *ngFor="let marca of arrayDataMarcas">
             <a href="">
               <figure class="c-list-items__item">
-                <img
-                  src="https://surtilider.com/wp-content/uploads/2021/11/Frame-15.webp"
-                  alt="{{ marca.nombre_marca }}"
-                >
+                <img src="https://surtilider.com/wp-content/uploads/2021/11/Frame-15.webp"
+                  alt="{{ marca.nombre_marca }}">
                 <!-- <img src="https://201.217.221.222:9001/IntranetSurti/Temp/fotosApp/marcas/{{ marca.imagen }}" alt=""> -->
-               
+
               </figure>
             </a>
           </ion-slide>

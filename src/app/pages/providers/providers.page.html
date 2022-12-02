@@ -1,0 +1,40 @@
+<!-- Header component -->
+<app-header></app-header>
+<!-- /getDetailProvider?provider=19 -->
+<ion-content>
+
+  <div class="o-margin-top-16">
+
+    <div class="o-canvas">
+
+      <section class="o-section">
+        <!-- Header component -->
+        <header class="o-subheadline">
+          <h2 class="o-title">Nuestros proveedores</h2>
+        </header>
+
+        <nav class="c-provider">
+          <a class="c-provider__item" href="" *ngFor="let provider of arrayDataMarcas">
+            <figure class="c-provider__figure">
+              <img class="c-provider__img" src="https://surtilider.com/wp-content/uploads/2021/11/Frame-15.webp" alt="">
+              <figcaption class="c-provider__caption">{{ provider.nomlarg_b }}</figcaption>
+            </figure>
+          </a>
+        </nav>
+      </section>
+
+      <!-- Header component -->
+      <header class="o-subheadline">
+        <h2 class="o-title">Productos recomendados</h2>
+      </header>
+
+    </div>
+
+    <app-grid-product></app-grid-product>
+
+  </div>
+
+</ion-content>
+
+<!-- Fixed bottom menu -->
+<app-menu-fixed></app-menu-fixed>

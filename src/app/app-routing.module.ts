@@ -68,6 +68,10 @@ const routes: Routes = [
     path: 'order-history',
     loadChildren: () => import('./pages/auth/order-history/order-history.module').then( m => m.OrderHistoryPageModule)
   },
+  {
+    path: 'providers',
+    loadChildren: () => import('./pages/providers/providers.module').then( m => m.ProvidersPageModule)
+  },
 ];
 
 @NgModule({

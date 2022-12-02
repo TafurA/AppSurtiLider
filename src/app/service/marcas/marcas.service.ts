@@ -11,7 +11,7 @@ export class MarcasService {
   constructor() { }
 
   async getListMarcas() {
-    await axios.get(`${environment.apiPath}/getMarcas`, environment.headerConfig).then(response => {
+    await axios.get(`${environment.apiPath}/getProvider`, environment.headerConfig).then(response => {
 
       for (let index = 0; index < response.data.data.length; index++) {
         const element = response.data.data[index];

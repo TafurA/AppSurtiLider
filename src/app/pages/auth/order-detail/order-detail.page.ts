@@ -50,9 +50,10 @@ export class OrderDetailPage implements OnInit {
           for (let index = 0; index < this.productsCurrentOrderDetail.length; index++) {
             const element = this.productsCurrentOrderDetail[index];
 
+            this.order.totalProducts = element.length
+
             element.forEach(product => {
               product.cantidad = Math.round(product.cantidad)
-              this.order.totalProducts += Math.round(product.cantidad)
             });
           }
 

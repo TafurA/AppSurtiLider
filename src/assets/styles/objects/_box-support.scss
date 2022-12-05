@@ -26,3 +26,10 @@
     font-size: 32px;
   }
 }
+
+.c-navigation-support__submenu-link {
+  &.is-active {
+    opacity: .2;
+    cursor: none;
+  }
+}

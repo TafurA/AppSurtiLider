@@ -9,12 +9,13 @@ import { LoginService } from '../login/login.service';
 export class OrderService {
 
   public arrayDataOrders = []
+  public arrayCurrentOrderDetial = []
+  public arrayProductsCurrentOrderDetail = []
 
   constructor(public loginService: LoginService) { }
 
   async getOrdersByClient() {
     await axios.get(`${environment.apiPath}getPedidosCliente?nitcli=${this.getClientCode()}`, environment.headerConfig).then(response => {
-      console.log(response)
       this.arrayDataOrders = []
       localStorage.removeItem("ordersUser")
 
@@ -25,15 +26,63 @@ export class OrderService {
           orderType: key,
           order: element
         }
-        //   console.log('key', key)
-        //   console.log(element)
         this.arrayDataOrders.push(dataSubCategory)
-        // console.log(this.arrayDataSubCategory)
       }
 
       localStorage.setItem("ordersUser", JSON.stringify(this.arrayDataOrders))
-      // this.arrayDataOrders[index] = response
     })
+  }
+
+  async getOrderDetail(orderId) {
+    await axios.get(`${environment.apiPath}getPedidoDetalleCliente?idpedido=${orderId}`, environment.headerConfig).then((response) => {
+
+      this.arrayProductsCurrentOrderDetail = []
+      localStorage.removeItem("productsCurrentOrderDetail")
+
+      for (const key in response.data.ordersDetail) {
+        const element = response.data.ordersDetail[key];
+        this.arrayProductsCurrentOrderDetail.push(element)
+      }
+
+      localStorage.setItem("productsCurrentOrderDetail", JSON.stringify(this.arrayProductsCurrentOrderDetail))
+
+      for (let index = 0; index < this.arrayProductsCurrentOrderDetail.length; index++) {
+        const currentProduct = this.arrayProductsCurrentOrderDetail[index];
+      }
+
+    });
+  }
+
+  async getOrderById(orderId) {
+    this.arrayCurrentOrderDetial = []
+    const storageOrders = JSON.parse(localStorage.ordersUser)
+
+    for (const key in storageOrders) {
+      const order = storageOrders[key];
+
+      order.order.forEach(orderDetail => {
+
+        if (orderDetail.numped_b == orderId) {
+
+          const currentOrderDetail = {
+            address: orderDetail.dircli_b,
+            status: orderDetail.estped_b,
+            date: orderDetail.fecha,
+            name: orderDetail.nomcli_b,
+            orderId: orderDetail.numped_b,
+            phone: orderDetail.telcli_b,
+            totalValue: orderDetail.valped_b,
+            vendedorEncargado: orderDetail.venped_b,
+          }
+
+          this.arrayCurrentOrderDetial.push(currentOrderDetail)
+
+        }
+
+      });
+
+    }
+
   }
 
   private getClientCode() {

@@ -24,7 +24,12 @@
           <label class="o-information__input">Total de la compra: <strong>{{ order.valped_b }}</strong></label>
           <label class="o-information__input">Vendedor responsable: <strong>{{ order.venped_b }}</strong></label>
 
-          <a class="o-link o-link_secondary">VER DETALLES</a>
+          <a
+            class="o-link o-link_secondary"
+            [routerLink]="['/order-detail/', order.numped_b]"
+          >
+            VER DETALLES
+          </a>
 
         </div>
 

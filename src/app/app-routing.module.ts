@@ -84,6 +84,10 @@ const routes: Routes = [
     path: 'support',
     loadChildren: () => import('./pages/support/support.module').then( m => m.SupportPageModule)
   },
+  {
+    path: 'detail-product/:productId',
+    loadChildren: () => import('./pages/detail-product/detail-product.module').then( m => m.DetailProductPageModule)
+  },
 ];
 
 @NgModule({

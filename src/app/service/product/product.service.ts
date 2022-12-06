@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ProductService {
   public arrayDataProducts = new Array();
+  public arrayDetailProduct = new Array();
 
   constructor() { }
 
@@ -18,6 +19,14 @@ export class ProductService {
         this.arrayDataProducts[index] = element
       }
 
+    })
+  }
+
+  async getProductDetail(productId) {
+    await axios.get(`${environment.apiPath}/getProductoDetail?producto=${productId}`, environment.headerConfig).then(response => {
+      // console.log("PPRODUCT DETAIL")
+      // console.log(response.data.dataObjProduct)
+      this.arrayDetailProduct = response.data.dataObjProduct
     })
   }
 

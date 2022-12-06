@@ -163,6 +163,14 @@
   }
 }
 
+.i-after-arrow-down {
+  &::after {
+    content: $i-arrow-left;
+    display: block;
+    transform: rotate(-90deg);
+  }
+}
+
 .i-car {
   &::before {
     content: $i-car;

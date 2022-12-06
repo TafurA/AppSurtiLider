@@ -1,0 +1,66 @@
+<!-- Header component -->
+<app-header></app-header>
+
+<ion-content>
+
+  <div class="o-canvas">
+
+    <!-- Slider image -->
+    <div class="c-product-detail__star">
+      <ion-slides class="c-product-detail__wrap" pager="true" [options]="slideOpts">
+        <ion-slide  class="c-product-detail__slide" *ngFor="let img of product.galery">
+          <figure class="c-product-detail__figure">
+            <img class="c-product-detail__img o-img" src="{{ img }}" alt="">
+          </figure>
+        </ion-slide>
+      </ion-slides>
+
+      <span class="c-product-detail__ico i-star">50%</span>
+    </div>
+
+    <div class="c-product-detail__amount">
+
+      <div class="c-product-detai__box">
+        <span class="c-product-detai__price">${{ product.price }}</span>
+        <span class="c-product-detai__discount">$44.650</span>
+      </div>
+
+      <!-- Car component -->
+      <div></div>
+
+    </div>
+
+    <header class="c-detail-product__header">
+      <h1 class="c-detail-product__title">{{ product.name }}</h1>
+
+      <!-- Button add to favorites -->
+      <button
+        class="c-product__favorite i-heart-outline"
+        (click)="addProductToFavorite(productObject.code)"
+        *ngIf="!isFavorite;else buttonAddFavorite"
+      ></button>
+
+      <ng-template #buttonAddFavorite>
+        <button
+          class="c-product__favorite i-heart-fill"
+          (click)="removeProductToFavorite(productObject.code)"
+        ></button>
+      </ng-template>
+
+    </header>
+
+    <div class="c-detail-product__description">
+      <h2 class="c-detail-product__description-title">Detalles del producto</h2>
+      <p class="c-detail-product__lead">{{ product.description }}</p>
+      <button class="c-detail-product__link o-link o-link_secondary i-after-arrow-down">Ver más</button>
+    </div>
+
+  </div>
+
+  <!-- Product list compontent -->
+  <app-list-product></app-list-product>
+
+</ion-content>
+
+  <!-- Fixed bottom menu -->
+  <app-menu-fixed></app-menu-fixed>

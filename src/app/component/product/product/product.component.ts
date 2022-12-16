@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { FavoriteService } from 'src/app/service/favorite/favorite.service';
+import { ShopingCarService } from 'src/app/service/shoping-car.service';
 
 @Component({
   selector: 'app-product',
@@ -14,7 +15,7 @@ export class ProductComponent implements OnInit {
   public favoriteList = new Array();
   public isFavorite = false;
 
-  constructor(public favoriteService: FavoriteService) { }
+  constructor(public favoriteService: FavoriteService, public shopingCarService: ShopingCarService) { }
 
   ngOnInit() {
     if (window.location.pathname == "/favorite") {
@@ -63,5 +64,8 @@ export class ProductComponent implements OnInit {
     this.favoriteList = this.favoriteService.arrayFavorites()
   }
 
+  async getProductData(e) {
+    this.shopingCarService.saveIntoCar(e)
+  }
 
 }

@@ -24,8 +24,6 @@ export class ProductService {
 
   async getProductDetail(productId) {
     await axios.get(`${environment.apiPath}/getProductoDetail?producto=${productId}`, environment.headerConfig).then(response => {
-      // console.log("PPRODUCT DETAIL")
-      // console.log(response.data.dataObjProduct)
       this.arrayDetailProduct = response.data.dataObjProduct
     })
   }

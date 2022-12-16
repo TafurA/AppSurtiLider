@@ -1,4 +1,6 @@
-<article class="c-product">
+<article
+  class="c-product"
+>
 
   <div [routerLink]="['/detail-product', productObject.code]">
 
@@ -61,7 +63,10 @@
     </ng-template>
 
 
-    <button class="c-product__add i-plus"></button>
+    <button
+      class="c-product__add i-plus"
+      (click)="getProductData(productObject)"
+    ></button>
   </footer>
 
 </article>

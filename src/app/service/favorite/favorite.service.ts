@@ -61,18 +61,18 @@ export class FavoriteService {
   async getFavoriteProductsList() {
     this.arrayDataFavorites = []
 
-    await axios.get(`${environment.apiPath}getFavoritos?nitcli_b=${this.getClientCode()}`, environment.headerConfig).then(response => {
-      if (response.data.favorites) {
-        for (let index = 0; index < response.data.favorites.length; index++) {
-          const element = response.data.favorites[index];
-          this.arrayDataFavorites[index] = element
-        }
-        this.setIsFavoriteNull(false)
-      } else {
-        this.setIsFavoriteNull(true)
-      }
+    // await axios.get(`${environment.apiPath}getFavoritos?nitcli_b=${this.getClientCode()}`, environment.headerConfig).then(response => {
+      // if (response.data.favorites) {
+      //   for (let index = 0; index < response.data.favorites.length; index++) {
+      //     const element = response.data.favorites[index];
+      //     this.arrayDataFavorites[index] = element
+      //   }
+      //   this.setIsFavoriteNull(false)
+      // } else {
+      //   this.setIsFavoriteNull(true)
+      // }
 
-    })
+    // })
   }
 
   public arrayFavorites() {

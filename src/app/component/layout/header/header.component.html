@@ -6,13 +6,14 @@
         <img src="assets/image/logo_color.svg" alt="" class="o-img">
       </figure>
 
-      <div class="c-header__search">
+      <div class="c-header__search js-search-header" [ngClass]="{'is-none-car': productsIsNull, '': !productsIsNull}">
         <input type="text" class="c-header__search-input" placeholder="Buscar por producto">
         <label class="c-header__search-label i-search" for=""></label>
       </div>
 
-      <span class="c-header__car">
+      <span class="c-header__car js-ico-car" [ngClass]="{'test': productsIsNull, '': !productsIsNull}">
         <i class="i-car"></i>
+        <span class="c-header__car-number js-text-ico-car">{{ numberProductsCar }}</span>
       </span>
     </div>
 

@@ -54,9 +54,6 @@ export class ForgotPasswordService {
     await axios.get(`${environment.apiPath}/Verification?codigo=${securityCode}&email=${userEmail}`,
       environment.headerConfig).then(response => {
 
-        console.log("SECUIRY CODE", securityCode)
-        console.log(" USER", userEmail)
-
         if (response.data.response) {
           this.nvCtrl.navigateForward("/updated-password")
         } else {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { ProductService } from 'src/app/service/product/product.service';
+import { ShopingCarService } from 'src/app/service/shoping-car.service';
 
 @Component({
   selector: 'app-detail-product',
@@ -9,20 +10,35 @@ import { ProductService } from 'src/app/service/product/product.service';
 })
 export class DetailProductPage implements OnInit {
 
-
   public product = {
     code: "",
-    name: "",
+    nameProduct: "",
     description: "",
     price: "",
     discount: "",
-    galery: []
+    galery: [],
+    img_prod: ""
   }
 
-  constructor(public productService: ProductService, private rutaActiva: ActivatedRoute) { }
+  isProductInCar = false
+
+  counterProductsCar = 0
+
+  isDescriptionDropdown = false
+
+  constructor(public productService: ProductService, private rutaActiva: ActivatedRoute, public shopingCarService: ShopingCarService) {
+
+  }
 
   ngOnInit() {
     this.getProcessDataProductDetail();
+
+    const localStorageProduct = JSON.parse(localStorage.getItem("productsCar"))
+    localStorageProduct.forEach(element => {
+      if (element.productCode == this.product.code) {
+        this.counterProductsCar = element.quantityProduct
+      }
+    });
   }
 
   public slideOpts = {
@@ -121,19 +137,54 @@ export class DetailProductPage implements OnInit {
       (params: Params) => {
         this.product.code = params.productId;
         this.productService.getProductDetail(this.product.code).then(() => {
-          console.log("deta")
-          console.log(this.productService.arrayDetailProduct)
-          this.product.name = this.productService.arrayDetailProduct[0].nompro_b
+          this.product.nameProduct = this.productService.arrayDetailProduct[0].nompro_b
           this.product.description = this.productService.arrayDetailProduct[0].nomlar_b
           this.product.price = this.productService.arrayDetailProduct[0].precio
+          this.product.img_prod = this.productService.arrayDetailProduct[0].img_prod1
           this.product.galery.push(this.productService.arrayDetailProduct[0].img_prod1)
           this.product.galery.push(this.productService.arrayDetailProduct[0].img_prod2)
           this.product.galery.push(this.productService.arrayDetailProduct[0].img_prod3)
-          console.log(this.product.galery)
-        });
+        }).then(() => this.showDropdownDescription());
       }
     );
 
+  }
+
+  public showDropdownDescription() {
+    if (this.product.description.length > 180) {
+      this.isDescriptionDropdown = true
+    } else {
+      this.isDescriptionDropdown = false
+    }
+  }
+
+  public addQuantitifyProductToCar() {
+    this.shopingCarService.addProductQuantityDetail(this.product)
+  }
+
+  public removeQuantitifyProductToCar() {
+    this.shopingCarService.removeProductQuantity(this.product.code)
+
+    if (this.counterProductsCar == 0) {
+      const alert = document.querySelector(".js-alert-product")
+      alert.classList.add("is-show")
+      alert.classList.add("is-informative")
+      alert.querySelector(".c-product-alert__title").innerHTML = "Producto eliminado del carrito"
+
+      setTimeout(() => {
+        alert.classList.remove("is-show")
+      }, 3000)
+    }
+  }
+
+  async getProductData(e) {
+    this.shopingCarService.saveIntoCar(e)
+  }
+
+  toggleDropdown(e) {
+    e.target.closest(
+      ".o-detail__dropdown"
+    ).classList.toggle("is-dropdown-show")
   }
 
 }

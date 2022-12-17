@@ -88,6 +88,10 @@ const routes: Routes = [
     path: 'detail-product/:productId',
     loadChildren: () => import('./pages/detail-product/detail-product.module').then( m => m.DetailProductPageModule)
   },
+  {
+    path: 'detail-banner/:bannerId',
+    loadChildren: () => import('./pages/detail-banner/detail-banner.module').then( m => m.DetailBannerPageModule)
+  },
 ];
 
 @NgModule({

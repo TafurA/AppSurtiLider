@@ -7,7 +7,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class BannerService {
-
+  public arrayDataProducts = new Array();
+  public arrayDetailBanner = new Array();
   public arrayDataBanner = new Array();
 
   constructor() { }
@@ -22,7 +23,28 @@ export class BannerService {
     })
   }
 
+  async getBannerDetail(bannerId) {
+    await axios.get(`${environment.apiPath}/getDetailBanner?codigo=${bannerId}`, environment.headerConfig).then(response => {
+
+      this.arrayDetailBanner = response.data.dataBanner
+
+      for (let index = 0; index < response.data.dataProduct.length; index++) {
+        const element = response.data.dataProduct[index];
+        this.arrayDataProducts[index] = element
+      }
+
+    })
+  }
+
   public arrayBanner() {
     return this.arrayDataBanner
+  }
+
+  public arrayDataProductsBanner() {
+    return this.arrayDataProducts
+  }
+
+  public arrayDetailProductBanner() {
+    return this.arrayDetailBanner
   }
 }

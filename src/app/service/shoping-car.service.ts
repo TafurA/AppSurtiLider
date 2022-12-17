@@ -25,7 +25,7 @@ export class ShopingCarService {
   }
 
   public async getProductData(currentProduct) {
-    this.product.productCode = currentProduct.code
+    this.product.productCode = currentProduct.codeProduct
     this.product.nameProduct = currentProduct.nameProduct
     this.product.imgProduct = currentProduct.img_prod
     this.product.quantityProduct = 0;
@@ -83,25 +83,44 @@ export class ShopingCarService {
 
         for (let index = 0; index < newDataCarProducts.length; index++) {
           const element = newDataCarProducts[index];
-          if (element.productCode == this.product.productCode) {
-            this.product.quantityProduct = element.quantityProduct
+          if (element.productCode == product.productCode) {
+            product.quantityProduct = element.quantityProduct
             this.alertProduct("informative")
           } else {
             this.alertProduct("success")
           }
         }
 
-        newDataCarProducts.push(this.product) // Guarda producto actual
-        this.updateStorageCarProduct(newDataCarProducts, true, this.product.productCode) // Actualiza local storage
+        newDataCarProducts.push(product) // Guarda producto actual
+        this.updateStorageCarProduct(newDataCarProducts, true, product.productCode) // Actualiza local storage
 
       } else {
         // Guardar producto por primera vez
         this.products = []
-        this.product.quantityProduct = 0
-        this.products.push(this.product)
+        product.quantityProduct = 0
+
+        const temporalProduct = {
+          "productCode": "",
+          "nameProduct": "",
+          "imgProduct": "",
+          "quantityProduct": 0,
+          "priceFinal": 0,
+          "cantpun_b": 0,
+          "puntos": 0,
+          "valpun_b": "0",
+          "valor": "0"
+        }
+
+        temporalProduct.productCode = product.productCode
+        temporalProduct.nameProduct = product.nameProduct
+        temporalProduct.imgProduct = product.img_prod
+        temporalProduct.quantityProduct = product.quantityProduct
+
+        this.products.push(temporalProduct)
+
         localStorage.setItem("productsCar", JSON.stringify(this.products))
         this.alertProduct("success")
-        this.updateProductQuantity(product.code, "sum")
+        this.updateProductQuantity(temporalProduct.productCode, "sum")
       }
 
     }).finally(() => {

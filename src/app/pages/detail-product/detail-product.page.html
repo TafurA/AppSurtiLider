@@ -54,14 +54,14 @@
       <!-- Button add to favorites -->
       <button
         class="c-product__favorite i-heart-outline"
-        (click)="addProductToFavorite(productObject.code)"
+        (click)="addProductToFavorite(productObject.codeProduct)"
         *ngIf="!isFavorite;else buttonAddFavorite"
       ></button>
 
       <ng-template #buttonAddFavorite>
         <button
           class="c-product__favorite i-heart-fill"
-          (click)="removeProductToFavorite(productObject.code)"
+          (click)="removeProductToFavorite(productObject.codeProduct)"
         ></button>
       </ng-template>
 

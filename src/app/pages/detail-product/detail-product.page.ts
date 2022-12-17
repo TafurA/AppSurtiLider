@@ -11,13 +11,19 @@ import { ShopingCarService } from 'src/app/service/shoping-car.service';
 export class DetailProductPage implements OnInit {
 
   public product = {
-    code: "",
+    productCode: "",
     nameProduct: "",
     description: "",
     price: "",
-    discount: "",
+    imgProduct: "",
     galery: [],
-    img_prod: ""
+    discount: "",
+    quantityProduct: 0,
+    priceFinal: 0,
+    cantpun_b: 0,
+    puntos: 0,
+    valpun_b: "0",
+    valor: "0"
   }
 
   isProductInCar = false
@@ -33,12 +39,14 @@ export class DetailProductPage implements OnInit {
   ngOnInit() {
     this.getProcessDataProductDetail();
 
-    const localStorageProduct = JSON.parse(localStorage.getItem("productsCar"))
-    localStorageProduct.forEach(element => {
-      if (element.productCode == this.product.code) {
-        this.counterProductsCar = element.quantityProduct
-      }
-    });
+    if (localStorage.getItem("productsCar")) {
+      const localStorageProduct = JSON.parse(localStorage.getItem("productsCar"))
+      localStorageProduct.forEach(element => {
+        if (element.productCode == this.product.productCode) {
+          this.counterProductsCar = element.quantityProduct
+        }
+      });
+    }
   }
 
   public slideOpts = {
@@ -135,12 +143,12 @@ export class DetailProductPage implements OnInit {
   public async getProcessDataProductDetail() {
     this.rutaActiva.params.subscribe(
       (params: Params) => {
-        this.product.code = params.productId;
-        this.productService.getProductDetail(this.product.code).then(() => {
-          this.product.nameProduct = this.productService.arrayDetailProduct[0].nompro_b
-          this.product.description = this.productService.arrayDetailProduct[0].nomlar_b
+        this.product.productCode = params.productId;
+        this.productService.getProductDetail(this.product.productCode).then(() => {
+          this.product.nameProduct = this.productService.arrayDetailProduct[0].nameProduct
+          this.product.description = this.productService.arrayDetailProduct[0].descrProduct
           this.product.price = this.productService.arrayDetailProduct[0].precio
-          this.product.img_prod = this.productService.arrayDetailProduct[0].img_prod1
+          this.product.imgProduct = this.productService.arrayDetailProduct[0].img_prod1
           this.product.galery.push(this.productService.arrayDetailProduct[0].img_prod1)
           this.product.galery.push(this.productService.arrayDetailProduct[0].img_prod2)
           this.product.galery.push(this.productService.arrayDetailProduct[0].img_prod3)
@@ -163,7 +171,7 @@ export class DetailProductPage implements OnInit {
   }
 
   public removeQuantitifyProductToCar() {
-    this.shopingCarService.removeProductQuantity(this.product.code)
+    this.shopingCarService.removeProductQuantity(this.product.productCode)
 
     if (this.counterProductsCar == 0) {
       const alert = document.querySelector(".js-alert-product")

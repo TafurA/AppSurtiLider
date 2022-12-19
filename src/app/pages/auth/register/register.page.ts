@@ -1,6 +1,6 @@
 import { Component, OnInit ,ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, NavController } from '@ionic/angular';
 import {  ToastController } from '@ionic/angular';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
@@ -27,6 +27,8 @@ export class RegisterPage implements OnInit {
   public form1_2!: string;
   public form2  !: String;
   public form3  !: String;
+  public validarterminos!: String;
+  public validar!: String;
   public nomenclatura !: string;
   public nomenclatura2 !: string;
   public currentFood = undefined;
@@ -34,25 +36,25 @@ export class RegisterPage implements OnInit {
   //mostrar y ocultar
   public loader: any;
   public dataMunicipios:any;
-  public dataTipoCliente:any;
+  public listBarrios:any;
   public dataDireccion :any;
   public tipo1 =new Array;
   public tipo3=new Array;
   public tipo5 =new Array;
   public tipo6 =new Array;
   public tipo7 =new Array;
-
+  message = 'S';
   //modal direccion
   @ViewChild(IonModal) modal: IonModal;
-  message = 'h';
-
+  
   constructor(
     private RegisterService: RegisterService,
     private formBuilder: FormBuilder,
     private registerValidator: RegisterValidator,
-    private modalCtrl: ModalController,
     public loadingController: LoadingController,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private alertController: AlertController,
+    public nvCtrl: NavController
   ) {}
   ngOnInit() {
     this.form1 = "G";
@@ -61,10 +63,13 @@ export class RegisterPage implements OnInit {
     this.form2 = "";
     this.form3 = "";
     this.nomenclatura="";
+    this.validarterminos="";
+    this.validar="";
     this.BuildRegisterForm();
     this.municipios();
-    this.tipo_cliente();
+    this.barrios();
     this.DireccionNomenclaturas();
+    this.validarExistenciaDireccion();
   }
   tipo = [
     {
@@ -76,17 +81,11 @@ export class RegisterPage implements OnInit {
       name: 'NIT',
     }
   ];
-
-
-
+  
   public download(url){
     window.open(url, "_blank");
   }
 
-
-
-
- 
   private BuildRegisterForm() {
     //tipo
     const mintipoLength = 4;
@@ -161,10 +160,6 @@ export class RegisterPage implements OnInit {
                         Validators.minLength(maxdocLength),
                         Validators.maxLength(maxdocLength)  
                       ]],
-
-      tipo_tienda:    ['',[
-                        Validators.required,
-                      ]],
       establecimiento:['',[
                         Validators.pattern(letras), 
                         Validators.required,
@@ -173,28 +168,30 @@ export class RegisterPage implements OnInit {
       ver_direccion:  [ '',[
                         Validators.required
                       ]],
-      // barrio:         ['',[
-      //                   // Validators.pattern(letrasEspacio), 
-      //                   Validators.required,
-      //                   Validators.maxLength(maxRazonSocialLength) 
-      //                 ]],  
+      barrio:         ['',[
+                        Validators.required,
+                        Validators.maxLength(maxRazonSocialLength) 
+                      ]],  
       municipio:       ['',[
                         Validators.required,
                         Validators.maxLength(maxRazonSocialLength)
                        ]],
-      dirparam1:       [''],
+      vendedor:       ['',],
+      dirparam1:       ['',[Validators.required]],
       dirparam2:       ['',
-                        Validators.pattern(soloNumeros)        
-                       ],
+                        [Validators.required, 
+                        Validators.pattern(soloNumeros)
+                      ]],
       dirparam3:       [''],
       dirparam4:       [''],
       dirparam5:       ['',
-                        Validators.pattern(soloNumeros)        
-                       ],
+                          [Validators.required,
+                          Validators.pattern(soloNumeros)
+                        ]],
       dirparam6:       [''],
-      dirparam7:       ['',
-                          Validators.pattern(soloNumeros)        
-                        ],
+      dirparam7:       ['',[Validators.required,
+                          Validators.pattern(soloNumeros)
+                        ]],
       dirparam8:       [''],
       tratamientoDatos: ['', Validators.required
                         ]
@@ -204,28 +201,7 @@ export class RegisterPage implements OnInit {
   public getError(controlName: any) {
     return this.registerValidator.getError(controlName, this.RegisterForm);
   }
-  public async validarRegistro() {
-    const dataForm = this.RegisterForm.value;
-    if (dataForm.tipo_doc != "" || dataForm.documento != "" || dataForm.primerNombre != ""  || dataForm.primerApellido != "" || dataForm.segundoApellido != "" || dataForm.email != "" || dataForm.telefono != "" || dataForm.tipo_tienda != "" || dataForm.establecimiento != "" || dataForm.barrio != "" ) {
-      this.RegisterService.RegisterToSystem(dataForm.tipo_doc.id, 
-                                            dataForm.documento,
-                                            dataForm.primerNombre,
-                                            dataForm.segundoNombre,
-                                            dataForm.primerApellido,
-                                            dataForm.segundoApellido,
-                                            dataForm.razonSocial,
-                                            dataForm.digitoVer,
-                                            dataForm.email,
-                                            dataForm.telefono,
-                                            dataForm.tipo_tienda,
-                                            dataForm.establecimiento,
-                                            dataForm.ver_direccion,
-                                            dataForm.barrio,
-                                            dataForm.municipio);
-    }else{
-      alert("Los campos no están diligenciados correctamente, por favor verifique e intente nuevamente.");
-    }
-  }
+  
   // ocultar campos segun el tipo de dato
   public async obtenerTipoDoc(ev) {
     this.currentFood = ev.target.value;
@@ -233,80 +209,73 @@ export class RegisterPage implements OnInit {
     if (dataForm.tipo_doc.id === "C" ) {
       this.form1_1="mostrar";
       this.form1_2="";
-
+      this.RegisterForm.controls['razonSocial'].reset();
+      this.RegisterForm.controls['digitoVer'].reset();
     }
     if (dataForm.tipo_doc.id === "N" ) {
       this.form1_2="mostrar";
       this.form1_1="";
-      
+      this.RegisterForm.controls['documento'].reset();
+      this.RegisterForm.controls['primerNombre'].reset();
+      this.RegisterForm.controls['segundoNombre'].reset();
+      this.RegisterForm.controls['primerApellido'].reset();
+      this.RegisterForm.controls['segundoApellido'].reset();
     }
   }
   // mostrar seccion datos personales
   public async continuarform1() {
-    const dataForm = this.RegisterForm.value;
     this.form1="g";
     this.form2="";   
     this.form3="";
-    console.log(dataForm);
   }
   // mostrar seccion contacto
   public async continuarform2() {
-    const dataForm = this.RegisterForm.value;
-    if (dataForm.tipo_doc.id==null || dataForm.tipo_doc.id && ((dataForm.documento=="" || dataForm.primerNombre=="" || dataForm.primerApellido=="" ) && (dataForm.razonSocial=="" || dataForm.digitoVer==""  ) )) {     
+      if ((this.RegisterForm.controls['tipo_doc'].invalid || this.RegisterForm.controls['documento'].invalid || this.RegisterForm.controls['digitoVer'].invalid ||  this.RegisterForm.controls['razonSocial'].invalid) &&( this.RegisterForm.controls['tipo_doc'].invalid || this.RegisterForm.controls['documento'].invalid || this.RegisterForm.controls['primerNombre'].invalid ||  this.RegisterForm.controls['segundoNombre'].invalid || this.RegisterForm.controls['primerApellido'].invalid || this.RegisterForm.controls['segundoApellido'].invalid )  ) {       
       this.form1= "1";
       this.form2="";
       this.form3="";
-      this.presentToast("Por favor, diligencie los datos del formulario", "Error", 'is-success');
+      this.RegisterService.presentAlert( 'Por favor Diligencie correctamente el formulario');
     }
     else{
       this.form1= "";
       this.form2="g";
       this.form3="";
     }
-
-    console.log(dataForm);
   }
   // mostrar seccion entrega
   public async continuarform3() {
-    const dataForm = this.RegisterForm.value;
-    if (dataForm.tipo_doc.id==null || dataForm.tipo_doc.id && ((dataForm.documento=="" || dataForm.primerNombre=="" || dataForm.primerApellido=="" ) && (dataForm.razonSocial=="" || dataForm.digitoVer==""  ) )) {     
-    const dataForm = this.RegisterForm.value;
+    if ((this.RegisterForm.controls['tipo_doc'].invalid || this.RegisterForm.controls['documento'].invalid || this.RegisterForm.controls['digitoVer'].invalid || this.RegisterForm.controls['razonSocial'].invalid) &&( this.RegisterForm.controls['tipo_doc'].invalid || this.RegisterForm.controls['documento'].invalid || this.RegisterForm.controls['primerNombre'].invalid ||  this.RegisterForm.controls['segundoNombre'].invalid || this.RegisterForm.controls['primerApellido'].invalid || this.RegisterForm.controls['segundoApellido'].invalid )){
     this.form1="1";
     this.form2="";
     this.form3="";
-    console.log(dataForm);
-  }else if (dataForm.email=="" || dataForm.telefono =="") {
+    this.RegisterService.presentAlert('Por favor Diligencie correctamente el formulario');
+  }else if (this.RegisterForm.controls['email'].invalid || this.RegisterForm.controls['telefono'].invalid) {
       this.form1="";
       this.form2="2";
       this.form3="";
-      this.presentToast("Por favor, diligencie los datos del formulario", "Error", 'is-success');
+      this.RegisterService.presentAlert('Por favor Diligencie correctamente el formulario');
     }else{
       this.form1="";
       this.form2="";
       this.form3="3";
     }
   }
-
    // datos input municipios 
    public async municipios(){
-    const dataForm=this.RegisterForm.value;
     await this.RegisterService.tbl_municipios().then(() => {
       if (this.RegisterService.confirmDataMunicipios()[0]) {
-
         this.dataMunicipios =this.RegisterService.confirmDataMunicipios();
       }else{
         console.log("error");
       }
-
     });
     
   }
-  //Tipo de tienda // POR ACTUALIZAR A BARRIOS
-  public async tipo_cliente(){
-    const dataForm=this.RegisterForm.value;
-    await this.RegisterService.tbl_tipoCliente().then(() => {
-      if (this.RegisterService.confirmDataTipoCliente()[0]) {
-        this.dataTipoCliente =this.RegisterService.confirmDataTipoCliente();
+  // datos input barrios
+  public async barrios(){
+    await this.RegisterService.tbl_barrio().then(() => {
+      if (this.RegisterService.confirmBarrios()[0]) {
+        this.listBarrios =this.RegisterService.confirmBarrios();
       }else{
         console.log("error");
       }
@@ -314,43 +283,88 @@ export class RegisterPage implements OnInit {
   }
  // //direccion
  public async DireccionNomenclaturas(){
-
   await this.RegisterService.DireccionNomenclaturas().then(() => {
-
     if (this.RegisterService.ConfirmDireccion()[0]) {
-
       this.dataDireccion =this.RegisterService.ConfirmDireccion();
-        //extraer nomenclaturas
-        this.tipo1= this.dataDireccion.filter(objeto=>objeto.tipo==1);
-        this.tipo3= this.dataDireccion.filter(objeto=>objeto.tipo==3);
-        this.tipo5= this.dataDireccion.filter(objeto=>objeto.tipo==5);
-        this.tipo6= this.dataDireccion.filter(objeto=>objeto.tipo==6);
-        this.tipo7= this.dataDireccion.filter(objeto=>objeto.tipo==7);
-  }
+      //extraer nomenclaturas
+      this.tipo1= this.dataDireccion.filter(objeto=>objeto.tipo==1);
+      this.tipo3= this.dataDireccion.filter(objeto=>objeto.tipo==3);
+      this.tipo5= this.dataDireccion.filter(objeto=>objeto.tipo==5);
+      this.tipo6= this.dataDireccion.filter(objeto=>objeto.tipo==6);
+      this.tipo7= this.dataDireccion.filter(objeto=>objeto.tipo==7);
+    }
   });
 }  
 
+public async validarTerminos(ev){
+  if (ev.target.value) {
+    this.validarterminos="habilitar";
+  }else{
+    this.validarterminos="";
+  }
+ }
 //validar nomenclatura
 public async validarNomenclatura(ev){
   this.validarNomenc = ev.target.value;
   const dataForm = this.RegisterForm.value;
-  console.log(dataForm.dirparam1);
+  if(dataForm.dirparam1 == "CALLE" ){
+    this.nomenclatura="Mostrar";
+  }else{
+    this.nomenclatura="";
+  }
+  if(dataForm.dirparam1 == "CARRERA" ){
+    this.nomenclatura2="Mostrar";
+  }else{
+    this.nomenclatura2="";
+  }
+}
+  public async validarExistenciaDireccion(){
     
-    if(dataForm.dirparam1 == "CALLE" ){
-      this.nomenclatura="Mostrar";
-      // console.log(this.nomenclatura);
+    if (this.RegisterForm.controls['ver_direccion'].invalid || this.RegisterForm.controls['ver_direccion'].value == " " ) {
+        this.validar="";
+        console.log(this.validar)
     }else{
-      this.nomenclatura="";
+      this.validar="OK";
+      console.log(this.validar)
     }
-    if(dataForm.dirparam1 == "CARRERA"  ){
-      this.nomenclatura2="Mostrar";
-      // console.log(this.nomenclatura2);
-    }else{
-      this.nomenclatura2="";
-    }
+    
   }
 
-  
+  public async validarRegistro() {
+    const dataForm = this.RegisterForm.value;
+    
+    if( dataForm.digitoVer ){
+      dataForm.documento+="-"+ dataForm.digitoVer;
+      console.log(dataForm.documento);
+    }
+    dataForm.ver_direccion= dataForm.dirparam1 + ' ' + 
+                            dataForm.dirparam2 + ' ' +
+                            dataForm.dirparam3 + ' ' +
+                            dataForm.dirparam4 + ' ' +
+                            dataForm.dirparam5 + ' ' +
+                            dataForm.dirparam6 + ' ' +
+                            dataForm.dirparam7 + ' ' +
+                            dataForm.dirparam8;
+
+    if (this.RegisterForm.controls['barrio'].valid && this.RegisterForm.controls['establecimiento'].valid && this.RegisterForm.controls['municipio'].valid  && this.RegisterForm.controls['dirparam1'].valid  && this.RegisterForm.controls['dirparam2'].valid && this.RegisterForm.controls['dirparam5'].valid && this.RegisterForm.controls['dirparam7'].valid) {
+      this.RegisterService.RegisterToSystem(dataForm.tipo_doc.id, 
+                                            dataForm.documento,
+                                            dataForm.primerNombre,
+                                            dataForm.segundoNombre,
+                                            dataForm.primerApellido,
+                                            dataForm.segundoApellido,
+                                            dataForm.razonSocial,
+                                            dataForm.email,
+                                            dataForm.telefono,
+                                            dataForm.establecimiento,
+                                            dataForm.ver_direccion,
+                                            dataForm.barrio,
+                                            dataForm.municipio,
+                                            dataForm.vendedor);
+    }else{
+      this.RegisterService.presentAlert('Por favor Diligencie correctamente el formulario');
+    }
+  }
   //modal direccion
   cancel() {
     this.modal.dismiss(null, 'cancel');
@@ -376,28 +390,6 @@ public async validarNomenclatura(ev){
       console.log(dataForm);
       
     }
-  }
-  async showLoader() {
-    this.loader = await this.loadingController.create({
-      spinner: "bubbles",
-      translucent: true,
-      cssClass: 'o-loader'
-    });
-    await this.loader.present();
-  }
-  async removeLoader() {
-    this.loader = await this.loadingController.dismiss();
-  }
-  async presentToast(title: string, description: string, alertType: string) {
-    const toast = await this.toastController.create({
-      header: title,
-      message: description,
-      duration: 2500,
-      position: 'bottom',
-      cssClass: `c-alert ${alertType}`,
-    });
-
-    await toast.present();
   }
 
 }

@@ -89,41 +89,32 @@
 
       <ul class="c-cashback__list">
 
-        <div class="o-ticket-wrap">
-          <input type="radio" id="cashback0" name="cashback" value="256581">
+        <div *ngFor="let cashback of arrayCashback" class="o-ticket-wrap" (click)="selectCashback(cashback)">
+          <input type="radio" id="{{ cashback.referencia }}" name="cashback" value="{{ cashback.referencia }}">
 
-          <label class="o-ticket" for="cashback0">
+          <label class="o-ticket" for="{{ cashback.referencia }}">
   
-  
-            <p class="o-ticket__title">Fecha pedido:  <strong>22 de Julio 2022</strong></p>
-  
+            <p class="o-ticket__title">Fecha pedido:  <strong>{{ cashback.fecha }}</strong></p>
             <p>
-              <span class="o-ticket__price">$50.000</span>
+              <span class="o-ticket__price">${{ cashback.dinero }}</span>
               <span class="o-ticket__price-value">COP</span>
             </p>
             <span class="o-ticket__txt">Disponible</span>
   
-          </label>
-        </div>
-
-        <div class="o-ticket-wrap">
-          <input type="radio" id="cashback1" name="cashback" value="123456">
-
-          <label class="o-ticket" for="cashback1">
-
-
-            <p class="o-ticket__title">Fecha pedido:  <strong>22 de Julio 2022</strong></p>
-
-            <p>
-              <span class="o-ticket__price">$50.000</span>
-              <span class="o-ticket__price-value">COP</span>
-            </p>
-            <span class="o-ticket__txt">Disponible</span>
-
           </label>
         </div>
 
       </ul>
+
+    </div>
+
+    <div class="c-cashback-box"  [ngClass]="{'test': productsIsNull, '': !productsIsNull}">
+
+      <header class="c-cashback-box__header c-cashback-box__header_cash">
+        <h4 class="c-cashback-box__title">Descuento cashback</h4>
+
+        <strong class="c-cashback-box__price">$ - {{ totalCashback }} COP</strong>
+      </header> 
 
     </div>
 
@@ -132,10 +123,8 @@
       <header class="c-cashback-box__header">
         <h4 class="c-cashback-box__title">Total</h4>
 
-        <strong class="c-cashback-box__price">$ {{ getPriceProcess() }} COP</strong>
+        <strong class="c-cashback-box__price">$ {{ totalProductPriceProcess }} COP</strong>
       </header> 
-
-      <span></span>
 
     </div>
 

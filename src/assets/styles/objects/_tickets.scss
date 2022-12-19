@@ -15,8 +15,6 @@
   }
 
   input:checked+.o-ticket {
-    background-color: red;
-
     &::before {
       content: "";
       position: absolute;

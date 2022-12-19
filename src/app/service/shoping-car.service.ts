@@ -281,15 +281,14 @@ export class ShopingCarService {
   }
 
   public async getClientCashback(userCredential) {
-    // userCredential = 420212
     // https://201.217.221.222:9001/IntranetSurti/WebServicesSurtiAppRest/accumulatedMoney?codigo=420212
     await axios.get(`${environment.apiPath}/accumulatedMoney?codigo=${userCredential}`, environment.headerConfig).then(response => {
 
       console.log(response)
-      // for (let index = 0; index < response.data.data.length; index++) {
-      //   const element = response.data.data[index];
-      //   this.arrayDataCashback[index] = element
-      // }
+      for (let index = 0; index < response.data.data.length; index++) {
+        const element = response.data.data[index];
+        this.arrayDataCashback[index] = element
+      }
 
     })
   }

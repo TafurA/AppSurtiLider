@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MarcasService {
   public arrayDataMarcas = new Array();
   public arrayDataSubProvider;
   public isProductsNull = false;
 
-  constructor() { }
+  constructor(private http: HTTP) { }
 
   async getListMarcas() {
-    await axios.get(`${environment.apiPath}/getProvider`, environment.headerConfig).then(response => {
+    await this.http.get(`${environment.apiPath}/getProvider`, {}, environment.headerConfig).then(response => {
 
       for (let index = 0; index < response.data.data.length; index++) {
         const element = response.data.data[index];

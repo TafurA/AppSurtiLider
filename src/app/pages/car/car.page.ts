@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TestObject } from 'protractor/built/driverProviders';
+import { LoginService } from 'src/app/service/login/login.service';
 import { ShopingCarService } from 'src/app/service/shoping-car.service';
 
 @Component({
@@ -10,15 +11,24 @@ import { ShopingCarService } from 'src/app/service/shoping-car.service';
 export class CarPage implements OnInit {
 
   public arrayProducts = new Array()
+  public arrayCashback = new Array()
   isRemoved = false;
+  isCashbackApply = false
   public totalProductPrice: any = 0
+  public totalProductPriceProcess: any = 0
+  public totalCashback: any = 0
 
-  constructor(public alertController: AlertController, public shopingService: ShopingCarService) { }
+  constructor(public alertController: AlertController, public shopingService: ShopingCarService, public loginService: LoginService) { }
 
   ngOnInit() {
     this.setProductsIntoArray()
     this.getPriceTotalProducts()
-    this.shopingService.getClientCashback("420212")
+    this.getPriceProcess()
+    this.shopingService.getClientCashback(this.loginService.validateSession()['codcli_b']).then(() => {
+      console.log("CAR PAGE")
+      this.arrayCashback = this.shopingService.arrayDataCashback
+      console.log(this.arrayCashback)
+    })
   }
 
   public getCarLocalStorage() {
@@ -68,8 +78,17 @@ export class CarPage implements OnInit {
     });
   }
 
-  public getPriceProcess() {
-    return parseFloat(this.totalProductPrice).toFixed(3)
+  public selectCashback(cashbackObject) {
+    let totalWithCashback = 0
+    totalWithCashback = this.getPriceProcess() - parseFloat(cashbackObject.dinero)
+    this.totalCashback = parseFloat(cashbackObject.dinero).toFixed(3)
+    this.totalProductPriceProcess = totalWithCashback.toFixed(3)
+    return this.totalProductPriceProcess
+  }
+
+  public getPriceProcess(): any {
+    this.totalProductPriceProcess = parseFloat(this.totalProductPrice).toFixed(3)
+    return this.totalProductPriceProcess
   }
 
   async presentAlert() {

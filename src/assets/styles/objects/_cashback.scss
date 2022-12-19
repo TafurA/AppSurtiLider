@@ -61,6 +61,15 @@
   justify-content: space-between;
 }
 
+.c-cashback-box__header_cash {
+  color: $c-secondary;
+
+  .c-cashback-box__title,
+  .c-cashback-box__price {
+    font-size: 14px;
+  }
+}
+
 .c-cashback-box__price,
 .c-cashback-box__title {
   font-family: $f-title;

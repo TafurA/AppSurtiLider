@@ -30,6 +30,7 @@
 
       <!-- datos presonales -->
       <fieldset class="o-form__fieldset" *ngIf="form1" >
+        <!-- <fieldset class="o-form__fieldset" > -->
         
         
         <div class="o-form__field">
@@ -49,7 +50,7 @@
           <span class="o-form__error">{{ getError('tipo_doc')}}</span> 
        </div>
 
-        <div class="o-form__field" *ngIf="form1_1">
+        <div class="o-form__field">
           <div class="o-form__field-wrap">
             <input
               
@@ -98,7 +99,7 @@
               id="primerApellido"
               class="input-colum2"
               type="text"
-              placeholder="Apellido Paterno"
+              placeholder="Primer Apellido"
               formControlName="primerApellido"
             >
             
@@ -112,13 +113,27 @@
               id="segundoApellido"
               class="input-colum2"
               type="text"
-              placeholder="Apellido Materno"
+              placeholder="Segundo Materno"
               formControlName="segundoApellido"
             >
             
           </div>
           <span class="o-form__error">{{ getError('segundoApellido')}}</span>
         </div>  
+
+          <div class="o-form__field" *ngIf="form1_2">
+            <div class="o-form__field-wrap">
+              <input
+                
+                id="digitoVer"
+                class="o-form__input"
+                type="text"
+                placeholder="Digito de Verificación (si no tiene '0')"
+                formControlName="digitoVer"
+              >
+            </div>
+            <span class="o-form__error">{{ getError('digitoVer')}}</span>
+        </div>
         <div class="o-form__field" *ngIf="form1_2">
             <div class="o-form__field-wrap">
               <input
@@ -132,20 +147,7 @@
             </div>
             <span class="o-form__error">{{ getError('razonSocial')}}</span>
         </div>
-        <div class="o-form__field" *ngIf="form1_2">
-          <div class="o-form__field-wrap">
-            <input
-              
-              id="digitoVer"
-              class="o-form__input"
-              type="text"
-              placeholder="Digito de Verificación"
-              formControlName="digitoVer"
-            >
-          </div>
-          <span class="o-form__error">{{ getError('digitoVer')}}</span>
-      </div>
-  
+       
         <div  class="o-form__actions">
           <button class="o-button" (click)="continuarform2();">Continuar</button>
         </div>
@@ -160,7 +162,8 @@
       </fieldset>
       
       <!-- contacto -->
-     <fieldset  class="o-form__fieldset"  *ngIf="form2">
+     <!-- <fieldset  class="o-form__fieldset"  > -->
+      <fieldset  class="o-form__fieldset"  *ngIf="form2">
         
         <div class="o-form__field">
           <div class="o-form__field-wrap">
@@ -178,7 +181,6 @@
         <div class="o-form__field">
           <div class="o-form__field-wrap">
             <input
-              
               id="telefono"
               class="o-form__input"
               type="tel"
@@ -204,7 +206,8 @@
       </fieldset>
 
        <!--  Entrega -->
-      <fieldset class="o-form__fieldset" *ngIf="form3">
+      <!-- <fieldset class="o-form__fieldset" > -->
+        <fieldset class="o-form__fieldset" *ngIf="form3">
 
 
         <div class="o-form__field">
@@ -234,18 +237,23 @@
           <!-- <span class="o-form__error">{{ getError('ver_direccion')}}</span>  -->
         </div>
 
-        <!-- <div class="o-form__field">
+        <div class="o-form__field">
           <div class="o-form__field-wrap">
-            <input
+            <ion-select 
+            interface="popover"
               id="barrio"
               class="o-form__input"
               type="text"
               placeholder="barrio"
               formControlName="barrio"
             >
+            <ion-select-option *ngFor="let datos of listBarrios" value="{{datos.desbar_b}}" >
+              {{datos.desbar_b}}
+            </ion-select-option>
+          </ion-select>
           </div>
            <span class="o-form__error">{{ getError('barrio')}}</span> 
-        </div> -->
+        </div>
         <div class="o-form__field">
           <div class="o-form__field-wrap">
             
@@ -256,57 +264,53 @@
               placeholder="municipio"
               formControlName="municipio"
             >
-              <ion-select-option *ngFor="let datos of dataMunicipios" value="{{datos.codigo}}" >
+              <ion-select-option *ngFor="let datos of dataMunicipios" value="{{datos.nombre}}" >
                 {{datos.nombre}}
               </ion-select-option>
             </ion-select>
           </div>
            <span class="o-form__error">{{ getError('municipio')}}</span> 
         </div>
-
-
         <div class="o-form__field">
-          <div class="o-form__field-wrap">
-            <ion-select interface="popover"
-                        placeholder="Barrio" 
-                        id="tipo_tienda" 
-                        formControlName="tipo_tienda" >
-                        <ion-select-option *ngFor="let datos of dataTipoCliente" value="{{datos.codtip_b}}" >
-                          {{datos.destip_b}}
-
-                        </ion-select-option>
-            </ion-select>
+          <div class="o-form__field">
+            <div class="o-form__field-wrap">
+              
+              <input 
+                interface="popover"
+                id="vendedor"
+                class="o-form__input"
+                placeholder="Login del Vendedor"
+                formControlName="vendedor"
+              >
+            </div> 
           </div>
-          <span class="o-form__error">{{ getError('tipo_tienda')}}</span> 
-       </div>
-        <div class="o-form__field">
+        </div>
+          <div class="o-form__field">
 
-              <ion-list>
-                
-                <ion-radio-group [allowEmptySelection]="true" >
+        <ion-list>
+          
+          <ion-radio-group [allowEmptySelection]="true" (ionChange)="validarTerminos($event)">
 
 
-                  <ion-item>
-                    <ion-label class="descargarPDF"> 
-                      <a (click)="download('https://surtilider.com/files/SURTILIDER%20POLITICA%20HABEAS%20DATA.pdf')">
-                       
-                          Tratamiento de datos personales
-                        </a>
-                    </ion-label>
-                    <ion-radio slot="end"
-                                color="secondary" 
-                                value="tratamientoAceptado"
-                                id="tratamientoDatos"
-                                formControlName="tratamientoDatos"></ion-radio>
-                  </ion-item>
-                  
-                </ion-radio-group>
-                
-              </ion-list>
-            <span class="o-form__error">{{ getError('tratamientoDatos')}}</span> 
+            <ion-item>
+              <ion-label class="descargarPDF"> 
+                <a (click)="download('https://surtilider.com/files/SURTILIDER%20POLITICA%20HABEAS%20DATA.pdf')">
+                    Aceptar Tratamiento De Datos Personales
+                  </a>
+              </ion-label>
+              <ion-radio slot="end"
+                          color="secondary"
+                          id="tratamientoDatos"
+                          ></ion-radio>
+            </ion-item>
+            
+          </ion-radio-group>
+          
+        </ion-list>
+            <!-- <span class="o-form__error">{{ getError('tratamientoDatos')}}</span>  -->
         </div>
         <div  class="o-form__actions">
-          <button class="o-button " (click)="validarRegistro()">Ingresar</button>
+          <button class="o-button " [disabled]="!validarterminos && !validar"  (click)="validarRegistro()">Ingresar</button>
         </div>
         <footer>
           <figure class="c-foot-back__brand o-logo">
@@ -351,6 +355,7 @@
                 <div class="o-form__field content">
                   <div class="content-input" >
                     <ion-input
+                    
                       id="dirparam2"
                       class="input"
                       type="tel"
@@ -388,6 +393,7 @@
                   <div class="o-form__field content">
                     <div class="content-input" >
                       <ion-select
+                        interface="popover"
                         id="param4"
                         class="input"
                         placeholder="mostrar"
@@ -415,10 +421,6 @@
                 </div>
             
               </div>
-              
-
-              
-     
               <div class="section-dir">
             
                 <div class="o-form__field content">
@@ -453,6 +455,7 @@
                 <div class="o-form__field content">
                   <div class="content-input" >
                     <ion-select
+                      interface="popover"
                       id="param8"
                       class="input"
                       placeholder="mostrar"
@@ -465,54 +468,10 @@
                   </div>
                 </div>
               </div>
-            
-              <!-- <div class="section-dir">
-            
-                
-                <div class="o-form__field content">
-                  <div class="content-input" >
-                    <ion-input
-                      id="param6"
-                      class="input"
-                      placeholder="#"
-                      type="tel"
-                      formControlName="dirparam6"
-                    >
-                    </ion-input>
-                  </div>                     
-                </div>
-              </div> -->
-              <!-- <div class="section-dir content">
-                <div class="o-form__field">
-                  <div class="content-input" >
-                    <ion-select
-                      id="param7"
-                      class="input"
-                      placeholder="Seleccione"
-                      formControlName="dirparam7"
-                    >
-                    <ion-select-option  *ngFor="let param of tipo6" value="{{param.descripcion}}"> {{param.descripcion}} </ion-select-option>
-                    
-                    </ion-select>
-                  </div>
-                </div>
-                <div class="o-form__field content">
-                  <div class="content-input" >
-                    <ion-input
-                      id="param8"
-                      class="input"
-                      placeholder="#"
-                      type="tel"
-                      formControlName="dirparam8"
-                    >
-                    </ion-input>
-                  </div>                     
-                </div>
-              </div> -->
               
               <div class="section-dir">
 
-                <button class="o-button btn-modal" (click)="confirm()">Guardar</button>
+                <button class="o-button btn-modal"  (click)="confirm()" >Guardar</button>
               </div>
             </ion-content>
           </ng-template>

@@ -96,6 +96,19 @@ const routes: Routes = [
     path: 'car',
     loadChildren: () => import('./pages/car/car.module').then( m => m.CarPageModule)
   },
+
+  {
+    path: 'poll',
+    loadChildren: () => import('./pages/poll/poll.module').then( m => m.PollPageModule)
+  },
+  {
+    path: 'update-personal-data',
+    loadChildren: () => import('./pages/update-personal-data/update-personal-data.module').then( m => m.UpdatePersonalDataPageModule)
+  },
+  {
+    path: 'update-credentials',
+    loadChildren: () => import('./pages/update-credentials/update-credentials.module').then( m => m.UpdateCredentialsPageModule)
+  },
 ];
 
 @NgModule({

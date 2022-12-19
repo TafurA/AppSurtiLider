@@ -1,6 +1,6 @@
 import { AbstractControl, FormGroup } from '@angular/forms';
 
-export class RegisterValidator {
+export class UpdatePersonalData {
 
   /**
    * Custom message for the inputs error of form.
@@ -9,6 +9,17 @@ export class RegisterValidator {
 
   constructor() { }
 
+  // public validatePassword(control: AbstractControl) {
+  //   const password = control.value;
+  //   let error = null;
+  //   if (!password.includes('$')) {
+  //     error = { ...error, dollar: 'needs a dollar symbol' };
+  //   }
+  //   if (!parseFloat(password[0])) {
+  //     error = { ...error, number: 'must start with a number' };
+  //   }
+  //   return error;
+  // }
 
   /**
    * Show and validate the respective error of input.
@@ -55,6 +66,7 @@ export class RegisterValidator {
       parentInput.classList.remove("is-field-error")
     }
   }
+
 
 
 }

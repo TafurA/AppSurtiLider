@@ -49,3 +49,62 @@
   font-family: $f-title;
   font-size: 24px;
 }
+
+.c-cashback-box {
+  padding: 16px 0;
+  border-bottom: 1px solid $c-gray-20;
+}
+
+.c-cashback-box__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.c-cashback-box__price,
+.c-cashback-box__title {
+  font-family: $f-title;
+}
+
+.c-cashback-box__title {
+  &::before {
+    margin-right: 8px;
+  }
+}
+
+.c-cashback-box {
+  .o-link {
+    &::after {
+      transition: all 0.2s ease-in;
+    }
+  }
+
+  &.is-dropdown-show {
+    .o-link {
+      &::after {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
+
+.c-cashback-box__price {
+  font-size: 18px;
+}
+
+.c-cashback-box__btn {
+  min-width: 100%;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.c-cashback__list {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+
+  .is-dropdown-show & {
+    max-height: 50000px;
+    margin-top: 16px;
+  }
+}

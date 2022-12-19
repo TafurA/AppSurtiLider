@@ -1,0 +1,146 @@
+<ion-content>
+
+  <!-- Header back -->
+  <app-header-back></app-header-back>
+
+  <div class="o-canvas">
+
+    <header class="o-headline">
+      <h1 class="o-title">Mi carrito ({{ currentProductsCarNumber() }})</h1>
+    </header>
+
+    <div class="c-product-list">
+
+      <article *ngFor="let productObject of arrayProducts">
+
+        <div class="c-product-car">
+
+          <!-- Image and title -->
+          <figure class="c-product__figure">
+
+            <img
+            src="{{ productObject.imgProduct }}" alt="" class="c-product__img" *ngIf="productObject.imgProduct != 'http://intranet.surtilider.com:9090/IntranetSurti/Temp/fotosApp/producto-sin-imagen.jpg';else productImageNull">
+
+            <!-- Only for products without image -->
+            <ng-template #productImageNull>
+              <img src="{{ productObject.imgProduct }}" alt="" class="c-product__img c-product__img_null">
+            </ng-template>
+
+          </figure>
+
+          <div>
+            <h3 class="c-product__title" *ngIf="productObject.nameProduct != null">
+              {{ productObject.nameProduct }}
+            </h3>
+
+            <!-- Value and discount -->
+            <div>
+              <div class="c-product__ico c-product__ico_discount i-star" data-percent="20%">
+                <span class="c-product__ico-txt">$7586</span>
+              </div>
+
+              <span class="c-product__amount">
+                ${{ productObject.price }}
+
+                <p class="c-product-horizontal__amount-wrap">
+                  Cantidad:
+                  <span class="c-product-horizontal__amount">
+                    {{ productObject.quantityProduct }}
+                  </span>
+                </p>
+              </span>
+
+
+              <!-- <div class="c-product__ico c-product__ico_cash i-cash">
+                                        <span class="c-product__ico-txt">Recibe cashback</span>
+                                      </div> -->
+
+            </div>
+          </div>
+
+          <!-- Call to action -->
+          <footer>
+            <button
+              class="c-product-car__action i-pin"
+              [routerLink]="['/detail-product', productObject.productCode]"
+            ></button>
+            <button
+              (click)="removeProductIntoCar(productObject.productCode)"
+              class="c-product-car__action i-home"
+            ></button>
+          </footer>
+
+        </div>
+
+      </article>
+
+    </div>
+
+    <div class="c-cashback-box js-car-dropdown">
+
+      <header class="c-cashback-box__header" (click)="toggleDropdown($event)">
+        <h4 class="c-cashback-box__title i-home">Descuento por cashback</h4>
+        <button
+          class="o-link o-link_secondary i-after-arrow-down"
+        >
+          Aplicar
+        </button>
+      </header>
+
+      <ul class="c-cashback__list">
+
+        <div class="o-ticket-wrap">
+          <input type="radio" id="cashback0" name="cashback" value="256581">
+
+          <label class="o-ticket" for="cashback0">
+  
+  
+            <p class="o-ticket__title">Fecha pedido:  <strong>22 de Julio 2022</strong></p>
+  
+            <p>
+              <span class="o-ticket__price">$50.000</span>
+              <span class="o-ticket__price-value">COP</span>
+            </p>
+            <span class="o-ticket__txt">Disponible</span>
+  
+          </label>
+        </div>
+
+        <div class="o-ticket-wrap">
+          <input type="radio" id="cashback1" name="cashback" value="123456">
+
+          <label class="o-ticket" for="cashback1">
+
+
+            <p class="o-ticket__title">Fecha pedido:  <strong>22 de Julio 2022</strong></p>
+
+            <p>
+              <span class="o-ticket__price">$50.000</span>
+              <span class="o-ticket__price-value">COP</span>
+            </p>
+            <span class="o-ticket__txt">Disponible</span>
+
+          </label>
+        </div>
+
+      </ul>
+
+    </div>
+
+    <div class="c-cashback-box">
+
+      <header class="c-cashback-box__header">
+        <h4 class="c-cashback-box__title">Total</h4>
+
+        <strong class="c-cashback-box__price">$ {{ getPriceProcess() }} COP</strong>
+      </header> 
+
+      <span></span>
+
+    </div>
+
+    <button class="c-cashback-box__btn o-button">Continuar</button>
+
+  </div>
+
+</ion-content>

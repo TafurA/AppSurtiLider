@@ -143,11 +143,12 @@ export class DetailProductPage implements OnInit {
   public async getProcessDataProductDetail() {
     this.rutaActiva.params.subscribe(
       (params: Params) => {
+        console.log("this.productService.arrayDetailProduct[0]")
         this.product.productCode = params.productId;
         this.productService.getProductDetail(this.product.productCode).then(() => {
           this.product.nameProduct = this.productService.arrayDetailProduct[0].nameProduct
           this.product.description = this.productService.arrayDetailProduct[0].descrProduct
-          this.product.price = this.productService.arrayDetailProduct[0].precio
+          this.product.price = this.productService.arrayDetailProduct[0].precioSinDcto
           this.product.imgProduct = this.productService.arrayDetailProduct[0].img_prod1
           this.product.galery.push(this.productService.arrayDetailProduct[0].img_prod1)
           this.product.galery.push(this.productService.arrayDetailProduct[0].img_prod2)

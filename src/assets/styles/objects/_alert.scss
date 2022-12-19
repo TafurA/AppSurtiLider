@@ -60,6 +60,26 @@
 
 }
 
+.c-alert_product {
+  .alert-head {
+    max-width: 250px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .alert-button-group {
+    justify-content: center;
+  }
+
+  .alert-button-role-cancel {
+    color: $c-secondary;
+  }
+
+  .alert-button-role-confirm {
+    color: $c-primary
+  }
+}
+
 .c-product-alert {
   position: absolute;
   top: auto;

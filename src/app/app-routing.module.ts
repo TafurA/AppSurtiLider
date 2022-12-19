@@ -92,6 +92,10 @@ const routes: Routes = [
     path: 'detail-banner/:bannerId',
     loadChildren: () => import('./pages/detail-banner/detail-banner.module').then( m => m.DetailBannerPageModule)
   },
+  {
+    path: 'car',
+    loadChildren: () => import('./pages/car/car.module').then( m => m.CarPageModule)
+  },
 ];
 
 @NgModule({

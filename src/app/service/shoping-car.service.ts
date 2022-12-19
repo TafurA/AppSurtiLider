@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import axios from 'axios';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +13,7 @@ export class ShopingCarService {
     "imgProduct": "",
     "quantityProduct": 0,
     "priceFinal": 0,
+    "price": 0,
     "cantpun_b": 0,
     "puntos": 0,
     "valpun_b": "0",
@@ -19,17 +22,22 @@ export class ShopingCarService {
   public products = []
   public counterProduct;
   public alert;
+  public arrayDataCashback = new Array()
 
   constructor() {
 
   }
 
   public async getProductData(currentProduct) {
+    console.log("currentProduct")
+    console.log(currentProduct)
+    console.log(currentProduct.price)
     this.product.productCode = currentProduct.codeProduct
     this.product.nameProduct = currentProduct.nameProduct
     this.product.imgProduct = currentProduct.img_prod
     this.product.quantityProduct = 0;
-    this.product.priceFinal = currentProduct.totalValue
+    // this.product.priceFinal = currentProduct.totalValue
+    this.product.price = currentProduct.totalValue
   }
 
   public async saveIntoCar(currentProduct) {
@@ -76,6 +84,18 @@ export class ShopingCarService {
     this.getProductData(product).then(() => {
 
       const storageCarProduct = localStorage.getItem("productsCar")
+      const temporalProduct = {
+        "productCode": "",
+        "nameProduct": "",
+        "imgProduct": "",
+        "quantityProduct": 0,
+        "priceFinal": 0,
+        "price": 0,
+        "cantpun_b": 0,
+        "puntos": 0,
+        "valpun_b": "0",
+        "valor": "0"
+      }
 
       if (storageCarProduct) {
 
@@ -91,30 +111,24 @@ export class ShopingCarService {
           }
         }
 
-        newDataCarProducts.push(product) // Guarda producto actual
-        this.updateStorageCarProduct(newDataCarProducts, true, product.productCode) // Actualiza local storage
+        temporalProduct.productCode = product.productCode
+        temporalProduct.nameProduct = product.nameProduct
+        temporalProduct.imgProduct = product.imgProduct
+        temporalProduct.quantityProduct = product.quantityProduct
+        temporalProduct.price = product.price
+
+        newDataCarProducts.push(temporalProduct) // Guarda producto actual
+        this.updateStorageCarProduct(newDataCarProducts, true, temporalProduct.productCode) // Actualiza local storage
 
       } else {
         // Guardar producto por primera vez
         this.products = []
         product.quantityProduct = 0
-
-        const temporalProduct = {
-          "productCode": "",
-          "nameProduct": "",
-          "imgProduct": "",
-          "quantityProduct": 0,
-          "priceFinal": 0,
-          "cantpun_b": 0,
-          "puntos": 0,
-          "valpun_b": "0",
-          "valor": "0"
-        }
-
         temporalProduct.productCode = product.productCode
         temporalProduct.nameProduct = product.nameProduct
-        temporalProduct.imgProduct = product.img_prod
+        temporalProduct.imgProduct = product.imgProduct
         temporalProduct.quantityProduct = product.quantityProduct
+        temporalProduct.price = product.price
 
         this.products.push(temporalProduct)
 
@@ -264,6 +278,20 @@ export class ShopingCarService {
       newArray.push(lookupObject[i]);
     }
     return newArray;
+  }
+
+  public async getClientCashback(userCredential) {
+    // userCredential = 420212
+    // https://201.217.221.222:9001/IntranetSurti/WebServicesSurtiAppRest/accumulatedMoney?codigo=420212
+    await axios.get(`${environment.apiPath}/accumulatedMoney?codigo=${userCredential}`, environment.headerConfig).then(response => {
+
+      console.log(response)
+      // for (let index = 0; index < response.data.data.length; index++) {
+      //   const element = response.data.data[index];
+      //   this.arrayDataCashback[index] = element
+      // }
+
+    })
   }
 
   private alertProduct(action) {

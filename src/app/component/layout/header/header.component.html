@@ -11,7 +11,11 @@
         <label class="c-header__search-label i-search" for=""></label>
       </div>
 
-      <span class="c-header__car js-ico-car" [ngClass]="{'test': productsIsNull, '': !productsIsNull}">
+      <span
+        class="c-header__car js-ico-car"
+        [ngClass]="{'test': productsIsNull, '': !productsIsNull}"
+        [routerLink]="['/car']"
+      >
         <i class="i-car"></i>
         <span class="c-header__car-number js-text-ico-car">{{ numberProductsCar }}</span>
       </span>

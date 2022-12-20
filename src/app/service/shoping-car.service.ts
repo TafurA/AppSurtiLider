@@ -79,6 +79,11 @@ export class ShopingCarService {
     })
   }
 
+  public async dropCar() {
+    window.localStorage.removeItem("productsCar")
+    this.resetAlertAndCarIcon()
+  }
+
   public addProductQuantity(codeProduct) {
     this.updateProductQuantity(codeProduct, "sum")
   }

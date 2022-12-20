@@ -22,6 +22,10 @@ export class HeaderBackComponent implements OnInit {
    * @return this.navCtrl.back() Function of the object NavController
   */
   clickToGoBack() {
-    return this.navCtrl.back()
+    if (window.location.pathname.includes("car-detail")) {
+      return this.navCtrl.navigateForward("/home")
+    } else {
+      return this.navCtrl.back()
+    }
   }
 }

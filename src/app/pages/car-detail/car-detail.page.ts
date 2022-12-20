@@ -103,6 +103,10 @@ export class CarDetailPage implements OnInit {
       childrenStep.classList.remove("is-current")
       childrenStep.classList.add("is-checked")
     }
+
+    setTimeout(() => {
+      this.shopingService.dropCar()
+    })
   }
 
   public sendOrder() {

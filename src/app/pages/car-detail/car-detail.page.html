@@ -1,0 +1,65 @@
+<ion-content>
+
+  <!-- Header back -->
+  <app-header-back></app-header-back>
+
+  <div class="o-canvas">
+
+    <ul class="c-steps">
+      <li class="c-steps__step is-checked">
+        <i class="i-car"></i>
+        <span>Carrito</span>
+      </li>
+      <li class="c-steps__step is-current">
+        <i class="i-send"></i>
+        <span>Entrega</span>
+      </li>
+      <li class="c-steps__step">
+        <i class="i-cash"></i>
+        <span>Pago</span>
+      </li>
+    </ul>
+
+    <div class="c-card-address-box">
+      <h4 class="o-title">Dirección de Entrega</h4>
+
+      <ul class="c-card-address-list">
+        <li class="c-card-address">
+          <p class="c-card-address__text c-card-address__text_top">{{ addressData.userCurrent }}</p>
+          <p class="c-card-address__text">{{ addressData.address }}</p>
+          <p class="c-card-address__text">{{ addressData.phone }}</p>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="o-title">Llegada estimada</h4>
+
+      <ul class="c-card-address-list">
+        <li class="c-card-address">
+          <p class="c-card-address__text c-card-address__text_top">{{ addressData.date }}</p>
+          <p class="c-card-address__text">{{ addressData.address }}</p>
+          <p class="c-card-address__text">{{ addressData.phone }}</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="c-cashback-box">
+
+      <header class="c-cashback-box__header">
+        <h4 class="c-cashback-box__title">Total</h4>
+
+        <strong class="c-cashback-box__price">$ {{ totalProductPriceProcess }} COP</strong>
+      </header> 
+
+    </div>
+
+    <button
+      class="c-cashback-box__btn o-button"
+    >
+      Revisar y Confirmar
+    </button>
+
+  </div>
+
+</ion-content>

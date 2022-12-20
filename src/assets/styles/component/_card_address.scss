@@ -1,0 +1,23 @@
+.c-card-address-list {
+  margin-top: 16px;
+}
+
+.c-card-address-box {
+  margin-bottom: 16px;
+}
+
+.c-card-address {
+  padding: 16px;
+  border-radius: 8px;
+  color: $c-neutro;
+  background: $c-success;
+}
+
+.c-card-address__text {
+  font-family: $f-title;
+  font-weight: 600;
+}
+
+.c-card-address__text_top {
+  margin-bottom: 16px;
+}

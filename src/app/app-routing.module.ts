@@ -109,6 +109,10 @@ const routes: Routes = [
     path: 'update-credentials',
     loadChildren: () => import('./pages/update-credentials/update-credentials.module').then( m => m.UpdateCredentialsPageModule)
   },
+  {
+    path: 'car-detail',
+    loadChildren: () => import('./pages/car-detail/car-detail.module').then( m => m.CarDetailPageModule)
+  },
 ];
 
 @NgModule({

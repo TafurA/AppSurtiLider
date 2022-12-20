@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { TestObject } from 'protractor/built/driverProviders';
 import { LoginService } from 'src/app/service/login/login.service';
 import { ShopingCarService } from 'src/app/service/shoping-car.service';
@@ -19,7 +19,12 @@ export class CarPage implements OnInit {
   public totalProductPriceProcess: any = 0
   public totalCashback: any = 0
 
-  constructor(public alertController: AlertController, public shopingService: ShopingCarService, public loginService: LoginService) { }
+  constructor(
+    public alertController: AlertController,
+    public shopingService: ShopingCarService,
+    public loginService: LoginService,
+    public nvCtrl: NavController
+  ) { }
 
   ngOnInit() {
     this.setProductsIntoArray()
@@ -95,6 +100,7 @@ export class CarPage implements OnInit {
 
   public saveOrderIntoLocalStorage() {
     this.shopingService.setArrayOfOrder()
+    this.nvCtrl.navigateForward("/car-detail")
   }
 
   async presentAlert() {

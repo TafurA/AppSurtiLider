@@ -108,12 +108,22 @@
 
     </div>
 
-    <div class="c-cashback-box"  [ngClass]="{'test': productsIsNull, '': !productsIsNull}">
+    <div class="c-cashback-box"  [ngClass]="{'test': !isCashbackApply, '': isCashbackApply}">
 
       <header class="c-cashback-box__header c-cashback-box__header_cash">
         <h4 class="c-cashback-box__title">Descuento cashback</h4>
 
         <strong class="c-cashback-box__price">$ - {{ totalCashback }} COP</strong>
+      </header> 
+
+    </div>
+
+    <div class="c-cashback-box" [ngClass]="{'test': !isCashbackApply, '': isCashbackApply}">
+
+      <header class="c-cashback-box__header">
+        <h4 class="c-cashback-box__title">Subtotal</h4>
+
+        <strong class="c-cashback-box__price">$ {{ subtotalProductPrice }} COP</strong>
       </header> 
 
     </div>
@@ -128,7 +138,12 @@
 
     </div>
 
-    <button class="c-cashback-box__btn o-button">Continuar</button>
+    <button
+      class="c-cashback-box__btn o-button"
+      (click)="saveOrderIntoLocalStorage()"
+    >
+      Continuar
+    </button>
 
   </div>
 

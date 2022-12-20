@@ -15,6 +15,7 @@ export class CarPage implements OnInit {
   isRemoved = false;
   isCashbackApply = false
   public totalProductPrice: any = 0
+  public subtotalProductPrice: any = 0
   public totalProductPriceProcess: any = 0
   public totalCashback: any = 0
 
@@ -25,9 +26,7 @@ export class CarPage implements OnInit {
     this.getPriceTotalProducts()
     this.getPriceProcess()
     this.shopingService.getClientCashback(this.loginService.validateSession()['codcli_b']).then(() => {
-      console.log("CAR PAGE")
       this.arrayCashback = this.shopingService.arrayDataCashback
-      console.log(this.arrayCashback)
     })
   }
 
@@ -80,15 +79,22 @@ export class CarPage implements OnInit {
 
   public selectCashback(cashbackObject) {
     let totalWithCashback = 0
+    this.subtotalProductPrice = this.getPriceProcess()
     totalWithCashback = this.getPriceProcess() - parseFloat(cashbackObject.dinero)
     this.totalCashback = parseFloat(cashbackObject.dinero).toFixed(3)
     this.totalProductPriceProcess = totalWithCashback.toFixed(3)
+    this.isCashbackApply = true
+    document.querySelector(".js-car-dropdown").classList.remove("is-dropdown-show")
     return this.totalProductPriceProcess
   }
 
   public getPriceProcess(): any {
     this.totalProductPriceProcess = parseFloat(this.totalProductPrice).toFixed(3)
     return this.totalProductPriceProcess
+  }
+
+  public saveOrderIntoLocalStorage() {
+    this.shopingService.setArrayOfOrder()
   }
 
   async presentAlert() {

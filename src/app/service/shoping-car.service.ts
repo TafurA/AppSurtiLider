@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
+import { LoginService } from './login/login.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,24 +20,36 @@ export class ShopingCarService {
     "valpun_b": "0",
     "valor": "0"
   }
+  public order = {
+    "idOrder": "",
+    "customerCode": "",
+    "roadCode": null,
+    "shoppingDetail": [
+      {
+        "productCode": "",
+        "nameProduct": "",
+        "imgProduct": "",
+        "quantityProduct": 0,
+        "priceFinal": 0,
+        "cantpun_b": 0,
+        "puntos": 0,
+        "valpun_b": "0",
+        "valor": "0"
+      },
+    ]
+  }
   public products = []
   public counterProduct;
   public alert;
   public arrayDataCashback = new Array()
 
-  constructor() {
-
-  }
+  constructor(public loginService: LoginService) { }
 
   public async getProductData(currentProduct) {
-    console.log("currentProduct")
-    console.log(currentProduct)
-    console.log(currentProduct.price)
     this.product.productCode = currentProduct.codeProduct
     this.product.nameProduct = currentProduct.nameProduct
     this.product.imgProduct = currentProduct.img_prod
     this.product.quantityProduct = 0;
-    // this.product.priceFinal = currentProduct.totalValue
     this.product.price = currentProduct.totalValue
   }
 
@@ -291,6 +304,12 @@ export class ShopingCarService {
       }
 
     })
+  }
+
+  public setArrayOfOrder() {
+    this.order.customerCode = this.loginService.validateSession()['codcli_b']
+    this.order.shoppingDetail = JSON.parse(window.localStorage.getItem("productsCar"))
+    localStorage.setItem("orderService", JSON.stringify(this.order))
   }
 
   private alertProduct(action) {

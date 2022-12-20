@@ -25,13 +25,28 @@ export class CarDetailPage implements OnInit {
     subtotal: "",
     total: ""
   }
+
+  public order = {
+    orderId: "",
+    totalValue: 0,
+    totalProducts: 0,
+    customerName: "",
+    address: "",
+    phone: "",
+    date: "",
+    image: ""
+  };
+
+  public totalPriceFormated: any = 0
+
   public groupAddres = true;
   public groupPago = false;
+  public groupConfirm = false;
+  productsCurrentOrderDetail: any;
 
   constructor(public loginService: LoginService, public shopingService: ShopingCarService, public orderService: OrderService) { }
 
   ngOnInit() {
-    console.log(this.loginService.validateSession())
     this.addressData.userCurrent = this.loginService.validateSession()['nomcli_b'] + " " + this.loginService.validateSession()['ape1cli_b']
     this.addressData.address = this.loginService.validateSession()['dircli_b']
     this.addressData.phone = this.loginService.validateSession()['telcli_b']
@@ -77,17 +92,57 @@ export class CarDetailPage implements OnInit {
     }
   }
 
+  public showConfirmOrder() {
+    this.groupPago = false
+    this.groupConfirm = true
+
+    const step = document.querySelector(".c-steps")
+    const childrenStep = step.querySelector(".is-current")
+
+    if (childrenStep) {
+      childrenStep.classList.remove("is-current")
+      childrenStep.classList.add("is-checked")
+    }
+  }
+
   public sendOrder() {
     this.shopingService.sendOrder().finally(() => {
-      console.log("PEDIDO REALIZADO")
-      console.log(this.shopingService.idOrderCurrent)
-      this.orderService.getOrderById(this.shopingService.idOrderCurrent).finally(() => {
-        console.log("this.orderService.arrayCurrentOrderDetial[0]")
-        console.log(this.orderService.arrayCurrentOrderDetial[0])
-      })
+      this.getConfirmOrderDetail()
+      this.getConfirmProductsOrderDetail()
+    }).then(() => {
+      console.log("TERMINADO")
+      console.log(this.order)
+      this.showConfirmOrder()
     })
   }
 
-  public
+  public getConfirmOrderDetail() {
+    this.orderService.getOrderById(this.shopingService.idOrderCurrent).finally(() => {
+      this.order.orderId = this.orderService.arrayCurrentOrderDetial[0].orderId;
+      this.order.totalValue = this.orderService.arrayCurrentOrderDetial[0].totalValue;
+      this.order.customerName = this.orderService.arrayCurrentOrderDetial[0].name;
+      this.order.address = this.orderService.arrayCurrentOrderDetial[0].address;
+      this.order.phone = this.orderService.arrayCurrentOrderDetial[0].phone;
+      this.order.date = this.orderService.arrayCurrentOrderDetial[0].date;
+      this.order.image = this.orderService.arrayCurrentOrderDetial[0].img_prod;
+    })
+  }
+
+  public getConfirmProductsOrderDetail() {
+    this.orderService.getOrderDetail(this.shopingService.idOrderCurrent).finally(() => {
+      this.productsCurrentOrderDetail = JSON.parse(localStorage.productsCurrentOrderDetail)
+      for (let index = 0; index < this.productsCurrentOrderDetail.length; index++) {
+        const element = this.productsCurrentOrderDetail[index];
+        this.order.totalProducts = element.length
+      }
+    })
+  }
+
+  toggleDropdownProduct(e) {
+    e.target.closest(
+      ".c-status"
+    ).classList.toggle("is-dropdown-show")
+  }
+
 
 }

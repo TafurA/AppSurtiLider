@@ -325,9 +325,6 @@ export class ShopingCarService {
       if (response.data.idpedido != 0) {
         this.idOrderCurrent = response.data.idpedido
       }
-
-      console.log("ES ESTE PIROBO, CREALAS")
-      console.log(this.getArrayOfOrder())
     })
   }
 

@@ -18,6 +18,7 @@ export class CarPage implements OnInit {
   public subtotalProductPrice: any = 0
   public totalProductPriceProcess: any = 0
   public totalCashback: any = 0
+  public cashbackReference = 0
 
   constructor(
     public alertController: AlertController,
@@ -90,6 +91,9 @@ export class CarPage implements OnInit {
     this.totalProductPriceProcess = totalWithCashback.toFixed(3)
     this.isCashbackApply = true
     document.querySelector(".js-car-dropdown").classList.remove("is-dropdown-show")
+
+    this.cashbackReference = cashbackObject.referencia
+
     return this.totalProductPriceProcess
   }
 
@@ -99,8 +103,19 @@ export class CarPage implements OnInit {
   }
 
   public saveOrderIntoLocalStorage() {
-    this.shopingService.setArrayOfOrder()
+    this.shopingService.setArrayOfOrder(this.cashbackReference)
+    this.saveOrderDetailIntoLocalStorage()
     this.nvCtrl.navigateForward("/car-detail")
+  }
+
+  public saveOrderDetailIntoLocalStorage() {
+    const dataTemp = {
+      "cashback": this.totalCashback,
+      "subtotal": this.subtotalProductPrice,
+      "total": this.totalProductPriceProcess,
+      'productsLength': this.currentProductsCarNumber()
+    }
+    localStorage.setItem("orderDetail", JSON.stringify(dataTemp))
   }
 
   async presentAlert() {

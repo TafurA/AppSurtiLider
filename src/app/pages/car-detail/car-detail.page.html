@@ -20,45 +20,109 @@
       </li>
     </ul>
 
-    <div class="c-card-address-box">
-      <h4 class="o-title">Dirección de Entrega</h4>
+    <!-- DIRECCION -->
+    <div [ngClass]="{'test': !groupAddres, '': groupAddres}">
 
-      <ul class="c-card-address-list">
-        <li class="c-card-address">
-          <p class="c-card-address__text c-card-address__text_top">{{ addressData.userCurrent }}</p>
-          <p class="c-card-address__text">{{ addressData.address }}</p>
-          <p class="c-card-address__text">{{ addressData.phone }}</p>
-        </li>
-      </ul>
+      <div class="c-card-address-box">
+        <h4 class="o-title o-title_light">Dirección de Entrega</h4>
+
+        <ul class="c-card-address-list">
+          <li class="c-card-address">
+            <p class="c-card-address__text c-card-address__text_top">{{ addressData.userCurrent }}</p>
+            <p class="c-card-address__text">{{ addressData.address }}</p>
+            <p class="c-card-address__text">{{ addressData.phone }}</p>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="o-title o-title_light">Llegada estimada</h4>
+
+        <ul class="c-card-address-list">
+          <li class="c-card-address c-card-address_light">
+
+            <div class="c-card-address__header">
+              <div>
+                <p class="c-card-address__text c-card-address__text_top">El {{ formatDate }}</p>
+              </div>
+              <span class="c-card-address__free">GRATIS</span>
+            </div>
+            
+            <p class="c-card-address__delivery">
+              <i class="i-credential"></i>
+              <span>
+                <span class="c-card-address__delivery-text">Envio Estándar</span>
+                <span class="c-card-address__delivery-text">08:00 - 17:00</span>
+              </span>
+            </p>
+
+          </li>
+        </ul>
+      </div>
+
+      <button
+        class="c-cashback-box__btn o-button"
+        (click)="showPaymentStep()"
+      >
+        Revisar y Confirmar
+      </button>
     </div>
 
-    <div>
-      <h4 class="o-title">Llegada estimada</h4>
+    <!-- PAGO -->
+    <div [ngClass]="{'test': !groupPago, '': groupPago}">
 
-      <ul class="c-card-address-list">
-        <li class="c-card-address">
-          <p class="c-card-address__text c-card-address__text_top">{{ addressData.date }}</p>
-          <p class="c-card-address__text">{{ addressData.address }}</p>
-          <p class="c-card-address__text">{{ addressData.phone }}</p>
-        </li>
-      </ul>
+      <div class="c-card-address-box">
+        <h4 class="o-title o-title_light">Método de Pago</h4>
+
+        <div class="c-cashback-box">
+
+          <header class="c-cashback-box__header">
+            <h4 class="c-cashback-box__title">EFECTIVO</h4>
+          </header> 
+    
+        </div>
+
+      </div>
+
+      <div class="c-card-address-box">
+        <h4 class="o-title o-title_light">Resumen del pedido</h4>
+
+        <div class="c-cashback-box">
+
+          <div class="c-card-address c-card-address_light">
+
+            <div class="c-card-address__header">
+              <div>
+                <p class="c-card-address__text c-card-address__text_top">
+                  <span>PRECIO ORIGINAL:</span> ${{ detailData.subtotal }} COP
+                </p>
+                <p class="c-card-address__text c-card-address__text_top">
+                  <span>DESCUENTO CASHBACK:</span> $ {{ detailData.cashback }} COP
+                </p>
+                <p class="c-card-address__text c-card-address__text_top">
+                  <span>{{ detailData.productsLength }} PRODUCTOS:</span> $ {{ detailData.total }} COP
+                </p>
+                <p class="c-card-address__text c-card-address__text_top">
+                  <span>ENTREGA:</span> GRATIS
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+    
+        </div>
+
+      </div>
+
+      <button
+        class="c-cashback-box__btn o-button"
+        (click)="sendOrder()"
+      >
+        Hacer pedido
+      </button>
+
     </div>
-
-    <div class="c-cashback-box">
-
-      <header class="c-cashback-box__header">
-        <h4 class="c-cashback-box__title">Total</h4>
-
-        <strong class="c-cashback-box__price">$ {{ totalProductPriceProcess }} COP</strong>
-      </header> 
-
-    </div>
-
-    <button
-      class="c-cashback-box__btn o-button"
-    >
-      Revisar y Confirmar
-    </button>
 
   </div>
 

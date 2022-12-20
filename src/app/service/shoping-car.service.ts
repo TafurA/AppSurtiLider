@@ -22,26 +22,16 @@ export class ShopingCarService {
   }
   public order = {
     "idOrder": "",
-    "customerCode": "",
-    "roadCode": null,
-    "shoppingDetail": [
-      {
-        "productCode": "",
-        "nameProduct": "",
-        "imgProduct": "",
-        "quantityProduct": 0,
-        "priceFinal": 0,
-        "cantpun_b": 0,
-        "puntos": 0,
-        "valpun_b": "0",
-        "valor": "0"
-      },
-    ]
+    "customerCodeOrder": "",
+    "discount": "",
+    "vendedor": "",
+    "shoppingDetail": []
   }
   public products = []
   public counterProduct;
   public alert;
   public arrayDataCashback = new Array()
+  public idOrderCurrent: any;
 
   constructor(public loginService: LoginService) { }
 
@@ -294,7 +284,6 @@ export class ShopingCarService {
   }
 
   public async getClientCashback(userCredential) {
-    // https://201.217.221.222:9001/IntranetSurti/WebServicesSurtiAppRest/accumulatedMoney?codigo=420212
     await axios.get(`${environment.apiPath}/accumulatedMoney?codigo=${userCredential}`, environment.headerConfig).then(response => {
 
       console.log(response)
@@ -306,10 +295,40 @@ export class ShopingCarService {
     })
   }
 
-  public setArrayOfOrder() {
-    this.order.customerCode = this.loginService.validateSession()['codcli_b']
-    this.order.shoppingDetail = JSON.parse(window.localStorage.getItem("productsCar"))
+  public setArrayOfOrder(reference) {
+
+    this.order.shoppingDetail = []
+    this.order.customerCodeOrder = this.loginService.validateSession()['codcli_b']
+    this.order.discount = reference
+
+    const localSotrage = JSON.parse(window.localStorage.getItem("productsCar"))
+    localSotrage.forEach(product => {
+      const tempData = {
+        "productCode": "",
+        "quantityProduct": 0,
+      }
+      tempData.productCode = product.productCode
+      tempData.quantityProduct = product.quantityProduct
+
+      this.order.shoppingDetail.push(tempData)
+    });
+
     localStorage.setItem("orderService", JSON.stringify(this.order))
+  }
+
+  public getArrayOfOrder() {
+    return JSON.parse(window.localStorage.getItem("orderService"))
+  }
+
+  public async sendOrder() {
+    await axios.get(`${environment.apiPath}/sendOrder?idOrder=[${this.getArrayOfOrder()}]`, environment.headerConfig).then(response => {
+      if (response.data.idpedido != 0) {
+        this.idOrderCurrent = response.data.idpedido
+      }
+
+      console.log("ES ESTE PIROBO, CREALAS")
+      console.log(this.getArrayOfOrder())
+    })
   }
 
   private alertProduct(action) {

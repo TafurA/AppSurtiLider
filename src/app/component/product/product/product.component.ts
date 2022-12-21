@@ -28,7 +28,6 @@ export class ProductComponent implements OnInit {
   constructor(public favoriteService: FavoriteService, public shopingCarService: ShopingCarService, private alertController: AlertController) { }
 
   ngOnInit() {
-    console.log(this.productObject)
     this.productWithCashback()
     this.productWithDiscount()
     if (window.location.pathname == "/favorite") {
@@ -96,7 +95,7 @@ export class ProductComponent implements OnInit {
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Cashback',
-      subHeader: `Por cada ${ this.totalValueCashback } recibe ${ this.totalPriceCashback } COP en cashback`,
+      subHeader: `Por cada ${this.totalValueCashback} recibe ${this.totalPriceCashback} COP en cashback`,
       cssClass: "c-alert is-success",
       buttons: ['OK'],
     });

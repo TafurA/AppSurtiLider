@@ -20,13 +20,13 @@ export class ShopingCarService {
     "valpun_b": "0",
     "valor": "0"
   }
-  public order = [{
+  public order = {
     "idOrder": "",
     "customerCodeOrder": "",
     "discount": "",
     "vendedor": "",
     "shoppingDetail": []
-  }]
+  }
   public products = []
   public counterProduct;
   public alert;

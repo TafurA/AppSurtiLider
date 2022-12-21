@@ -20,13 +20,13 @@ export class ShopingCarService {
     "valpun_b": "0",
     "valor": "0"
   }
-  public order = {
+  public order = [{
     "idOrder": "",
     "customerCodeOrder": "",
     "discount": "",
     "vendedor": "",
     "shoppingDetail": []
-  }
+  }]
   public products = []
   public counterProduct;
   public alert;
@@ -292,7 +292,6 @@ export class ShopingCarService {
   public async getClientCashback(userCredential) {
     await axios.get(`${environment.apiPath}/accumulatedMoney?codigo=${userCredential}`, environment.headerConfig).then(response => {
 
-      console.log(response)
       for (let index = 0; index < response.data.data.length; index++) {
         const element = response.data.data[index];
         this.arrayDataCashback[index] = element
@@ -314,10 +313,10 @@ export class ShopingCarService {
 
   public setArrayOfOrder(reference, seller) {
 
-    this.order.shoppingDetail = []
-    this.order.customerCodeOrder = this.loginService.validateSession()['codcli_b']
-    this.order.discount = reference
-    this.order.vendedor = seller
+    this.order[0].shoppingDetail = []
+    this.order[0].customerCodeOrder = this.loginService.validateSession()['codcli_b']
+    this.order[0].discount = reference
+    this.order[0].vendedor = seller
 
     const localSotrage = JSON.parse(window.localStorage.getItem("productsCar"))
     localSotrage.forEach(product => {
@@ -328,7 +327,7 @@ export class ShopingCarService {
       tempData.productCode = product.productCode
       tempData.quantityProduct = product.quantityProduct
 
-      this.order.shoppingDetail.push(tempData)
+      this.order[0].shoppingDetail.push(tempData)
     });
 
     localStorage.setItem("orderService", JSON.stringify(this.order))
@@ -339,7 +338,7 @@ export class ShopingCarService {
   }
 
   public async sendOrder() {
-    await axios.get(`${environment.apiPath}/sendOrder?idOrder=[${this.getArrayOfOrder()}]`, environment.headerConfig).then(response => {
+    await axios.get(`${environment.apiPath}/sendOrder?idOrder=${this.getArrayOfOrder()}`, environment.headerConfig).then(response => {
       if (response.data.idpedido != 0) {
         this.idOrderCurrent = response.data.idpedido
       }

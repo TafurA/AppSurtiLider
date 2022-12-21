@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { LoginService } from 'src/app/service/login/login.service';
 
 @Component({
   selector: 'app-header-back',
@@ -13,7 +14,7 @@ export class HeaderBackComponent implements OnInit {
    * @constructor
    * @param {NavController} navCtrl - The object for controller the navigation.
   */
-  constructor(public navCtrl: NavController) { }
+  constructor(public navCtrl: NavController, public loginService: LoginService) { }
 
   ngOnInit() { }
 
@@ -22,10 +23,17 @@ export class HeaderBackComponent implements OnInit {
    * @return this.navCtrl.back() Function of the object NavController
   */
   clickToGoBack() {
-    if (window.location.pathname.includes("car-detail")) {
-      return this.navCtrl.navigateForward("/home")
+
+    if (this.loginService.validateSession()) {
+      console.log("TIENE SESION")
+      if (window.location.pathname.includes("car-detail")) {
+        return this.navCtrl.navigateForward("/home")
+      } else {
+        return this.navCtrl.back()
+      }
     } else {
-      return this.navCtrl.back()
+      console.log("sin SESION")
+      this.navCtrl.navigateForward("/login")
     }
   }
 }

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { CategoryComponent } from 'src/app/component/category/category.component';
 import { HeaderComponent } from 'src/app/component/layout/header/header.component';
 import { MenuFixedComponent } from 'src/app/component/layout/menu-fixed/menu-fixed.component';
 import { CategoryProductComponent } from 'src/app/component/product/category-product.component';
 import { ProductComponent } from 'src/app/component/product/product/product.component';
-import { CategoryService } from 'src/app/service/category/category.service';
+import { LoginService } from 'src/app/service/login/login.service';
 
 @Component({
   selector: 'app-detail-category',
@@ -14,25 +14,17 @@ import { CategoryService } from 'src/app/service/category/category.service';
 })
 export class DetailCategoryPage implements OnInit {
 
-  public categoryId: any;
-  public nameCategory: string;
-  public arrayDataSubCategory = new Array();
-
-
-  constructor(private rutaActiva: ActivatedRoute, private categoryService: CategoryService) {
+  constructor(private loginService: LoginService, public navController: NavController) {
   }
 
   ngOnInit() {
-    // this.rutaActiva.params.subscribe(
-    //   (params: Params) => {
-    //     this.categoryId = params.idCategory;
-    //     this.nameCategory = params.nameCategory
-    //     this.categoryService.getSubCategoryList(this.categoryId).then(() => {
-    //       this.arrayDataSubCategory = JSON.parse(localStorage.test)
-    //     })
-    //   }
-    // );
+    this.validateSession()
+  }
 
+  private validateSession() {
+    if (!this.loginService.validateSession()) {
+      this.navController.navigateForward("/login")
+    }
   }
 
 }

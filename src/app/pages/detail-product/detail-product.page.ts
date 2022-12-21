@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { NavController } from '@ionic/angular';
+import { LoginService } from 'src/app/service/login/login.service';
 
 import { ProductService } from 'src/app/service/product/product.service';
 import { ShopingCarService } from 'src/app/service/shoping-car.service';
@@ -32,21 +34,18 @@ export class DetailProductPage implements OnInit {
 
   isDescriptionDropdown = false
 
-  constructor(public productService: ProductService, private rutaActiva: ActivatedRoute, public shopingCarService: ShopingCarService) {
+  constructor(
+    public productService: ProductService,
+    private rutaActiva: ActivatedRoute,
+    public shopingCarService: ShopingCarService,
+    public loginService: LoginService,
+    public navControler: NavController
+  ) {
 
   }
 
   ngOnInit() {
-    this.getProcessDataProductDetail();
-
-    if (localStorage.getItem("productsCar")) {
-      const localStorageProduct = JSON.parse(localStorage.getItem("productsCar"))
-      localStorageProduct.forEach(element => {
-        if (element.productCode == this.product.productCode) {
-          this.counterProductsCar = element.quantityProduct
-        }
-      });
-    }
+    this.validateSession()
   }
 
   public slideOpts = {
@@ -140,6 +139,7 @@ export class DetailProductPage implements OnInit {
       }
     }
   }
+
   public async getProcessDataProductDetail() {
     this.rutaActiva.params.subscribe(
       (params: Params) => {
@@ -196,4 +196,20 @@ export class DetailProductPage implements OnInit {
     ).classList.toggle("is-dropdown-show")
   }
 
+  private validateSession() {
+    if (this.loginService.validateSession()) {
+      this.getProcessDataProductDetail();
+
+      if (localStorage.getItem("productsCar")) {
+        const localStorageProduct = JSON.parse(localStorage.getItem("productsCar"))
+        localStorageProduct.forEach(element => {
+          if (element.productCode == this.product.productCode) {
+            this.counterProductsCar = element.quantityProduct
+          }
+        });
+      }
+    } else {
+      this.navControler.navigateForward("/login")
+    }
+  }
 }

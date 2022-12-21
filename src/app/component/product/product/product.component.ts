@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 import { FavoriteService } from 'src/app/service/favorite/favorite.service';
+import { LoginService } from 'src/app/service/login/login.service';
 import { ShopingCarService } from 'src/app/service/shoping-car.service';
 
 @Component({
@@ -25,7 +26,13 @@ export class ProductComponent implements OnInit {
   public totalValueCashback = 0
   public totalPriceCashback = 0
 
-  constructor(public favoriteService: FavoriteService, public shopingCarService: ShopingCarService, private alertController: AlertController) { }
+  constructor(
+    public favoriteService: FavoriteService,
+    public shopingCarService: ShopingCarService,
+    private alertController: AlertController,
+    public loginService: LoginService,
+    public navController: NavController
+  ) { }
 
   ngOnInit() {
     this.productWithCashback()
@@ -38,11 +45,15 @@ export class ProductComponent implements OnInit {
   }
 
   addProductToFavorite(idProduct) {
-    this.favoriteService.addProductToFavorite(idProduct).finally(() => {
-      if (this.favoriteService.productAddSuccess()) {
-        this.isFavorite = true
-      }
-    });
+    if (this.loginService.validateSession()) {
+      this.favoriteService.addProductToFavorite(idProduct).finally(() => {
+        if (this.favoriteService.productAddSuccess()) {
+          this.isFavorite = true
+        }
+      });
+    } else {
+      this.navController.navigateForward("/login")
+    }
   }
 
   removeProductToFavorite(idProduct) {
@@ -104,7 +115,12 @@ export class ProductComponent implements OnInit {
   }
 
   async getProductData(e) {
-    this.shopingCarService.saveIntoCar(e)
+    if (this.loginService.validateSession()) {
+      this.shopingCarService.saveIntoCar(e)
+    }
+    else {
+      this.navController.navigateForward("/login")
+    }
   }
 
 }

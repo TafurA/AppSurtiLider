@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { NavController } from '@ionic/angular';
+
 import { BannerService } from 'src/app/service/banner/banner.service';
+import { LoginService } from 'src/app/service/login/login.service';
 
 @Component({
   selector: 'app-detail-banner',
@@ -14,10 +17,10 @@ export class DetailBannerPage implements OnInit {
     imagen: ""
   }
 
-  constructor(public bannerService: BannerService, private rutaActiva: ActivatedRoute) { }
+  constructor(public bannerService: BannerService, private rutaActiva: ActivatedRoute, private loginService: LoginService, public navControler: NavController) { }
 
   ngOnInit() {
-    this.getDataCurrentBanner()
+    this.validateSession()
   }
 
   getDataCurrentBanner() {
@@ -42,6 +45,16 @@ export class DetailBannerPage implements OnInit {
     );
 
     return this.bannerId;
+  }
+
+  private validateSession() {
+    if (this.loginService.validateSession()) {
+      console.log("TIENE SESION")
+      this.getDataCurrentBanner()
+    } else {
+      console.log("sin SESION")
+      this.navControler.navigateForward("/login")
+    }
   }
 
 }

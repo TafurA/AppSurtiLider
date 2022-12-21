@@ -51,6 +51,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: stretch;
+  width: 100%;
 }
 
 .c-product__img {
@@ -79,8 +80,7 @@
 
 .c-product__title {
   &:not(.c-product-car &) {
-    @include ellipsis-fix-height(12px, 1.2, 2)
-  }
+    @include ellipsis-fix-height(12px, 1.2, 2)}
 }
 
 .c-product__title,

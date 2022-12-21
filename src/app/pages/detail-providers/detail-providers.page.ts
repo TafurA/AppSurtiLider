@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { LoginService } from 'src/app/service/login/login.service';
 
 @Component({
   selector: 'app-detail-providers',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailProvidersPage implements OnInit {
 
-  constructor() { }
+  constructor(public loginService: LoginService, public navControler: NavController) { }
 
   ngOnInit() {
+    this.validateSession()
+  }
+
+  private validateSession() {
+    if (!this.loginService.validateSession()) {
+      this.navControler.navigateForward("/login")
+    }
   }
 
 }

@@ -11,7 +11,6 @@ import { HeaderComponent } from 'src/app/component/layout/header/header.componen
 import { MenuFixedComponent } from 'src/app/component/layout/menu-fixed/menu-fixed.component';
 import { ProductComponent } from 'src/app/component/product/product/product.component';
 import { ProviderProductComponent } from 'src/app/component/product/provider-product.component';
-import { HeaderBackComponent } from 'src/app/component/layout/header-back/header-back.component';
 
 @NgModule({
   imports: [
@@ -20,6 +19,6 @@ import { HeaderBackComponent } from 'src/app/component/layout/header-back/header
     IonicModule,
     DetailProvidersPageRoutingModule
   ],
-  declarations: [DetailProvidersPage, HeaderComponent, HeaderBackComponent, MenuFixedComponent, ProductComponent, ProviderProductComponent]
+  declarations: [DetailProvidersPage, HeaderComponent, MenuFixedComponent, ProductComponent, ProviderProductComponent]
 })
 export class DetailProvidersPageModule { }

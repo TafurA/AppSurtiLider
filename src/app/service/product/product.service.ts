@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
+import { LoginService } from '../login/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class ProductService {
   public arrayDataProducts = new Array();
   public arrayDetailProduct = new Array();
 
-  constructor() { }
+  constructor(public loginService: LoginService) { }
 
   async getProducts() {
     await axios.get(`${environment.apiPath}/consultarProductos`, environment.headerConfig).then(response => {
@@ -50,14 +51,17 @@ export class ProductService {
     })
   }
 
-  async getCurrentProducts(nit) {
-    // let session = true;
+  async getCurrentProducts() {
     let session = false;
+
+    if (this.loginService.validateSession()['codcli_b']) {
+      session = true
+    }
 
     if (!session) {
       return await this.getProducts()
     } else {
-      return await this.getRecomendedProducts("99313")
+      return await this.getRecomendedProducts(this.loginService.validateSession()['codcli_b'])
     }
   }
 

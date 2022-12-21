@@ -21,7 +21,7 @@ export class ListProductComponent implements OnInit {
   }
 
   public slideOpts = {
-    slidesPerView: 3,
+    slidesPerView: "auto",
     autoHeight: true,
     preventClicksPropagation: true,
     preventClicks: true,
@@ -31,7 +31,7 @@ export class ListProductComponent implements OnInit {
   }
 
   public getProducts() {
-    this.productService.getCurrentProducts("0")
+    this.productService.getCurrentProducts()
   }
 
   fillArrayProducts() {

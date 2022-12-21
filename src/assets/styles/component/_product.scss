@@ -122,20 +122,18 @@
   }
 }
 
-.c-product__ico_discount {
-  &::after {
-    content: attr(data-percent);
-    position: absolute;
-    top: 5px;
-    left: 13px;
-    font-size: 12px;
-    color: $c-neutro;
-    transform: rotate(-25deg);
-  }
+.c-product__ico_discount-txt {
+  position: absolute;
+  top: 5px;
+  left: 13px;
+  font-size: 12px;
+  color: $c-neutro;
+  transform: rotate(-25deg);
 }
 
 .c-product__ico-txt {
   .c-product__ico_discount & {
+    margin-left: 16px;
     text-decoration: line-through;
     color: $c-secondary;
   }

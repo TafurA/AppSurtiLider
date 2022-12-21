@@ -39,7 +39,7 @@ export class GridProductComponent implements OnInit {
     }
     else {
       // Products without User session
-      this.productService.getCurrentProducts("0").then(() => {
+      this.productService.getCurrentProducts().then(() => {
         this.fillArrayProducts()
       })
     }

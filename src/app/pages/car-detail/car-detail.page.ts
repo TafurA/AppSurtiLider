@@ -44,7 +44,11 @@ export class CarDetailPage implements OnInit {
   public groupConfirm = false;
   productsCurrentOrderDetail: any;
 
-  constructor(public loginService: LoginService, public shopingService: ShopingCarService, public orderService: OrderService) { }
+  constructor(
+    public loginService: LoginService,
+    public shopingService: ShopingCarService,
+    public orderService: OrderService
+  ) { }
 
   ngOnInit() {
     this.addressData.userCurrent = this.loginService.validateSession()['nomcli_b'] + " " + this.loginService.validateSession()['ape1cli_b']
@@ -106,7 +110,7 @@ export class CarDetailPage implements OnInit {
 
     setTimeout(() => {
       this.shopingService.dropCar()
-    })
+    }, 1000)
   }
 
   public sendOrder() {

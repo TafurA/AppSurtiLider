@@ -31,6 +31,7 @@ export class ShopingCarService {
   public counterProduct;
   public alert;
   public arrayDataCashback = new Array()
+  public arrayDataSeller = new Array()
   public idOrderCurrent: any;
 
   constructor(public loginService: LoginService) { }
@@ -300,11 +301,23 @@ export class ShopingCarService {
     })
   }
 
-  public setArrayOfOrder(reference) {
+  public async getClientSeller(userSeller) {
+    await axios.get(`${environment.apiPath}/GetSeller?code=${userSeller}`, environment.headerConfig).then(response => {
+
+      for (let index = 0; index < response.data.data.length; index++) {
+        const element = response.data.data[index];
+        this.arrayDataSeller[index] = element
+      }
+
+    })
+  }
+
+  public setArrayOfOrder(reference, seller) {
 
     this.order.shoppingDetail = []
     this.order.customerCodeOrder = this.loginService.validateSession()['codcli_b']
     this.order.discount = reference
+    this.order.vendedor = seller
 
     const localSotrage = JSON.parse(window.localStorage.getItem("productsCar"))
     localSotrage.forEach(product => {

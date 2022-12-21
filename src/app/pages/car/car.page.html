@@ -108,6 +108,46 @@
 
     </div>
 
+    <div class="c-cashback-box js-car-dropdown js-car-dropdown-seller">
+
+      <header class="c-cashback-box__header" (click)="toggleDropdown($event)">
+        <h4 class="c-cashback-box__title i-user">¿Te ayudo algún vendedor?</h4>
+        <button
+          class="o-link o-link_secondary i-after-arrow-down"
+        >
+          Añadir
+        </button>
+      </header>
+
+      <ul class="c-cashback__list">
+
+        <div *ngFor="let seller of arraySeller" class="o-ticket-wrap" (click)="selectSeller(seller)">
+          <input type="radio" id="{{ seller.codigoVen }}" name="seller" value="{{ seller.codigoVen }}">
+
+          <label class="o-ticket" for="{{ seller.codigoVen }}">
+  
+            <p class="o-ticket__title">Nombre:</p>
+            <p>
+              <span class="o-ticket__price">{{ seller.vendedor }}</span>
+            </p>
+  
+          </label>
+        </div>
+
+      </ul>
+
+    </div>
+
+    <div class="c-cashback-box"  [ngClass]="{'test': !isSellerApply, '': isSellerApply}">
+
+      <header class="c-cashback-box__header">
+        <h4 class="c-cashback-box__title">Nombre vendedor</h4>
+
+        <strong class="c-cashback-box__name">{{ sellerReference }}</strong>
+      </header> 
+
+    </div>
+
     <div class="c-cashback-box"  [ngClass]="{'test': !isCashbackApply, '': isCashbackApply}">
 
       <header class="c-cashback-box__header c-cashback-box__header_cash">

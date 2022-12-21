@@ -124,6 +124,7 @@
 
     </div>
 
+    <!-- CONFIRMACION -->
     <div [ngClass]="{'test': !groupConfirm, '': groupConfirm}">
 
       <figure class="o-message o-message_confirm">
@@ -131,7 +132,6 @@
         <figcaption class="o-message__caption">¡Excelente! Hemos confirmado tu pedido con exito!</figcaption>
       </figure>
 
-      <!-- CONFIRMACION -->
       <header class="o-subheadline">
         <h1 class="o-title">Número pedido:
           <span class="o-information__kicker">{{ order.orderId }}</span>

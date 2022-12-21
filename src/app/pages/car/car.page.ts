@@ -14,11 +14,15 @@ export class CarPage implements OnInit {
   public arrayCashback = new Array()
   isRemoved = false;
   isCashbackApply = false
+  isSellerApply = false
   public totalProductPrice: any = 0
   public subtotalProductPrice: any = 0
   public totalProductPriceProcess: any = 0
   public totalCashback: any = 0
   public cashbackReference = 0
+  public sellerReference = ""
+  public sellerReferenceId = 0
+  public arraySeller = new Array()
 
   constructor(
     public alertController: AlertController,
@@ -33,6 +37,9 @@ export class CarPage implements OnInit {
     this.getPriceProcess()
     this.shopingService.getClientCashback(this.loginService.validateSession()['codcli_b']).then(() => {
       this.arrayCashback = this.shopingService.arrayDataCashback
+    })
+    this.shopingService.getClientSeller(this.loginService.validateSession()['codcli_b']).then(() => {
+      this.arraySeller = this.shopingService.arrayDataSeller
     })
   }
 
@@ -97,13 +104,21 @@ export class CarPage implements OnInit {
     return this.totalProductPriceProcess
   }
 
+  public selectSeller(sellerObject) {
+    this.isSellerApply = true
+    document.querySelector(".js-car-dropdown-seller").classList.remove("is-dropdown-show")
+
+    this.sellerReference = sellerObject.vendedor
+    this.sellerReferenceId = sellerObject.codigoVen
+  }
+
   public getPriceProcess(): any {
     this.totalProductPriceProcess = parseFloat(this.totalProductPrice).toFixed(3)
     return this.totalProductPriceProcess
   }
 
   public saveOrderIntoLocalStorage() {
-    this.shopingService.setArrayOfOrder(this.cashbackReference)
+    this.shopingService.setArrayOfOrder(this.cashbackReference, this.sellerReferenceId)
     this.saveOrderDetailIntoLocalStorage()
     this.nvCtrl.navigateForward("/car-detail")
   }

@@ -334,7 +334,7 @@ export class ShopingCarService {
   }
 
   public getArrayOfOrder() {
-    return JSON.parse(window.localStorage.getItem("orderService"))
+    return JSON.stringify(window.localStorage.getItem("orderService"))
   }
 
   public async sendOrder() {

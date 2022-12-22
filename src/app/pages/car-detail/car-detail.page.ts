@@ -116,8 +116,10 @@ export class CarDetailPage implements OnInit {
   public sendOrder() {
     this.shopingService.sendOrder().then(() => {
       this.orderService.getOrdersByClient().then(() => {
-        this.getConfirmOrderDetail()
-        this.getConfirmProductsOrderDetail()
+        setTimeout(() => {
+          this.getConfirmOrderDetail()
+          this.getConfirmProductsOrderDetail()
+        }, 1000)
       }).finally(() => {
         console.log("TERMINADO")
         console.log(this.order)

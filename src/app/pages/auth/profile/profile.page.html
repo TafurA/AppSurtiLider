@@ -22,7 +22,7 @@
         <input class="o-information__input" type="text" value="{{ userEmal }}">
         <input class="o-information__input" type="text" value="Tel: {{ userPhone }}">
 
-        <a class="o-link o-link_secondary">EDITAR DETALLES</a>
+        <a class="o-link o-link_secondary" [routerLink]="['/update-personal-data']">EDITAR DETALLES</a>
 
       </div>
 
@@ -40,7 +40,7 @@
         <label class="o-information__label" for="">CONTRASEÑA</label>
         <input class="o-information__input" type="password" value="1037659975">
 
-        <a class="o-link o-link_secondary">EDITAR CREDENCIALES</a>
+        <a class="o-link o-link_secondary" [routerLink]="['/update-credentials']">EDITAR CREDENCIALES</a>
 
       </div>
 

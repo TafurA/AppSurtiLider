@@ -16,11 +16,16 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 export class BannerComponent implements OnInit {
 
   public bannerList = new Array();
+  public loaded = false;
 
   constructor(private bannerService: BannerService) { }
 
   ngOnInit() {
-    this.bannerService.getBannerList();
+    this.bannerService.getBannerList().finally(() => {
+      if (this.bannerService.isBannersCharged) {
+        this.loaded = true
+      }
+    });
   }
 
   ngAfterViewInit() {

@@ -10,16 +10,22 @@ export class BannerService {
   public arrayDataProducts = new Array();
   public arrayDetailBanner = new Array();
   public arrayDataBanner = new Array();
+  public isBannersCharged = false
 
   constructor() { }
 
   async getBannerList() {
     await axios.get(`${environment.apiPath}/getBanner`, environment.headerConfig).then(response => {
 
-      for (let index = 0; index < response.data.data.length; index++) {
-        const element = response.data.data[index];
-        this.arrayDataBanner[index] = element
+      if (response.data.response) {
+        for (let index = 0; index < response.data.data.length; index++) {
+          const element = response.data.data[index];
+          this.arrayDataBanner[index] = element
+        }
       }
+
+    }).finally(() => {
+      this.isBannersCharged = true
     })
   }
 

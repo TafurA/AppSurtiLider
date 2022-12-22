@@ -114,13 +114,15 @@ export class CarDetailPage implements OnInit {
   }
 
   public sendOrder() {
-    this.shopingService.sendOrder().finally(() => {
-      this.getConfirmOrderDetail()
-      this.getConfirmProductsOrderDetail()
-    }).then(() => {
-      console.log("TERMINADO")
-      console.log(this.order)
-      this.showConfirmOrder()
+    this.shopingService.sendOrder().then(() => {
+      this.orderService.getOrdersByClient().then(() => {
+        this.getConfirmOrderDetail()
+        this.getConfirmProductsOrderDetail()
+      }).finally(() => {
+        console.log("TERMINADO")
+        console.log(this.order)
+        this.showConfirmOrder()
+      })
     })
   }
 

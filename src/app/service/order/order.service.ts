@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
+
 import { LoginService } from '../login/login.service';
 
 @Injectable({
@@ -15,12 +16,14 @@ export class OrderService {
   constructor(public loginService: LoginService) { }
 
   async getOrdersByClient() {
-    await axios.get(`${environment.apiPath}getPedidosCliente?nitcli=${this.getClientCode()}`, environment.headerConfig).then(response => {
+    await axios.get(
+      `${environment.apiPath}getPedidosCliente?nitcli=${this.getClientCode()}`,
+      environment.headerConfig
+    ).then(response => {
       this.arrayDataOrders = []
       localStorage.removeItem("ordersUser")
 
       for (const key in response.data.data) {
-
         const element = response.data.data[key];
         const dataSubCategory = {
           orderType: key,
@@ -34,7 +37,10 @@ export class OrderService {
   }
 
   async getOrderDetail(orderId) {
-    await axios.get(`${environment.apiPath}getPedidoDetalleCliente?idpedido=${orderId}`, environment.headerConfig).then((response) => {
+    await axios.get(
+      `${environment.apiPath}getPedidoDetalleCliente?idpedido=${orderId}`,
+      environment.headerConfig
+    ).then((response) => {
 
       this.arrayProductsCurrentOrderDetail = []
       localStorage.removeItem("productsCurrentOrderDetail")
@@ -44,11 +50,10 @@ export class OrderService {
         this.arrayProductsCurrentOrderDetail.push(element)
       }
 
-      localStorage.setItem("productsCurrentOrderDetail", JSON.stringify(this.arrayProductsCurrentOrderDetail))
-
-      for (let index = 0; index < this.arrayProductsCurrentOrderDetail.length; index++) {
-        const currentProduct = this.arrayProductsCurrentOrderDetail[index];
-      }
+      localStorage.setItem(
+        "productsCurrentOrderDetail",
+        JSON.stringify(this.arrayProductsCurrentOrderDetail)
+      )
 
     });
   }
@@ -83,6 +88,8 @@ export class OrderService {
 
     }
 
+    console.log("NUEVO ORDER DETAIL")
+    console.log(this.arrayCurrentOrderDetial)
   }
 
   private getClientCode() {

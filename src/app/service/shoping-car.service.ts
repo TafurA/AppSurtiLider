@@ -340,8 +340,11 @@ export class ShopingCarService {
 
   public async sendOrder() {
     await axios.get(`${environment.apiPath}/sendOrder?idOrder=${this.getArrayOfOrder()}`, environment.headerConfig).then(response => {
-      if (response.data.idpedido != 0) {
+      if (response.data.response) {
         this.idOrderCurrent = response.data.idpedido
+      } else {
+        console.log("ERROR CREANDO LA ORDEN")
+        console.log(response)
       }
     })
   }

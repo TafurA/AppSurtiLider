@@ -27,9 +27,7 @@ export class OrderDetailPage implements OnInit {
   ngOnInit() {
 
     this.getOrderDetail().then(() => {
-      this.orderService.getOrderById(this.order.orderId).finally(() => {
-        console.log("aui dar error")
-        console.log(this.orderService.arrayCurrentOrderDetial[0])
+      this.orderService.getDataUserOrderDetail(this.order.orderId).finally(() => {
         this.order.orderId = this.orderService.arrayCurrentOrderDetial[0].orderId;
         this.order.totalValue = this.orderService.arrayCurrentOrderDetial[0].totalValue;
         this.order.customerName = this.orderService.arrayCurrentOrderDetial[0].name;
@@ -37,9 +35,8 @@ export class OrderDetailPage implements OnInit {
         this.order.phone = this.orderService.arrayCurrentOrderDetial[0].phone;
         this.order.date = this.orderService.arrayCurrentOrderDetial[0].date;
         this.order.image = this.orderService.arrayCurrentOrderDetial[0].img_prod;
-      })
-    })
-
+      });
+    });
   }
 
   public async getOrderDetail() {
@@ -47,7 +44,7 @@ export class OrderDetailPage implements OnInit {
       (params: Params) => {
         this.order.orderId = params.orderId;
         this.orderService.getOrderDetail(this.order.orderId).finally(() => {
-          this.productsCurrentOrderDetail = JSON.parse(localStorage.productsCurrentOrderDetail)
+          this.productsCurrentOrderDetail = JSON.parse(localStorage.productsCurrentOrderDetail);
 
           for (let index = 0; index < this.productsCurrentOrderDetail.length; index++) {
             const element = this.productsCurrentOrderDetail[index];
@@ -57,23 +54,23 @@ export class OrderDetailPage implements OnInit {
             element.forEach(product => {
               product.cantidad = Math.round(product.cantidad)
             });
-          }
+          };
 
-        })
+        });
       }
     );
   }
 
   toggleDropdown(e) {
     e.target.closest(
-      ".o-checkout__dropdown"
-    ).classList.toggle("is-dropdown-show")
+      '.o-checkout__dropdown'
+    ).classList.toggle('is-dropdown-show');
   }
 
   toggleDropdownProduct(e) {
     e.target.closest(
-      ".c-status"
-    ).classList.toggle("is-dropdown-show")
+      '.c-status'
+    ).classList.toggle('is-dropdown-show');
   }
 
 }

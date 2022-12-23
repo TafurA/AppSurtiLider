@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 import { networkInterfaces } from 'os';
 import { LoginService } from 'src/app/service/login/login.service';
 import { OrderService } from 'src/app/service/order/order.service';
@@ -44,10 +45,13 @@ export class CarDetailPage implements OnInit {
   public groupConfirm = false;
   productsCurrentOrderDetail: any;
 
+  public loader: any;
+
   constructor(
     public loginService: LoginService,
     public shopingService: ShopingCarService,
-    public orderService: OrderService
+    public orderService: OrderService,
+    public loadingController: LoadingController
   ) { }
 
   ngOnInit() {
@@ -114,18 +118,19 @@ export class CarDetailPage implements OnInit {
   }
 
   public sendOrder() {
+    this.showLoader();
+
     this.shopingService.sendOrder().then(() => {
       this.orderService.getOrdersByClient().then(() => {
-        setTimeout(() => {
-          this.getConfirmOrderDetail()
-          this.getConfirmProductsOrderDetail()
-        }, 1000)
+        this.getConfirmOrderDetail();
+        this.getConfirmProductsOrderDetail();
       }).finally(() => {
-        console.log("TERMINADO")
-        console.log(this.order)
-        this.showConfirmOrder()
-      })
-    })
+        console.log('TERMINADO');
+        console.log(this.order);
+        this.showConfirmOrder();
+        this.removeLoader();
+      });
+    });
   }
 
   public getConfirmOrderDetail() {
@@ -154,6 +159,19 @@ export class CarDetailPage implements OnInit {
     e.target.closest(
       ".c-status"
     ).classList.toggle("is-dropdown-show")
+  }
+
+  async showLoader() {
+    this.loader = await this.loadingController.create({
+      spinner: "bubbles",
+      translucent: true,
+      cssClass: 'o-loader'
+    });
+    await this.loader.present();
+  }
+
+  async removeLoader() {
+    this.loader = await this.loadingController.dismiss();
   }
 
 

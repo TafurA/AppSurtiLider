@@ -67,14 +67,14 @@ export class OrderService {
 
       order.order.forEach(orderDetail => {
 
-        if (orderDetail.numped_b == orderId) {
+        if (orderDetail.idpedido == orderId) {
 
           const currentOrderDetail = {
             address: orderDetail.dircli_b,
             status: orderDetail.estped_b,
             date: orderDetail.fecha,
             name: orderDetail.nomcli_b,
-            orderId: orderDetail.numped_b,
+            orderId: orderDetail.idpedido,
             phone: orderDetail.telcli_b,
             totalValue: orderDetail.valped_b,
             vendedorEncargado: orderDetail.venped_b,

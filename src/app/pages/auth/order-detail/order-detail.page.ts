@@ -28,6 +28,8 @@ export class OrderDetailPage implements OnInit {
 
     this.getOrderDetail().then(() => {
       this.orderService.getOrderById(this.order.orderId).finally(() => {
+        console.log("aui dar error")
+        console.log(this.orderService.arrayCurrentOrderDetial[0])
         this.order.orderId = this.orderService.arrayCurrentOrderDetial[0].orderId;
         this.order.totalValue = this.orderService.arrayCurrentOrderDetial[0].totalValue;
         this.order.customerName = this.orderService.arrayCurrentOrderDetial[0].name;

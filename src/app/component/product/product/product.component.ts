@@ -73,10 +73,13 @@ export class ProductComponent implements OnInit {
   }
 
   public productWithDiscount() {
-    if (this.productObject.porcDescuento > "0") {
+
+    const descuentoFormated = parseInt(this.productObject.porcDescuento)
+
+    if (descuentoFormated.toFixed(0) > "0") {
       this.isDiscountProduct = true
       this.totalProductDiscount = this.productObject.precioSinDcto
-      this.totalProductValue = this.productObject.porcDescuento
+      this.totalProductValue = parseInt(this.productObject.porcDescuento)
     }
   }
 

@@ -32,6 +32,8 @@ export class BannerService {
   async getBannerDetail(bannerId) {
     await axios.get(`${environment.apiPath}/getDetailBanner?codigo=${bannerId}`, environment.headerConfig).then(response => {
 
+      this.arrayDataProducts = []
+
       this.arrayDetailBanner = response.data.dataBanner
 
       for (let index = 0; index < response.data.dataProduct.length; index++) {

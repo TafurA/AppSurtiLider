@@ -8,9 +8,9 @@ import { DetailBannerPageRoutingModule } from './detail-banner-routing.module';
 
 import { DetailBannerPage } from './detail-banner.page';
 import { ProductComponent } from 'src/app/component/product/product/product.component';
-import { GridProductComponent } from 'src/app/component/product/grid-product.component';
 import { HeaderComponent } from 'src/app/component/layout/header/header.component';
 import { MenuFixedComponent } from 'src/app/component/layout/menu-fixed/menu-fixed.component';
+import { BannerProductComponent } from 'src/app/component/product/banner-product.component';
 
 @NgModule({
   imports: [
@@ -20,6 +20,6 @@ import { MenuFixedComponent } from 'src/app/component/layout/menu-fixed/menu-fix
     DetailBannerPageRoutingModule,
     NgxPaginationModule
   ],
-  declarations: [DetailBannerPage, HeaderComponent, MenuFixedComponent, ProductComponent, GridProductComponent]
+  declarations: [DetailBannerPage, HeaderComponent, MenuFixedComponent, ProductComponent, BannerProductComponent]
 })
 export class DetailBannerPageModule { }

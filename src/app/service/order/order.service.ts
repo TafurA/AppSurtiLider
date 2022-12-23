@@ -64,9 +64,19 @@ export class OrderService {
       environment.headerConfig
     ).then((response) => {
 
-      console.log("ESTOS SON LOS NUEVOS DATOS")
-      console.log(response)
-      
+      const currentOrderDetail = {
+        address: response.data.data.dircli_b,
+        status: response.data.data.estped_b,
+        date: response.data.data.fecha,
+        name: response.data.data.nomcli_b,
+        orderId: response.data.data.idpedido,
+        phone: response.data.data.telcli_b,
+        totalValue: response.data.data.valped_b,
+        vendedorEncargado: response.data.data.venped_b,
+      };
+
+      this.arrayCurrentOrderDetial.push(currentOrderDetail);
+
     });
   }
 

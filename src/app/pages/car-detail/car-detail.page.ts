@@ -121,7 +121,6 @@ export class CarDetailPage implements OnInit {
     this.showLoader();
 
     this.shopingService.sendOrder().then(() => {
-      this.orderService.getOrdersByClient().then(() => {
         this.getConfirmOrderDetail();
         this.getConfirmProductsOrderDetail();
       }).finally(() => {
@@ -130,11 +129,10 @@ export class CarDetailPage implements OnInit {
         this.showConfirmOrder();
         this.removeLoader();
       });
-    });
   }
 
   public getConfirmOrderDetail() {
-    this.orderService.getOrderById(this.shopingService.idOrderCurrent).finally(() => {
+    this.orderService.getDataUserOrderDetail(this.shopingService.idOrderCurrent).finally(() => {
       this.order.orderId = this.orderService.arrayCurrentOrderDetial[0].orderId;
       this.order.totalValue = this.orderService.arrayCurrentOrderDetial[0].totalValue;
       this.order.customerName = this.orderService.arrayCurrentOrderDetial[0].name;
@@ -142,18 +140,17 @@ export class CarDetailPage implements OnInit {
       this.order.phone = this.orderService.arrayCurrentOrderDetial[0].phone;
       this.order.date = this.orderService.arrayCurrentOrderDetial[0].date;
       this.order.image = this.orderService.arrayCurrentOrderDetial[0].img_prod;
-    })
-    this.orderService.getDataUserOrderDetail(this.shopingService.idOrderCurrent)
+    });
   }
 
   public getConfirmProductsOrderDetail() {
     this.orderService.getOrderDetail(this.shopingService.idOrderCurrent).finally(() => {
-      this.productsCurrentOrderDetail = JSON.parse(localStorage.productsCurrentOrderDetail)
+      this.productsCurrentOrderDetail = JSON.parse(localStorage.productsCurrentOrderDetail);
       for (let index = 0; index < this.productsCurrentOrderDetail.length; index++) {
         const element = this.productsCurrentOrderDetail[index];
         this.order.totalProducts = element.length
       }
-    })
+    });
   }
 
   toggleDropdownProduct(e) {

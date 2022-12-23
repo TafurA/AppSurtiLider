@@ -82,6 +82,7 @@ export class ShopingCarService {
 
   public async dropCar() {
     window.localStorage.removeItem("productsCar")
+    window.localStorage.removeItem("orderService")
     this.resetAlertAndCarIcon()
   }
 

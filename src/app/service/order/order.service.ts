@@ -58,6 +58,18 @@ export class OrderService {
     });
   }
 
+  async getDataUserOrderDetail(orderId) {
+    await axios.get(
+      `${environment.apiPath}getDatosclientePed?idpedido=${orderId}`,
+      environment.headerConfig
+    ).then((response) => {
+
+      console.log("ESTOS SON LOS NUEVOS DATOS")
+      console.log(response)
+      
+    });
+  }
+
   async getOrderById(orderId) {
     this.arrayCurrentOrderDetial = []
     const storageOrders = JSON.parse(localStorage.ordersUser)

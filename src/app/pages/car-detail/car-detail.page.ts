@@ -143,6 +143,7 @@ export class CarDetailPage implements OnInit {
       this.order.date = this.orderService.arrayCurrentOrderDetial[0].date;
       this.order.image = this.orderService.arrayCurrentOrderDetial[0].img_prod;
     })
+    this.orderService.getDataUserOrderDetail(this.shopingService.idOrderCurrent)
   }
 
   public getConfirmProductsOrderDetail() {

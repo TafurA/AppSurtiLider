@@ -6,10 +6,13 @@
         <img src="assets/image/logo_color.svg" alt="" class="o-img">
       </figure>
 
-      <div class="c-header__search js-search-header" [ngClass]="{'is-none-car': productsIsNull, '': !productsIsNull}">
-        <input type="text" class="c-header__search-input" placeholder="Buscar por producto">
+      <form
+        class="c-header__search js-search-header"
+        [ngClass]="{'is-none-car': productsIsNull, '': !productsIsNull}"
+      >
+        <input type="text" class="c-header__search-input js-input-search" placeholder="Buscar por producto">
         <label class="c-header__search-label i-search" for=""></label>
-      </div>
+      </form>
 
       <span
         class="c-header__car js-ico-car"

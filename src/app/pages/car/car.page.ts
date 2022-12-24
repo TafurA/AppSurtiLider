@@ -23,6 +23,7 @@ export class CarPage implements OnInit {
   public sellerReference = ""
   public sellerReferenceId = 0
   public arraySeller = new Array()
+  public disabled = true;
 
   constructor(
     public alertController: AlertController,
@@ -110,6 +111,7 @@ export class CarPage implements OnInit {
 
     this.sellerReference = sellerObject.vendedor
     this.sellerReferenceId = sellerObject.codigoVen
+    this.disabled = false
   }
 
   public getPriceProcess(): any {

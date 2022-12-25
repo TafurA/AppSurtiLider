@@ -72,6 +72,7 @@ export class GridProductComponent implements OnInit {
     else {
       // List of General products
       this.arrayDataProducts = this.productService.arrayDataProducts
+      this.isSearchProductsNull = true
     }
   }
 

@@ -47,6 +47,7 @@ export class ProductComponent implements OnInit {
   addProductToFavorite(idProduct) {
     if (this.loginService.validateSession()) {
       this.favoriteService.addProductToFavorite(idProduct).finally(() => {
+        console.log(idProduct)
         if (this.favoriteService.productAddSuccess()) {
           this.isFavorite = true
         }
@@ -84,10 +85,10 @@ export class ProductComponent implements OnInit {
   }
 
   getFavoriteTag() {
-    this.fillArrayList().then(() => {
+    this.fillArrayFavoriteList().then(() => {
       for (let index = 0; index < this.favoriteList.length; index++) {
         const element = this.favoriteList[index];
-        if (element.code == this.productObject.code) {
+        if (element.codeProduct == this.productObject.codeProduct) {
           this.isFavorite = true
         }
       }
@@ -96,13 +97,13 @@ export class ProductComponent implements OnInit {
 
   getFavoriteTagAnotherPages() {
     this.favoriteService.getFavoriteProductsList().then(() => {
-      this.fillArrayList()
-    }).finally(() => {
-      this.getFavoriteTag()
+      this.fillArrayFavoriteList().finally(() => {
+        this.getFavoriteTag()
+      })
     })
   }
 
-  async fillArrayList() {
+  async fillArrayFavoriteList() {
     this.favoriteList = this.favoriteService.arrayFavorites()
   }
 

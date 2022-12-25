@@ -30,6 +30,7 @@ export class ProductService {
   }
 
   async getRecomendedProducts(nit) {
+    this.arrayDataProducts = []
     await axios.get(`${environment.apiPath}/getRecommended?nit=${nit}`, environment.headerConfig).then(response => {
 
       for (let index = 0; index < response.data.data.length; index++) {
@@ -41,6 +42,7 @@ export class ProductService {
   }
 
   async getOffertProducts() {
+    this.arrayDataProducts = []
     await axios.get(`${environment.apiPath}/getProductOffers`, environment.headerConfig).then(response => {
 
       for (let index = 0; index < response.data.data.length; index++) {

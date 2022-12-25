@@ -30,13 +30,16 @@ export class DetailProductPage implements OnInit {
   }
 
   isProductInCar = false
-
   counterProductsCar = 0
 
   isDescriptionDropdown = false
 
   public favoriteList = new Array()
   isFavorite = false
+
+  public isDiscountProduct = false
+  totalProductDiscount: any;
+  totalProductValue: number;
 
   constructor(
     public productService: ProductService,

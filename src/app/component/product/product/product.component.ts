@@ -88,7 +88,7 @@ export class ProductComponent implements OnInit {
     this.fillArrayFavoriteList().then(() => {
       for (let index = 0; index < this.favoriteList.length; index++) {
         const element = this.favoriteList[index];
-        if (element.codeProduct == this.productObject.codeProduct) {
+        if (element.productCode == this.productObject.productCode) {
           this.isFavorite = true
         }
       }

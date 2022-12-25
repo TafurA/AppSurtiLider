@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { FavoriteService } from 'src/app/service/favorite/favorite.service';
 import { LoginService } from 'src/app/service/login/login.service';
 
 import { ProductService } from 'src/app/service/product/product.service';
@@ -34,12 +35,16 @@ export class DetailProductPage implements OnInit {
 
   isDescriptionDropdown = false
 
+  public favoriteList = new Array()
+  isFavorite = false
+
   constructor(
     public productService: ProductService,
     private rutaActiva: ActivatedRoute,
     public shopingCarService: ShopingCarService,
     public loginService: LoginService,
-    public navControler: NavController
+    public navControler: NavController,
+    public favoriteService: FavoriteService
   ) {
 
   }
@@ -186,6 +191,38 @@ export class DetailProductPage implements OnInit {
     }
   }
 
+  addProductToFavorite(idProduct) {
+    this.favoriteService.addProductToFavorite(idProduct).finally(() => {
+      console.log(idProduct)
+      if (this.favoriteService.productAddSuccess()) {
+        this.isFavorite = true
+      }
+    });
+  }
+
+  removeProductToFavorite(idProduct) {
+    this.favoriteService.removeFavoriteProducts(idProduct).finally(() => {
+      if (!this.favoriteService.productAddSuccess()) {
+        this.isFavorite = false
+      }
+    });
+  }
+
+  async fillArrayFavoriteList() {
+    this.favoriteService.getFavoriteProductsList().then(() => {
+      this.favoriteList = this.favoriteService.arrayDataFavorites
+
+      console.log(this.favoriteList)
+
+      for (let index = 0; index < this.favoriteList.length; index++) {
+        const element = this.favoriteList[index];
+        if (element.codeProduct == this.product.productCode) {
+          this.isFavorite = true
+        }
+      }
+    })
+  }
+
   async getProductData(e) {
     this.shopingCarService.saveIntoCar(e)
   }
@@ -199,6 +236,7 @@ export class DetailProductPage implements OnInit {
   private validateSession() {
     if (this.loginService.validateSession()) {
       this.getProcessDataProductDetail();
+      this.fillArrayFavoriteList();
 
       if (localStorage.getItem("productsCar")) {
         const localStorageProduct = JSON.parse(localStorage.getItem("productsCar"))
@@ -208,6 +246,7 @@ export class DetailProductPage implements OnInit {
           }
         });
       }
+
     } else {
       this.navControler.navigateForward("/login")
     }

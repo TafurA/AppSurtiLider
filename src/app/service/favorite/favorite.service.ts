@@ -25,6 +25,8 @@ export class FavoriteService {
     if (this.loginService.validateSession()) {
       await axios.get(`${environment.apiPath}saveFavorite?nitcli_b=${this.getClientCode()}&codpro_b=${product}`, environment.headerConfig).then(response => {
 
+        console.log(response)
+
         if (response.data.response) {
           this.presentAlert("Agregado a favoritos", response.data.message, "is-success")
           this.isFavorite = true;

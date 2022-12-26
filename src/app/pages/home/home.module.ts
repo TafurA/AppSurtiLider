@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { HTTP } from "@awesome-cordova-plugins/http/ngx"
 import { IonicModule } from '@ionic/angular';
 
 import { HomePageRoutingModule } from './home-routing.module';
@@ -31,6 +31,7 @@ import { MenuFixedComponent } from 'src/app/component/layout/menu-fixed/menu-fix
     CategoryComponent,
     HeaderComponent,
     MenuFixedComponent
-  ]
+  ],
+  providers: [HTTP]
 })
 export class HomePageModule { }

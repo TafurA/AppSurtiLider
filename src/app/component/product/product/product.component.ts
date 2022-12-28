@@ -26,6 +26,8 @@ export class ProductComponent implements OnInit {
   public totalValueCashback = 0
   public totalPriceCashback = 0
 
+  public loaded = false;
+
   constructor(
     public favoriteService: FavoriteService,
     public shopingCarService: ShopingCarService,
@@ -35,6 +37,11 @@ export class ProductComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.initAllFunctionsProduct()
+    this.loaded = true
+  }
+
+  async initAllFunctionsProduct() {
     this.productWithCashback()
     this.productWithDiscount()
     if (window.location.pathname == "/favorite") {
@@ -86,19 +93,28 @@ export class ProductComponent implements OnInit {
 
   getFavoriteTag() {
     this.fillArrayFavoriteList().then(() => {
+
       for (let index = 0; index < this.favoriteList.length; index++) {
         const element = this.favoriteList[index];
-        if (element.productCode == this.productObject.productCode) {
+        if (element.codeProduct == this.productObject.codeProduct) {
           this.isFavorite = true
         }
       }
+
     })
   }
 
   getFavoriteTagAnotherPages() {
     this.favoriteService.getFavoriteProductsList().then(() => {
       this.fillArrayFavoriteList().finally(() => {
-        this.getFavoriteTag()
+
+        for (let index = 0; index < this.favoriteList.length; index++) {
+          const element = this.favoriteList[index];
+          if (element.codeProduct == this.productObject.codeProduct) {
+            this.isFavorite = true
+          }
+        }
+
       })
     })
   }

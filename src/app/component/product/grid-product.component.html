@@ -1,4 +1,4 @@
-<section class="o-section o-section_mb0">
+<section class="o-section o-section_mb0" *ngIf="loaded">
   <div class="o-canvas">
 
     <!-- GENERAL PRODUCT LIST -->
@@ -49,6 +49,14 @@
       </ng-template>
 
     </ng-template>
+
+  </div>
+</section>
+
+<section class="o-section o-section_mb0" *ngIf="!loaded">
+  <div class="o-canvas">
+
+    <ion-skeleton-text [animated]="true" style="width: 100%; height: 150px"></ion-skeleton-text>
 
   </div>
 </section>

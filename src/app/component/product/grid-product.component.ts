@@ -17,6 +17,8 @@ export class GridProductComponent implements OnInit {
   public isSearchProductsNull;
   public isViewOfFavorite = false;
 
+  public loaded = false
+
   constructor(
     public productService: ProductService,
     public favoriteService: FavoriteService,
@@ -35,16 +37,28 @@ export class GridProductComponent implements OnInit {
 
       this.favoriteService.getFavoriteProductsList().then(() => {
         this.fillArrayProducts()
+      }).finally(() => {
+        if (this.productService.isproductsCharged) {
+          this.loaded = true
+        }
       })
     } else if (window.location.pathname == "/offert") {
       this.productService.getOffertProducts().then(() => {
         this.fillArrayProducts()
+      }).finally(() => {
+        if (this.productService.isproductsCharged) {
+          this.loaded = true
+        }
       })
     }
     else {
       // Products without User session
       this.productService.getCurrentProducts().then(() => {
         this.fillArrayProducts()
+      }).finally(() => {
+        if (this.productService.isproductsCharged) {
+          this.loaded = true
+        }
       })
     }
   }

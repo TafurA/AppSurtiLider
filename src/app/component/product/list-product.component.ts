@@ -10,6 +10,8 @@ export class ListProductComponent implements OnInit {
 
   public arrayDataProducts = new Array();
 
+  public loaded = false;
+
   constructor(public productService: ProductService) { }
 
   ngOnInit() {
@@ -31,7 +33,11 @@ export class ListProductComponent implements OnInit {
   }
 
   public getProducts() {
-    this.productService.getCurrentProducts()
+    this.productService.getCurrentProducts().finally(() => {
+      if (this.productService.isproductsCharged) {
+        this.loaded = true
+      }
+    })
   }
 
   fillArrayProducts() {

@@ -26,8 +26,6 @@ export class ProductComponent implements OnInit {
   public totalValueCashback = 0
   public totalPriceCashback = 0
 
-  public loaded = false;
-
   constructor(
     public favoriteService: FavoriteService,
     public shopingCarService: ShopingCarService,
@@ -38,7 +36,6 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     this.initAllFunctionsProduct()
-    this.loaded = true
   }
 
   async initAllFunctionsProduct() {

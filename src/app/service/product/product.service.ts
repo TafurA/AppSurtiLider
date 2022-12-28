@@ -10,6 +10,8 @@ export class ProductService {
   public arrayDataProducts = new Array();
   public arrayDetailProduct = new Array();
 
+  public isproductsCharged = true
+
   constructor(public loginService: LoginService) { }
 
   async getProducts() {
@@ -20,6 +22,8 @@ export class ProductService {
         this.arrayDataProducts[index] = element
       }
 
+    }).finally(() => {
+      this.isproductsCharged = true
     })
   }
 
@@ -38,6 +42,8 @@ export class ProductService {
         this.arrayDataProducts[index] = element
       }
 
+    }).finally(() => {
+      this.isproductsCharged = true
     })
   }
 
@@ -50,6 +56,8 @@ export class ProductService {
         this.arrayDataProducts[index] = element
       }
 
+    }).finally(() => {
+      this.isproductsCharged = true
     })
   }
 
@@ -61,9 +69,11 @@ export class ProductService {
     }
 
     if (!session) {
-      return await this.getProducts()
+      return await this.getProducts().finally(() => { this.isproductsCharged = true })
     } else {
-      return await this.getRecomendedProducts(this.loginService.validateSession()['codcli_b'])
+      return await this.getRecomendedProducts(this.loginService.validateSession()['codcli_b']).finally(
+        () => { this.isproductsCharged = true }
+      )
     }
   }
 

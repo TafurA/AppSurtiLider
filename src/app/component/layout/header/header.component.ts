@@ -36,15 +36,23 @@ export class HeaderComponent implements OnInit {
 
   public sendFormSearch() {
     const form = document.querySelector(".js-search-header");
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      console.log(form.querySelector("input").value)
-      this.searchService.getProductsOfSearch(
-        form.querySelector("input").value
-      ).then(() => {
-        this.nvCtrl.navigateForward("search")
-      })
+    window.addEventListener("keypress", (e) => {
+
+      if (e.keyCode === 13 && !e.shiftKey) {
+        if (document.activeElement.tagName == "INPUT") {
+
+          this.searchService.getProductsOfSearch(
+            form.querySelector("input").value
+          ).then(() => {
+            this.nvCtrl.navigateForward("search")
+            form.querySelector("input").value = ""
+          })
+
+        }
+      }
+
     })
+
   }
 
 }

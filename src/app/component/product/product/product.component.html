@@ -1,6 +1,5 @@
 <article
   class="c-product"
-  *ngIf="loaded"
 >
 
   <div class="c-product__wrap">
@@ -79,17 +78,5 @@
     ></button>
 
   </footer>
-
-</article>
-
-<article
-  class="c-product c-product_loaded"
-  *ngIf="!loaded"
->
-
-  <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px"></ion-skeleton-text>
-
-  <!-- Add to favorite and Add to cart -->
-  <ion-skeleton-text [animated]="true" style="width: 100%; height: 40px"></ion-skeleton-text>
 
 </article>
